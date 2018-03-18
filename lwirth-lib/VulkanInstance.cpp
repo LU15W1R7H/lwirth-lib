@@ -1,0 +1,118 @@
+#include "stdafx.hpp"
+#include "VulkanInstance.hpp"
+
+#include "Exceptions.hpp"
+
+namespace lw
+{
+	namespace VK
+	{
+		std::vector<const char*> Instance::s_layers =
+		{
+			"VK_LAYER_LUNARG_standard_validation",
+			"VK_LAYER_LUNARG_assistant_layer",
+			"VK_LAYER_LUNARG_monitor"
+			//"VK_LAYER_LUNARG_api_dump" //prints every object creation
+		};
+
+		Instance::Instance()
+		{
+		}
+
+		Instance::~Instance()
+		{
+			if (m_instance != VK_NULL_HANDLE)throw NotDestroyedException();
+		}
+
+		void Instance::create(std::string& appName, U32 ver_major, U32 ver_minor, U32 ver_patch)
+		{
+			if (m_instance != VK_NULL_HANDLE)throw AlreadyCreatedException();
+
+			VkApplicationInfo ai;
+			ai.sType =VK_STRUCTURE_TYPE_APPLICATION_INFO;
+			ai.pNext = nullptr;
+			ai.pApplicationName = appName.c_str();
+			ai.applicationVersion = VK_MAKE_VERSION(ver_major, ver_minor, ver_patch);
+			ai.pEngineName = "lwirth-engine";
+			ai.engineVersion = VK_MAKE_VERSION(LWIRTH_VERSION_MAJOR, LWIRTH_VERSION_MINOR, LWIRTH_VERSION_PATCH);
+			ai.apiVersion = VK_API_VERSION_1_1;
+
+			//layers
+			if (!layersAvailable(s_layers))throw VulkanException("Layers are not available");
+
+			//extensions
+			U32 glfwExtensionCount = 0;
+			const char** glfwExtensions;
+			glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+
+			VkInstanceCreateInfo ici;
+			ici.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+			ici.pNext = nullptr;
+			ici.flags = 0;
+			ici.pApplicationInfo = &ai;
+			ici.enabledLayerCount = s_layers.size();
+			ici.ppEnabledLayerNames = s_layers.data();
+			ici.enabledExtensionCount = glfwExtensionCount;
+			ici.ppEnabledExtensionNames = glfwExtensions;
+
+			if (vkCreateInstance(&ici, nullptr, &m_instance) != VK_SUCCESS)
+			{
+				throw VulkanException("failed to create instance");
+			}
+		}
+
+		void Instance::destroy()
+		{
+			if (m_instance == VK_NULL_HANDLE)return;
+
+			vkDestroyInstance(m_instance, nullptr);
+			m_instance = VK_NULL_HANDLE;
+		}
+
+		VkInstance Instance::raw() const
+		{
+			if (m_instance == VK_NULL_HANDLE)throw NotCreatedException();
+			return m_instance;
+		}
+
+		VkInstance* Instance::ptr()
+		{
+			if (m_instance == VK_NULL_HANDLE)throw NotCreatedException();
+			return &m_instance;
+		}
+
+		bool Instance::layersAvailable(std::vector<const char*>& layers)
+		{
+			U32 layerCount;
+			vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
+			std::vector<VkLayerProperties> availableLayers(layerCount);
+			vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+
+			for (auto layerName : layers)
+			{
+				bool layerFound = false;
+				for (const auto& layerProperties : availableLayers)
+				{
+					if (strcmp(layerName, layerProperties.layerName) == 0)
+					{
+						layerFound = true;
+						break;
+					}
+				}
+
+				if (!layerFound)
+				{
+					return false;
+				}
+
+			}
+			return true;
+		}
+
+		
+
+
+
+
+	}
+}
