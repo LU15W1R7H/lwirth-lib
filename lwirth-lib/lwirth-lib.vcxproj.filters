@@ -1,10 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Root.cpp" />
-    <ClCompile Include="Matrix4x4.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="Math.cpp">
       <Filter>math</Filter>
     </ClCompile>
@@ -16,9 +12,6 @@
     </ClCompile>
     <ClCompile Include="PoolAllocator.cpp">
       <Filter>memory</Filter>
-    </ClCompile>
-    <ClCompile Include="Chain.cpp">
-      <Filter>datatypes</Filter>
     </ClCompile>
     <ClCompile Include="Circle.cpp">
       <Filter>graphics</Filter>
@@ -93,9 +86,6 @@
     <ClCompile Include="VulkanInstance.cpp">
       <Filter>graphics\vulkan</Filter>
     </ClCompile>
-    <ClCompile Include="VulkanManager.cpp">
-      <Filter>graphics\vulkan</Filter>
-    </ClCompile>
     <ClCompile Include="VulkanPhysicalDevices.cpp">
       <Filter>graphics\vulkan</Filter>
     </ClCompile>
@@ -126,22 +116,33 @@
     <ClCompile Include="Frame.cpp">
       <Filter>graphics\core</Filter>
     </ClCompile>
-    <ClCompile Include="Color.cpp">
-      <Filter>graphics\core</Filter>
-    </ClCompile>
     <ClCompile Include="SimpleBrush2D.cpp">
       <Filter>graphics\core</Filter>
     </ClCompile>
     <ClCompile Include="SimpleBrush3D.cpp">
       <Filter>graphics\core</Filter>
     </ClCompile>
-    <ClCompile Include="Vertices.cpp">
+    <ClCompile Include="String.cpp">
+      <Filter>datatypes</Filter>
+    </ClCompile>
+    <ClCompile Include="Root.cpp">
+      <Filter>general</Filter>
+    </ClCompile>
+    <ClCompile Include="Visualizer.cpp">
       <Filter>graphics\core</Filter>
+    </ClCompile>
+    <ClCompile Include="Color.cpp">
+      <Filter>graphics\core\types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vertices.cpp">
+      <Filter>graphics\core\types</Filter>
+    </ClCompile>
+    <ClCompile Include="Vulkan.cpp">
+      <Filter>graphics\vulkan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.hpp" />
-    <ClInclude Include="Root.hpp" />
     <ClInclude Include="lwirth.hpp" />
     <ClInclude Include="Matrix4x4.hpp">
       <Filter>math</Filter>
@@ -174,9 +175,6 @@
       <Filter>memory</Filter>
     </ClInclude>
     <ClInclude Include="Array.hpp">
-      <Filter>datatypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Chain.hpp">
       <Filter>datatypes</Filter>
     </ClInclude>
     <ClInclude Include="Circle.hpp">
@@ -258,9 +256,6 @@
     <ClInclude Include="VulkanInstance.hpp">
       <Filter>graphics\vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="VulkanManager.hpp">
-      <Filter>graphics\vulkan</Filter>
-    </ClInclude>
     <ClInclude Include="VulkanPhysicalDevices.hpp">
       <Filter>graphics\vulkan</Filter>
     </ClInclude>
@@ -291,17 +286,35 @@
     <ClInclude Include="Frame.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
-    <ClInclude Include="Color.hpp">
-      <Filter>graphics\core</Filter>
-    </ClInclude>
     <ClInclude Include="SimpleBrush2D.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
     <ClInclude Include="SimpleBrush3D.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
-    <ClInclude Include="Vertices.hpp">
+    <ClInclude Include="String.hpp">
+      <Filter>datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicArray.hpp">
+      <Filter>datatypes</Filter>
+    </ClInclude>
+    <ClInclude Include="Root.hpp">
+      <Filter>general</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x2.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Visualizer.hpp">
       <Filter>graphics\core</Filter>
+    </ClInclude>
+    <ClInclude Include="Color.hpp">
+      <Filter>graphics\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertices.hpp">
+      <Filter>graphics\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="Vulkan.hpp">
+      <Filter>graphics\vulkan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -335,5 +348,19 @@
     <Filter Include="graphics\core">
       <UniqueIdentifier>{3d5b98b0-5e63-4fca-84e8-3535023fa3f1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="graphics\shader">
+      <UniqueIdentifier>{d366377e-9d58-4502-a07a-a7cc423e4a38}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\core\types">
+      <UniqueIdentifier>{ad2274e6-36f5-4376-a097-610e92ad8847}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\res\shaders\shader.frag">
+      <Filter>graphics\shader</Filter>
+    </None>
+    <None Include="..\res\shaders\shader.vert">
+      <Filter>graphics\shader</Filter>
+    </None>
   </ItemGroup>
 </Project>

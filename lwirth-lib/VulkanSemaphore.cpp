@@ -8,9 +8,6 @@ namespace lw
 {
 	namespace VK
 	{
-		Semaphore::Semaphore()
-		{
-		}
 
 		Semaphore::~Semaphore()
 		{

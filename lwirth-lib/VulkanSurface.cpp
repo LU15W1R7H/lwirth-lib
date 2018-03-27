@@ -9,10 +9,7 @@ namespace lw
 {
 	namespace VK
 	{
-		Surface::Surface()
-		{
-		}
-
+	
 		Surface::~Surface()
 		{
 			if (m_surface != VK_NULL_HANDLE)throw NotDestroyedException();

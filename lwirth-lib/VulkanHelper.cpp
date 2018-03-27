@@ -27,7 +27,7 @@ namespace lw
 			return false;
 		}
 
-		VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, std::vector<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features)
+		VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::DynamicArray<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features)
 		{
 			for (const VkFormat& format : *candidates)
 			{

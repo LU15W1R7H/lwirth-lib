@@ -38,6 +38,18 @@ namespace lw
 		Frame::update();
 	}
 
+	Frame* RenderWindow::getFrame()
+	{
+		if (!m_created)throw NotCreatedException();
+		return static_cast<Frame*>(this);
+	}
+
+	VK::Vulkan* RenderWindow::getVulkan()
+	{
+		if (!m_created)throw NotCreatedException();
+		return &m_vulkan;
+	}
+
 	SimpleBrush2D* RenderWindow::preDraw()
 	{
 		return m_vulkan.preDraw();

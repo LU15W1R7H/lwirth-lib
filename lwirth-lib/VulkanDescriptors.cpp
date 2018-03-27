@@ -77,42 +77,42 @@ namespace lw
 			}
 
 
-			std::vector<VkWriteDescriptorSet> descriptorWrites;
-			for (U32 i = 0; i < m_bufferDescriptors.size(); i++)
+			lw::DynamicArray<VkWriteDescriptorSet> descriptorWrites;
+			for (auto& bufferDescriptor : m_bufferDescriptors)
 			{
 				VkWriteDescriptorSet write;
 				write.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 				write.pNext = nullptr;
 				write.dstSet = m_set;
-				write.dstBinding = m_bufferDescriptors[i].m_binding;
+				write.dstBinding = bufferDescriptor.m_binding;
 				write.dstArrayElement = 0;
 				write.descriptorCount = 1;
 				write.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 				write.pImageInfo = nullptr;
-				write.pBufferInfo = &m_bufferDescriptors[i].m_info;
+				write.pBufferInfo = &bufferDescriptor.m_info;
 				write.pTexelBufferView = nullptr;
 
-				descriptorWrites.push_back(write);
+				descriptorWrites.push(write);
 			}
 
-			for (U32 i = 0; i < m_imageDescriptors.size(); i++)
+			for (auto& imageDescriptor : m_imageDescriptors)
 			{
 				VkWriteDescriptorSet write;
 				write.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
 				write.pNext = nullptr;
 				write.dstSet = m_set;
-				write.dstBinding = m_imageDescriptors[i].m_binding;
+				write.dstBinding = imageDescriptor.m_binding;
 				write.dstArrayElement = 0;
 				write.descriptorCount = 1;
 				write.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-				write.pImageInfo = &m_imageDescriptors[i].m_info;
+				write.pImageInfo = &imageDescriptor.m_info;
 				write.pBufferInfo = nullptr;
 				write.pTexelBufferView = nullptr;
 
-				descriptorWrites.push_back(write);
+				descriptorWrites.push(write);
 			}
 
-			vkUpdateDescriptorSets(m_device->raw(), descriptorWrites.size(), descriptorWrites.data(), 0, nullptr);
+			vkUpdateDescriptorSets(m_device->raw(), descriptorWrites.size(), descriptorWrites.raw(), 0, nullptr);
 
 		}
 
@@ -128,7 +128,7 @@ namespace lw
 			info.offset = 0;
 			info.range = buffer->size();
 
-			m_bufferDescriptors.push_back(DescriptorBuffer(info, binding));
+			m_bufferDescriptors.emplace_back(info, binding);
 		}
 
 		/*void DescriptorSet::addImageSampler(const Image * image, U32 binding)
@@ -155,50 +155,50 @@ namespace lw
 			U32 combinedImageSamplerCount = 0;
 			U32 samplerCount = 0;
 
-			for (U32 i = 0; i < m_setLayoutContainers.size(); i++)
+			for (auto & setLayoutContainer : m_setLayoutContainers)
 			{
-				for (U32 k = 0; k < m_setLayoutContainers[i].m_pLayouts->m_bindings.size(); k++)
+				for (U32 k = 0; k < setLayoutContainer.m_pLayouts->m_bindings.size(); k++)
 				{
-					switch (m_setLayoutContainers[i].m_pLayouts->m_bindings[k].descriptorType)
+					switch (setLayoutContainer.m_pLayouts->m_bindings[k].descriptorType)
 					{
 					case VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER:
-						uniformBufferCount += m_setLayoutContainers[i].m_pLayouts->m_bindings[k].descriptorCount * m_setLayoutContainers[i].m_setCount;
+						uniformBufferCount += setLayoutContainer.m_pLayouts->m_bindings[k].descriptorCount * setLayoutContainer.m_setCount;
 						break;
 					case VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER:
-						combinedImageSamplerCount += m_setLayoutContainers[i].m_pLayouts->m_bindings[k].descriptorCount * m_setLayoutContainers[i].m_setCount;
+						combinedImageSamplerCount += setLayoutContainer.m_pLayouts->m_bindings[k].descriptorCount * setLayoutContainer.m_setCount;
 						break;
 					case VK_DESCRIPTOR_TYPE_SAMPLER:
-						samplerCount += m_setLayoutContainers[i].m_pLayouts->m_bindings[k].descriptorCount * m_setLayoutContainers[i].m_setCount;
+						samplerCount += setLayoutContainer.m_pLayouts->m_bindings[k].descriptorCount * setLayoutContainer.m_setCount;
 						break;
 					default:
 						throw VulkanException("descriptor type is not supported");
 					}
 					
-					setCount += m_setLayoutContainers[i].m_setCount;
+					setCount += setLayoutContainer.m_setCount;
 				}
 			}
 
-			std::vector<VkDescriptorPoolSize> poolSizes;
+			lw::DynamicArray<VkDescriptorPoolSize> poolSizes;
 			if (uniformBufferCount > 0)
 			{
 				VkDescriptorPoolSize dps;
 				dps.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
 				dps.descriptorCount = uniformBufferCount;
-				poolSizes.push_back(dps);
+				poolSizes.push(dps);
 			}
 			if (combinedImageSamplerCount > 0)
 			{
 				VkDescriptorPoolSize dps;
 				dps.type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
 				dps.descriptorCount = combinedImageSamplerCount;
-				poolSizes.push_back(dps);
+				poolSizes.push(dps);
 			}
 			if (samplerCount > 0)
 			{
 				VkDescriptorPoolSize dps;
 				dps.type = VK_DESCRIPTOR_TYPE_SAMPLER;
 				dps.descriptorCount = samplerCount;
-				poolSizes.push_back(dps);
+				poolSizes.push(dps);
 			}
 
 			VkDescriptorPoolCreateInfo dpci;
@@ -207,7 +207,7 @@ namespace lw
 			dpci.flags = 0;
 			dpci.maxSets = setCount;
 			dpci.poolSizeCount = poolSizes.size();
-			dpci.pPoolSizes = poolSizes.data();
+			dpci.pPoolSizes = poolSizes.raw();
 
 			if (vkCreateDescriptorPool(m_device->raw(), &dpci, nullptr, &m_pool) != VK_SUCCESS)
 			{
@@ -232,7 +232,7 @@ namespace lw
 			{
 				throw VulkanException("descriptor pool was already created");
 			}
-			m_setLayoutContainers.push_back(DescriptorSetLayoutContainer(layout, setCount));
+			m_setLayoutContainers.emplace_back(layout, setCount);
 		}
 }
 }

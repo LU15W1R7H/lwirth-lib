@@ -21,7 +21,7 @@ namespace lw
 			const Device* m_pDevice = nullptr;
 
 		public:
-			VertexShader();
+			VertexShader() = default;
 			~VertexShader();
 
 			void create(const Device* device, const std::string& filePath);
@@ -41,7 +41,7 @@ namespace lw
 			const Device* m_pDevice = nullptr;
 
 		public:
-			FragmentShader();
+			FragmentShader() = default;
 			~FragmentShader();
 
 			void create(const Device* device, const std::string& filePath);

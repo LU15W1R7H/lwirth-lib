@@ -7,7 +7,7 @@
 
 #include "VulkanQueues.hpp"
 
-#include <vector>
+#include "DynamicArray.hpp"
 
 namespace lw
 {
@@ -20,7 +20,7 @@ namespace lw
 		class API Device
 		{
 		private:
-			static std::vector<const char*> s_extensions;
+			static lw::DynamicArray<const char*> s_extensions;
 
 			VkDevice			m_device			= VK_NULL_HANDLE;
 			Queue				m_graphicsQueue		= {};
@@ -32,7 +32,7 @@ namespace lw
 			PhysicalDevice*		m_pPhysical			= nullptr;
 
 		public:
-			Device();
+			Device() = default;
 			~Device();
 
 			bool exists() const;

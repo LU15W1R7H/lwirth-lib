@@ -23,7 +23,7 @@ namespace lw
 			Device*			m_pDevice	= nullptr;
 
 		public:
-			DepthImage();
+			DepthImage() = default;
 			~DepthImage();
 
 			void create(Device* pDevice, CommandPool* pCommandPool, U32 width, U32 height);

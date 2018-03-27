@@ -5,7 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
-#include <vector>
+#include "DynamicArray.hpp"
 
 namespace lw
 {
@@ -31,8 +31,8 @@ namespace lw
 			Device*			m_pDevice		= nullptr;
 
 		public:
-			Swapchain();
-			~Swapchain();
+			Swapchain() = default;
+			~Swapchain() = default;
 
 			void create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, U32 width, U32 height, Swapchain* pOldSwapchain = nullptr);
 			void destroy();

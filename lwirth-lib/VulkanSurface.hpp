@@ -20,7 +20,7 @@ namespace lw
 			const Instance* m_pInstance	= nullptr;
 
 		public:
-			Surface();
+			Surface() = default;
 			~Surface();
 
 			void create(const Instance* instance, const Frame* frame);

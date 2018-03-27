@@ -13,14 +13,6 @@ namespace lw
 	namespace VK
 	{
 
-		Buffer::Buffer()
-		{
-		}
-
-		Buffer::~Buffer()
-		{
-		}
-		
 		VkBuffer Buffer::raw() const
 		{
 			if (!exists())throw NotAllocatedException();
@@ -71,9 +63,9 @@ namespace lw
 				{
 					throw VulkanException("Queue family indices are not complete");
 				}
-				std::vector<U32> familyIndices = queueFamilies->getIndices();
+				lw::DynamicArray<U32> familyIndices = queueFamilies->getIndices();
 				bci.queueFamilyIndexCount = familyIndices.size();
-				bci.pQueueFamilyIndices = familyIndices.data();
+				bci.pQueueFamilyIndices = familyIndices.raw();
 			}
 
 			if (vkCreateBuffer(pDevice->raw(), &bci, nullptr, pBuffer) != VK_SUCCESS)

@@ -12,10 +12,6 @@ namespace lw
 {
 	namespace VK
 	{
-		CommandPool::CommandPool()
-		{
-		}
-
 		CommandPool::~CommandPool()
 		{
 			if (m_pool != VK_NULL_HANDLE) throw NotDestroyedException();
@@ -58,12 +54,6 @@ namespace lw
 		{
 			if (m_pool == VK_NULL_HANDLE)throw NotCreatedException();
 			return &m_pool;
-		}
-
-		
-		
-		CommandBuffer::CommandBuffer()
-		{
 		}
 
 		CommandBuffer::~CommandBuffer()

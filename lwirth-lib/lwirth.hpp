@@ -1,6 +1,8 @@
 #pragma once
 
 #include "Standard.hpp"
+#include "DynamicArray.hpp"
+#include "String.hpp"
 #include "Root.hpp"
 #include "Exceptions.hpp"
 #include "FileManager.hpp"
@@ -9,7 +11,7 @@
 #include "Utils.hpp"
 #include "Color.hpp"
 #include "Frame.hpp"
-#include "VulkanManager.hpp"
+#include "Vulkan.hpp"
 #include "RenderWindow.hpp"
 #include "Math.hpp"
 #include "Angle.hpp"

@@ -44,8 +44,8 @@ namespace lw
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
 
-		m_vertexShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/vert.spv");
-		m_fragmentShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/frag.spv");
+		m_vertexShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshadervert.spv");
+		m_fragmentShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshaderfrag.spv");
 
 
 		SimpleBrush2D::createPipeline(pRenderPass);
@@ -65,12 +65,11 @@ namespace lw
 
 	void SimpleBrush2D::createPipeline(const VK::RenderPass* pRenderPass)
 	{
-		Vertex vertex;
+		m_pipeline.init(m_screenWidth, m_screenHeight);
 		m_pipeline.addVertexBinding(0, sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX);
 		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, Vertex::pos));
 		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, Vertex::color));
-		m_pipeline.enableDepthBuffer();
-		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader, m_screenWidth, m_screenHeight);
+		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader);
 	}
 
 	void SimpleBrush2D::destroyPipeline()

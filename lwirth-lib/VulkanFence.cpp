@@ -8,9 +8,6 @@ namespace lw
 {
 	namespace VK
 	{
-		Fence::Fence()
-		{
-		}
 
 		Fence::~Fence()
 		{

@@ -216,9 +216,8 @@ namespace lw
 		}
 		return r;
 	}
-
-	
 }
 
 
-
+#include "Matrix2x2.hpp"
+#include "Matrix4x4.hpp"

@@ -14,14 +14,6 @@ namespace lw
 {
 	namespace VK
 	{
-		Swapchain::Swapchain()
-		{
-		}
-
-		Swapchain::~Swapchain()
-		{
-			//if (m_swapchain != VK_NULL_HANDLE)throw NotDestroyedException();
-		}
 
 		void Swapchain::create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, U32 width, U32 height, Swapchain* pOldSwapchain)
 		{
@@ -50,7 +42,7 @@ namespace lw
 			{
 				sci.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
 				sci.queueFamilyIndexCount = familyIndices.size();
-				sci.pQueueFamilyIndices = familyIndices.data();
+				sci.pQueueFamilyIndices = familyIndices.raw();
 			}
 			else
 			{
@@ -182,7 +174,7 @@ namespace lw
 
 			for (U32 i = 0; i < m_imageCount; i++)
 			{
-				std::vector<VkImageView> attachments = { m_imageViews[i], pDepthImage->view() };
+				lw::DynamicArray<VkImageView> attachments = { m_imageViews[i], pDepthImage->view() };
 
 				VkFramebufferCreateInfo fci;
 				fci.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;
@@ -190,7 +182,7 @@ namespace lw
 				fci.flags = 0;
 				fci.renderPass = pRenderPass->raw();
 				fci.attachmentCount = attachments.size();
-				fci.pAttachments = attachments.data();
+				fci.pAttachments = attachments.raw();
 				fci.width = m_extent.width;
 				fci.height = m_extent.height;
 				fci.layers = 1;

@@ -23,8 +23,8 @@ namespace lw
 
 			const Device* m_pDevice = nullptr;
 		public:
-			Buffer();
-			~Buffer();
+			Buffer() = default;
+			~Buffer() = default;
 
 			virtual void destroy() = 0;
 

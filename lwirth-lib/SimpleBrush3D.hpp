@@ -18,12 +18,12 @@ namespace lw
 	namespace VK
 	{
 		class Device;
-		class VulkanManager;
+		class Vulkan;
 	}
 
 	class API SimpleBrush3D
 	{
-		friend class VK::VulkanManager;
+		friend class VK::Vulkan;
 	private:
 		VK::Pipeline m_pipeline;
 		VK::VertexShader m_vertexShader;

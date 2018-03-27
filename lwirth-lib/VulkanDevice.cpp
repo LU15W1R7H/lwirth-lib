@@ -12,14 +12,10 @@ namespace lw
 {
 	namespace VK
 	{
-		std::vector<const char*> Device::s_extensions =
+		lw::DynamicArray<const char*> Device::s_extensions =
 		{
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
-
-		Device::Device()
-		{
-		}
 
 		Device::~Device()
 		{
@@ -38,14 +34,14 @@ namespace lw
 			m_pPhysical = physicalDevices->getBest();
 
 
-			std::vector<U32> temp = m_pPhysical->queueFamiles()->getIndices();
+			lw::DynamicArray<U32> temp = m_pPhysical->queueFamiles()->getIndices();
 			std::set<U32> familyIndices;
-			for (Size i = 0; i < temp.size(); i++)
+			for (unsigned int i : temp)
 			{
-				familyIndices.insert(temp[i]);
+				familyIndices.insert(i);
 			}
 
-			std::vector<VkDeviceQueueCreateInfo> queueInfos;
+			lw::DynamicArray<VkDeviceQueueCreateInfo> queueInfos;
 			float queuePriority = 1.f;
 			for (U32 index : familyIndices)
 			{
@@ -56,7 +52,7 @@ namespace lw
 				info.queueFamilyIndex = index;
 				info.queueCount = 1;
 				info.pQueuePriorities = &queuePriority;
-				queueInfos.push_back(info);
+				queueInfos.push(info);
 			}
 			
 			VkPhysicalDeviceFeatures usedFeatures = {};
@@ -67,11 +63,11 @@ namespace lw
 			deviceInfo.pNext = nullptr;
 			deviceInfo.flags = 0;
 			deviceInfo.queueCreateInfoCount = queueInfos.size();
-			deviceInfo.pQueueCreateInfos = queueInfos.data();
+			deviceInfo.pQueueCreateInfos = queueInfos.raw();
 			deviceInfo.enabledLayerCount = 0;	//Validation layers on device-level are deprecated.
 			deviceInfo.ppEnabledLayerNames = nullptr;
 			deviceInfo.enabledExtensionCount = s_extensions.size();
-			deviceInfo.ppEnabledExtensionNames = s_extensions.data();
+			deviceInfo.ppEnabledExtensionNames = s_extensions.raw();
 			deviceInfo.pEnabledFeatures = &usedFeatures;
 
 			if (vkCreateDevice(m_pPhysical->raw(), &deviceInfo, nullptr, &m_device) != VK_SUCCESS)

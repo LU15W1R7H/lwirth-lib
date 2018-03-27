@@ -63,7 +63,7 @@ namespace lw
 		}
 
 		void* dataPtr = m_stagingBuffer.map();
-		memcpy(dataPtr, m_vertices.data(), sizeof(Vertex) * size());
+		memcpy(dataPtr, m_vertices.raw(), sizeof(Vertex) * size());
 		m_stagingBuffer.unmap();
 
 		m_buffer.destroy();

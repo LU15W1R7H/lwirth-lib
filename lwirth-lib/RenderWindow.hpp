@@ -6,7 +6,7 @@
 #include <glfw3.h>
 
 #include "Frame.hpp"
-#include "VulkanManager.hpp"
+#include "Vulkan.hpp"
 #include <string>
 
 namespace lw
@@ -14,7 +14,7 @@ namespace lw
 	class API RenderWindow : public Frame
 	{
 	private:
-		VK::VulkanManager m_vulkan;
+		VK::Vulkan m_vulkan;
 	public:
 		void create(std::string& title, U32 width, U32 height) override;
 		void create(std::string&& title, U32 width, U32 height) override;
@@ -22,7 +22,8 @@ namespace lw
 
 		void update() override;
 
-		Frame* getFrame() { return static_cast<Frame*>(this); }
+		Frame* getFrame();
+		VK::Vulkan* getVulkan();
 
 		SimpleBrush2D* preDraw();
 		void postDraw();

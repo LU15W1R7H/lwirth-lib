@@ -43,8 +43,8 @@ namespace lw
 
 			std::vector<VkDescriptorSetLayoutBinding> m_bindings = {};
 		public:
-			DescriptorSetLayout() {}
-			~DescriptorSetLayout() {}
+			DescriptorSetLayout() = default;
+			~DescriptorSetLayout() = default;
 
 			void init(Device* device);
 			void destroy();
@@ -74,8 +74,8 @@ namespace lw
 			std::vector<DescriptorBuffer> m_bufferDescriptors;
 			std::vector<DescriptorImage> m_imageDescriptors;
 		public:
-			DescriptorSet() {}
-			~DescriptorSet() {}
+			DescriptorSet() = default;
+			~DescriptorSet() = default;
 
 			void init(Device* device, DescriptorPool* pool, DescriptorSetLayout* layout);
 
@@ -93,8 +93,8 @@ namespace lw
 
 			std::vector<DescriptorSetLayoutContainer> m_setLayoutContainers = {};
 		public:
-			DescriptorPool() {}
-			~DescriptorPool() {}
+			DescriptorPool() = default;
+			~DescriptorPool() = default;
 
 			void init(Device* device);
 			void destroy();

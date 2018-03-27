@@ -2,7 +2,7 @@
 
 #include "Standard.hpp"
 
-#include <vector>
+#include "DynamicArray.hpp"
 #include "Vector2.hpp"
 #include "Color.hpp"
 #include "VulkanBuffer.hpp"
@@ -28,7 +28,7 @@ namespace lw
 	private:
 		bool m_needsUpdate = false;
 
-		std::vector<Vertex> m_vertices;
+		lw::DynamicArray<Vertex> m_vertices;
 		VK::GPUBuffer m_buffer;
 		VK::StagingBuffer m_stagingBuffer;
 

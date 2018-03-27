@@ -9,9 +9,6 @@ namespace lw
 {
 	namespace VK
 	{
-		VertexShader::VertexShader()
-		{
-		}
 
 		VertexShader::~VertexShader()
 		{
@@ -30,7 +27,7 @@ namespace lw
 			moduleInfo.pNext = nullptr;
 			moduleInfo.flags = 0;
 			moduleInfo.codeSize = code.size();
-			moduleInfo.pCode = reinterpret_cast<const U32*>(code.data());
+			moduleInfo.pCode = reinterpret_cast<const U32*>(code.raw());
 			moduleInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 
 			if (vkCreateShaderModule(m_pDevice->raw(), &moduleInfo, nullptr, &m_module) != VK_SUCCESS)
@@ -70,10 +67,6 @@ namespace lw
 
 		//FragmentShader
 
-		FragmentShader::FragmentShader()
-		{
-		}
-
 		FragmentShader::~FragmentShader()
 		{
 			if (m_module != VK_NULL_HANDLE)throw NotDestroyedException();
@@ -91,7 +84,7 @@ namespace lw
 			moduleInfo.pNext = nullptr;
 			moduleInfo.flags = 0;
 			moduleInfo.codeSize = code.size();
-			moduleInfo.pCode = reinterpret_cast<const U32*>(code.data());
+			moduleInfo.pCode = reinterpret_cast<const U32*>(code.raw());
 			moduleInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 
 			if (vkCreateShaderModule(m_pDevice->raw(), &moduleInfo, nullptr, &m_module) != VK_SUCCESS)

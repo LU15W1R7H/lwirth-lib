@@ -11,9 +11,6 @@ namespace lw
 {
 	namespace VK
 	{
-		RenderPass::RenderPass()
-		{
-		}
 
 		RenderPass::~RenderPass()
 		{
@@ -68,14 +65,14 @@ namespace lw
 			dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 			dependency.dependencyFlags = 0;
 
-			std::vector<VkAttachmentDescription> attachments = { colorAttachment, depthAttachment };
+			lw::DynamicArray<VkAttachmentDescription> attachments = { colorAttachment, depthAttachment };
 			
 			VkRenderPassCreateInfo rpci;
 			rpci.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
 			rpci.pNext = nullptr;
 			rpci.flags = 0;
 			rpci.attachmentCount = attachments.size();
-			rpci.pAttachments = attachments.data();
+			rpci.pAttachments = attachments.raw();
 			rpci.subpassCount = 1;
 			rpci.pSubpasses = &subpass;
 			rpci.dependencyCount = 1;

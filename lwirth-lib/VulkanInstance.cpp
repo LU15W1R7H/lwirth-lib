@@ -7,17 +7,13 @@ namespace lw
 {
 	namespace VK
 	{
-		std::vector<const char*> Instance::s_layers =
+		lw::DynamicArray<const char*> Instance::s_layers =
 		{
 			"VK_LAYER_LUNARG_standard_validation",
 			"VK_LAYER_LUNARG_assistant_layer",
 			"VK_LAYER_LUNARG_monitor"
 			//"VK_LAYER_LUNARG_api_dump" //prints every object creation
 		};
-
-		Instance::Instance()
-		{
-		}
 
 		Instance::~Instance()
 		{
@@ -51,7 +47,7 @@ namespace lw
 			ici.flags = 0;
 			ici.pApplicationInfo = &ai;
 			ici.enabledLayerCount = s_layers.size();
-			ici.ppEnabledLayerNames = s_layers.data();
+			ici.ppEnabledLayerNames = s_layers.raw();
 			ici.enabledExtensionCount = glfwExtensionCount;
 			ici.ppEnabledExtensionNames = glfwExtensions;
 
@@ -81,12 +77,12 @@ namespace lw
 			return &m_instance;
 		}
 
-		bool Instance::layersAvailable(std::vector<const char*>& layers)
+		bool Instance::layersAvailable(lw::DynamicArray<const char*>& layers)
 		{
 			U32 layerCount;
 			vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-			std::vector<VkLayerProperties> availableLayers(layerCount);
-			vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.data());
+			lw::DynamicArray<VkLayerProperties> availableLayers(layerCount);
+			vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.raw());
 
 			for (auto layerName : layers)
 			{

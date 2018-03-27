@@ -12,136 +12,137 @@ namespace lw
 {
 	namespace VK
 	{
-		Pipeline::Pipeline()
-		{
-		}
 
 		Pipeline::~Pipeline()
 		{
 			if (m_pipeline != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
-		void Pipeline::create(const Device* pDevice, const RenderPass* pRenderPass, const VertexShader* pVertexShader, const FragmentShader* pFragmentShader, U32 screenWidth, U32 screenHeight)
+		void Pipeline::init(U32 screenWidth, U32 screenHeight)
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
+			if (m_init)throw AlreadyInitializedException();
+
+			m_piasci.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+			m_piasci.pNext = nullptr;
+			m_piasci.flags = 0;
+			m_piasci.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+			m_piasci.primitiveRestartEnable = VK_FALSE;
+
+			{
+				VkViewport viewport;
+				viewport.x = 0.f;
+				viewport.y = 0.f;
+				viewport.width = static_cast<F32>(screenWidth);
+				viewport.height = static_cast<F32>(screenHeight);
+				viewport.minDepth = 0.f;
+				viewport.maxDepth = 1.f;
+				m_viewports.push(viewport);
+
+				VkRect2D scissor;
+				scissor.offset = { 0, 0 };
+				scissor.extent = { screenWidth, screenHeight };
+				m_scissors.push(scissor);
+			}
+
+			m_prsci.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+			m_prsci.pNext = nullptr;
+			m_prsci.flags = 0;
+			m_prsci.depthClampEnable = VK_FALSE;
+			m_prsci.rasterizerDiscardEnable = VK_FALSE;
+			m_prsci.polygonMode = VK_POLYGON_MODE_FILL;
+			m_prsci.cullMode = VK_CULL_MODE_NONE; //SHOULD BE BACK_BIT
+			m_prsci.frontFace = VK_FRONT_FACE_CLOCKWISE;
+			m_prsci.depthBiasEnable = VK_FALSE;
+			m_prsci.depthBiasConstantFactor = 0.f;
+			m_prsci.depthBiasClamp = 0.f;
+			m_prsci.depthBiasSlopeFactor = 0.f;
+			m_prsci.lineWidth = 1.0f;
+
+			m_pmsci.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+			m_pmsci.pNext = nullptr;
+			m_pmsci.flags = 0;
+			m_pmsci.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
+			m_pmsci.sampleShadingEnable = VK_FALSE;
+			m_pmsci.minSampleShading = 1.f;
+			m_pmsci.pSampleMask = nullptr;
+			m_pmsci.alphaToCoverageEnable = VK_FALSE;
+			m_pmsci.alphaToOneEnable = VK_FALSE;
+
+			m_cbas.blendEnable = VK_FALSE;
+			m_cbas.srcColorBlendFactor = VK_BLEND_FACTOR_ONE; //VK_BLEND_FACTOR_SRC_ALPHA
+			m_cbas.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO; //VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
+			m_cbas.colorBlendOp = VK_BLEND_OP_ADD;
+			m_cbas.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
+			m_cbas.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+			m_cbas.alphaBlendOp = VK_BLEND_OP_ADD;
+			m_cbas.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
+
+			m_pcbsci.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+			m_pcbsci.pNext = nullptr;
+			m_pcbsci.flags = 0;
+			m_pcbsci.logicOpEnable = VK_FALSE;
+			m_pcbsci.logicOp = VK_LOGIC_OP_COPY;
+			m_pcbsci.attachmentCount = 1;
+			m_pcbsci.pAttachments = &m_cbas;
+			m_pcbsci.blendConstants[0] = 0.f;
+			m_pcbsci.blendConstants[1] = 0.f;
+			m_pcbsci.blendConstants[2] = 0.f;
+			m_pcbsci.blendConstants[3] = 0.f;
+
+			lw::DynamicArray<VkDynamicState> dynamicStates =
+			{
+				VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR
+			};
+			
+			m_pdssci.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+			m_pdssci.pNext = nullptr;
+			m_pdssci.flags = 0;
+			m_pdssci.depthTestEnable = VK_FALSE;
+			m_pdssci.depthWriteEnable = VK_FALSE;
+			m_pdssci.depthCompareOp = VK_COMPARE_OP_LESS;
+			m_pdssci.depthBoundsTestEnable = VK_FALSE;
+			m_pdssci.stencilTestEnable = VK_FALSE;
+			m_pdssci.front = {};
+			m_pdssci.back = {};
+			m_pdssci.minDepthBounds = 0.0f;
+			m_pdssci.maxDepthBounds = 1.0f;
+
+			m_init = true;
+		}
+
+		void Pipeline::create(const Device* pDevice, const RenderPass* pRenderPass, const VertexShader* pVertexShader, const FragmentShader* pFragmentShader)
+		{
+			if (m_created)throw AlreadyCreatedException();
+			if (!m_init)throw NotInitializedException();
 
 			m_pDevice = pDevice;;
 			
-			VkPipelineInputAssemblyStateCreateInfo piasci;
-			piasci.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
-			piasci.pNext = nullptr;
-			piasci.flags = 0;
-			piasci.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
-			piasci.primitiveRestartEnable = VK_FALSE;
-
-			VkViewport viewport;
-			viewport.x = 0.f;
-			viewport.y = 0.f;
-			viewport.width = static_cast<float>(screenWidth);
-			viewport.height = static_cast<float>(screenHeight);
-			viewport.minDepth = 0.f;
-			viewport.maxDepth = 1.f;
-
-			VkRect2D scissor;
-			scissor.offset = { 0, 0 };
-			scissor.extent = { screenWidth, screenHeight };
-
 			VkPipelineViewportStateCreateInfo pvsci;
 			pvsci.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
 			pvsci.pNext = nullptr;
 			pvsci.flags = 0;
-			pvsci.viewportCount = 1;
-			pvsci.pViewports = &viewport;
-			pvsci.scissorCount = 1;
-			pvsci.pScissors = &scissor;
-
-			VkPipelineRasterizationStateCreateInfo prsci;
-			prsci.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
-			prsci.pNext = nullptr;
-			prsci.flags = 0;
-			prsci.depthClampEnable = VK_FALSE;
-			prsci.rasterizerDiscardEnable = VK_FALSE;
-			prsci.polygonMode = VK_POLYGON_MODE_FILL;
-			prsci.cullMode = VK_CULL_MODE_NONE; //SHOULD BE BACK_BIT
-			prsci.frontFace = VK_FRONT_FACE_CLOCKWISE;
-			prsci.depthBiasEnable = VK_FALSE;
-			prsci.depthBiasConstantFactor = 0.f;
-			prsci.depthBiasClamp = 0.f;
-			prsci.depthBiasSlopeFactor = 0.f;
-			prsci.lineWidth = 1.0f;
-
-			VkPipelineMultisampleStateCreateInfo pmsci;
-			pmsci.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
-			pmsci.pNext = nullptr;
-			pmsci.flags = 0;
-			pmsci.rasterizationSamples = VK_SAMPLE_COUNT_1_BIT;
-			pmsci.sampleShadingEnable = VK_FALSE;
-			pmsci.minSampleShading = 1.f;
-			pmsci.pSampleMask = nullptr;
-			pmsci.alphaToCoverageEnable = VK_FALSE;
-			pmsci.alphaToOneEnable = VK_FALSE;
-			
-			VkPipelineColorBlendAttachmentState cbas;
-			cbas.blendEnable = VK_FALSE;
-			cbas.srcColorBlendFactor = VK_BLEND_FACTOR_ONE; //VK_BLEND_FACTOR_SRC_ALPHA
-			cbas.dstColorBlendFactor = VK_BLEND_FACTOR_ZERO; //VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA
-			cbas.colorBlendOp = VK_BLEND_OP_ADD;
-			cbas.srcAlphaBlendFactor = VK_BLEND_FACTOR_ONE;
-			cbas.dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
-			cbas.alphaBlendOp = VK_BLEND_OP_ADD;
-			cbas.colorWriteMask = VK_COLOR_COMPONENT_R_BIT | VK_COLOR_COMPONENT_G_BIT | VK_COLOR_COMPONENT_B_BIT | VK_COLOR_COMPONENT_A_BIT;
-
-			VkPipelineColorBlendStateCreateInfo pcbsci;
-			pcbsci.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
-			pcbsci.pNext = nullptr;
-			pcbsci.flags = 0;
-			pcbsci.logicOpEnable = VK_FALSE;
-			pcbsci.logicOp = VK_LOGIC_OP_COPY;
-			pcbsci.attachmentCount = 1;
-			pcbsci.pAttachments = &cbas;
-			pcbsci.blendConstants[0] = 0.f;
-			pcbsci.blendConstants[1] = 0.f;
-			pcbsci.blendConstants[2] = 0.f;
-			pcbsci.blendConstants[3] = 0.f;
-
-			std::vector<VkDynamicState> dynamicStates =
-			{
-				VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR
-			};
+			pvsci.viewportCount = m_viewports.size();
+			pvsci.pViewports = m_viewports.raw();
+			pvsci.scissorCount = m_scissors.size();
+			pvsci.pScissors = m_scissors.raw();
 
 			VkPipelineDynamicStateCreateInfo pdsci;
 			pdsci.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
 			pdsci.pNext = nullptr;
 			pdsci.flags = 0;
-			pdsci.dynamicStateCount = dynamicStates.size();
-			pdsci.pDynamicStates = dynamicStates.data();
-
-			//CREATION down here
+			pdsci.dynamicStateCount = m_dynamicStates.size();
+			pdsci.pDynamicStates = m_dynamicStates.raw();
 
 			VkPipelineVertexInputStateCreateInfo pvisci;
 			pvisci.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
 			pvisci.pNext = nullptr;
 			pvisci.flags = 0;
 			pvisci.vertexBindingDescriptionCount = m_vertexBindingDescriptions.size();
-			pvisci.pVertexBindingDescriptions = m_vertexBindingDescriptions.data();
+			pvisci.pVertexBindingDescriptions = m_vertexBindingDescriptions.raw();
 			pvisci.vertexAttributeDescriptionCount = m_vertexAttributeDescriptions.size();
-			pvisci.pVertexAttributeDescriptions = m_vertexAttributeDescriptions.data();
+			pvisci.pVertexAttributeDescriptions = m_vertexAttributeDescriptions.raw();
 
-			VkPipelineDepthStencilStateCreateInfo pdssci;
-			pdssci.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
-			pdssci.pNext = nullptr;
-			pdssci.flags = 0;
-			pdssci.depthTestEnable = VK_TRUE;
-			pdssci.depthWriteEnable = VK_TRUE;
-			pdssci.depthCompareOp = VK_COMPARE_OP_LESS;
-			pdssci.depthBoundsTestEnable = VK_FALSE;
-			pdssci.stencilTestEnable = VK_FALSE;
-			pdssci.front = {};
-			pdssci.back = {};
-			pdssci.minDepthBounds = 0.0f;
-			pdssci.maxDepthBounds = 1.0f;
-
-			std::vector<VkPipelineShaderStageCreateInfo> shaderStages =
+			lw::DynamicArray<VkPipelineShaderStageCreateInfo> shaderStages =
 			{
 				pVertexShader->getStageInfo(), pFragmentShader->getStageInfo()
 			};
@@ -151,9 +152,9 @@ namespace lw
 			plci.pNext = nullptr;
 			plci.flags = 0;
 			plci.setLayoutCount = m_descriptorSetLayouts.size();
-			plci.pSetLayouts = m_descriptorSetLayouts.data();
+			plci.pSetLayouts = m_descriptorSetLayouts.raw();
 			plci.pushConstantRangeCount = m_pushConstantRanges.size();
-			plci.pPushConstantRanges = m_pushConstantRanges.data();
+			plci.pPushConstantRanges = m_pushConstantRanges.raw();
 
 			if (vkCreatePipelineLayout(m_pDevice->raw(), &plci, nullptr, &m_layout) != VK_SUCCESS)
 			{
@@ -165,15 +166,15 @@ namespace lw
 			gpci.pNext = nullptr;
 			gpci.flags = 0;
 			gpci.stageCount = shaderStages.size();
-			gpci.pStages = shaderStages.data();
+			gpci.pStages = shaderStages.raw();
 			gpci.pVertexInputState = &pvisci;
-			gpci.pInputAssemblyState = &piasci;
+			gpci.pInputAssemblyState = &m_piasci;
 			gpci.pTessellationState = nullptr;
 			gpci.pViewportState = &pvsci;
-			gpci.pRasterizationState = &prsci;
-			gpci.pMultisampleState = &pmsci;
-			gpci.pDepthStencilState = &pdssci;
-			gpci.pColorBlendState = &pcbsci;
+			gpci.pRasterizationState = &m_prsci;
+			gpci.pMultisampleState = &m_pmsci;
+			gpci.pDepthStencilState = &m_pdssci;
+			gpci.pColorBlendState = &m_pcbsci;
 			gpci.pDynamicState = &pdsci;
 			gpci.layout = m_layout;
 			gpci.renderPass = pRenderPass->raw();
@@ -189,7 +190,7 @@ namespace lw
 
 		void Pipeline::destroy()
 		{
-			if (m_pipeline == VK_NULL_HANDLE)return;
+			if (!m_init)return;
 
 			vkDestroyPipeline(m_pDevice->raw(), m_pipeline, nullptr);
 			m_pipeline = VK_NULL_HANDLE;
@@ -197,11 +198,22 @@ namespace lw
 			m_layout = VK_NULL_HANDLE;
 
 			
-			m_pushConstantRanges.clear();
-			m_vertexBindingDescriptions.clear();
-			m_vertexAttributeDescriptions.clear();
 			m_descriptorSetLayouts.clear();
-			
+			m_vertexAttributeDescriptions.clear();
+			m_vertexBindingDescriptions.clear();
+			m_pushConstantRanges.clear();
+			m_pdssci = {};
+			m_dynamicStates.clear();
+			m_pcbsci = {};
+			m_cbas = {};
+			m_pmsci = {};
+			m_prsci = {};
+			m_scissors.clear();
+			m_viewports.clear();
+			m_piasci = {};
+
+			m_created = false;
+			m_init = false;
 		}
 
 		VkPipeline Pipeline::raw() const
@@ -216,62 +228,176 @@ namespace lw
 			return m_layout;
 		}
 
-		void Pipeline::addVertexBinding(const VkVertexInputBindingDescription * vibd)
+		Pipeline& Pipeline::setTopology(VkPrimitiveTopology topology)
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
-			m_vertexBindingDescriptions.push_back(*vibd);
+			checkInitNotCreated();
+			m_piasci.topology = topology;
+			return *this;
 		}
 
-		void Pipeline::addVertexBinding(U32 binding, U32 stride, VkVertexInputRate inputRate)
+		Pipeline& Pipeline::setPrimitiveRestartEnable(bool enable)
+		{
+			checkInitNotCreated();
+			m_piasci.primitiveRestartEnable = enable ? VK_TRUE : VK_FALSE;
+			return *this;
+		}
+
+		Pipeline& Pipeline::addViewport(const VkViewport& viewport, const VkRect2D& scissor)
+		{
+			checkInitNotCreated();
+			m_viewports.clear();
+			m_scissors.clear();
+			m_viewports.push(viewport);
+			m_scissors.push(scissor);
+			return *this;
+		}
+
+		Pipeline& Pipeline::setDepthClambEnable(bool enable)
+		{
+			checkInitNotCreated();
+			m_prsci.depthClampEnable = enable ? VK_TRUE : VK_FALSE;
+			return *this;
+		}
+
+		Pipeline& Pipeline::setRasterizerDiscardEnable(bool enable)
+		{
+			checkInitNotCreated();
+			m_prsci.rasterizerDiscardEnable = enable ? VK_TRUE : VK_FALSE;
+			return *this;
+		}
+
+		Pipeline& Pipeline::setPolygonMode(VkPolygonMode mode)
+		{
+			checkInitNotCreated();
+			m_prsci.polygonMode = mode;
+			return *this;
+		}
+
+		Pipeline& Pipeline::setCulling(VkCullModeFlags mode, VkFrontFace frontFace)
+		{
+			checkInitNotCreated();
+			m_prsci.cullMode = mode;
+			m_prsci.frontFace = frontFace;
+			return *this;
+		}
+
+		Pipeline& Pipeline::setDepthBias(bool enable, F32 constFactor, F32 clamp, F32 slopeFactor)
+		{
+			checkInitNotCreated();
+			m_prsci.depthBiasEnable = enable ? VK_TRUE : VK_FALSE;
+			m_prsci.depthBiasConstantFactor = constFactor;
+			m_prsci.depthBiasClamp = clamp;
+			m_prsci.depthBiasSlopeFactor = slopeFactor;
+			return *this;
+		}
+
+		Pipeline& Pipeline::setLineWidth(F32 width)
+		{
+			checkInitNotCreated();
+			m_prsci.lineWidth = width;
+			return *this;
+		}
+
+		Pipeline& Pipeline::addDynamicState(VkDynamicState state)
+		{
+			checkInitNotCreated();
+			m_dynamicStates.clear();
+			m_dynamicStates.push(state);
+			return *this;
+		}
+
+		Pipeline& Pipeline::setColorBlending(const VkPipelineColorBlendAttachmentState& attachment, bool enableLogicOp, VkLogicOp logicOp, F32 blendConst0, F32 blendConst1, F32 blendConst2, F32 blendConst3)
+		{
+			checkInitNotCreated();
+			m_cbas = attachment;
+			m_pcbsci.logicOpEnable = enableLogicOp;
+			m_pcbsci.logicOp = logicOp;
+			m_pcbsci.attachmentCount = 1;
+			m_pcbsci.pAttachments = &m_cbas;
+			m_pcbsci.blendConstants[0] = blendConst0;
+			m_pcbsci.blendConstants[1] = blendConst1;
+			m_pcbsci.blendConstants[2] = blendConst2;
+			m_pcbsci.blendConstants[3] = blendConst3;
+			return *this;
+		}
+
+		Pipeline& Pipeline::addVertexBinding(const VkVertexInputBindingDescription& vibd)
+		{
+			checkInitNotCreated();
+			m_vertexBindingDescriptions.push(vibd);
+			return *this;
+		}
+
+		Pipeline& Pipeline::addVertexBinding(U32 binding, U32 stride, VkVertexInputRate inputRate)
 		{
 			VkVertexInputBindingDescription vibd;
 			vibd.binding = binding;
 			vibd.stride = stride;
 			vibd.inputRate = inputRate;
-			addVertexBinding(&vibd);
+			return addVertexBinding(vibd);
 		}
 
-		void Pipeline::addVertexDescription(const VkVertexInputAttributeDescription * viad)
+		Pipeline& Pipeline::addVertexDescription(const VkVertexInputAttributeDescription& viad)
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
-			m_vertexAttributeDescriptions.push_back(*viad);
+			checkInitNotCreated();
+			m_vertexAttributeDescriptions.push(viad);
+			return *this;
 		}
 
-		void Pipeline::addVertexDescription(U32 location, U32 binding, VkFormat format, U32 offset)
+		Pipeline& Pipeline::addVertexDescription(U32 location, U32 binding, VkFormat format, U32 offset)
 		{
 			VkVertexInputAttributeDescription viad;
 			viad.location = location;
 			viad.binding = binding;
 			viad.format = format;
 			viad.offset = offset;
-			addVertexDescription(&viad);
+			return addVertexDescription(viad);
 		}
 
-		void Pipeline::addDesciptorSetLayout(const VkDescriptorSetLayout * dsl)
+
+		Pipeline& Pipeline::setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, F32 minDepthBounds, F32 maxDepthBounds)
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
-			m_descriptorSetLayouts.push_back(*dsl);
+			checkInitNotCreated();
+			m_pdssci.depthTestEnable = enableDepthTest ? VK_TRUE : VK_FALSE;
+			m_pdssci.depthWriteEnable = enableDepthWrite ? VK_TRUE : VK_FALSE;
+			m_pdssci.depthCompareOp = depthCompareOp;
+			m_pdssci.depthBoundsTestEnable = enableDepthBoundsTest ? VK_TRUE : VK_FALSE;
+			m_pdssci.stencilTestEnable = enableStencilTest ? VK_TRUE : VK_FALSE;
+			m_pdssci.front = front;
+			m_pdssci.back = back;
+			m_pdssci.minDepthBounds = minDepthBounds;
+			m_pdssci.maxDepthBounds = maxDepthBounds;
+			return *this;
 		}
 
-		void Pipeline::addPushConstantRange(const VkPushConstantRange * pcr)
+		Pipeline& Pipeline::addDesciptorSetLayout(const VkDescriptorSetLayout& dsl)
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
-			m_pushConstantRanges.push_back(*pcr);
+			checkInitNotCreated();
+			m_descriptorSetLayouts.push(dsl);
+			return *this;
 		}
 
-		void Pipeline::addPushConstantRange(VkShaderStageFlags stageFlags, U32 offset, U32 size)
+		Pipeline& Pipeline::addPushConstantRange(const VkPushConstantRange& pcr)
+		{
+			checkInitNotCreated();
+			m_pushConstantRanges.push(pcr);
+			return *this;
+		}
+
+		Pipeline& Pipeline::addPushConstantRange(VkShaderStageFlags stageFlags, U32 offset, U32 size)
 		{
 			VkPushConstantRange pcr;
 			pcr.stageFlags = stageFlags;
 			pcr.offset = offset;
 			pcr.size = size;
-			addPushConstantRange(&pcr);
+			return addPushConstantRange(pcr);
 		}
 
-		void Pipeline::enableDepthBuffer()
+		void Pipeline::checkInitNotCreated()
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw AlreadyCreatedException();
-			m_useDepthBuffer = true;
+			if (!m_init)throw NotInitializedException("Pipeline must be initialized, to set parameters.");
+			if (m_created)throw AlreadyCreatedException("Pipeline mustn't be created, to set parameters.");
 		}
+
 	}
 }

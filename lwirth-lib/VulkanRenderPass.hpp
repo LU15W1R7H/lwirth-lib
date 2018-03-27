@@ -19,7 +19,7 @@ namespace lw
 			Device*			m_pDevice		= nullptr;
 
 		public:
-			RenderPass();
+			RenderPass() = default;
 			~RenderPass();
 
 			void create(Device* pDevice);

@@ -2,7 +2,7 @@
 
 #include "Standard.hpp"
 
-#include "VulkanManager.hpp"
+#include "Vulkan.hpp"
 
 namespace lw
 {

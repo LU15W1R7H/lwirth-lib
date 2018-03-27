@@ -22,7 +22,7 @@ namespace lw
 			const Device* m_pDevice = nullptr;
 
 		public:
-			Fence();
+			Fence() = default;
 			~Fence();
 
 			void create(const Device* pDevice);

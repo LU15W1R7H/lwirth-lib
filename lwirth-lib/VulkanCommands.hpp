@@ -23,7 +23,7 @@ namespace lw
 			Device*			m_pDevice	= nullptr;
 
 		public:
-			CommandPool();
+			CommandPool() = default;
 			~CommandPool();
 
 			void create(Device* pDevice);
@@ -43,7 +43,7 @@ namespace lw
 			const Device*		m_pDevice	= nullptr;
 
 		public:
-			CommandBuffer();
+			CommandBuffer() = default;
 			~CommandBuffer();
 
 			void allocate(const Device* pDevice, const CommandPool* pPool);

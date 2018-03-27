@@ -80,6 +80,12 @@ namespace lw
 			return *this;
 		}
 
+		Vector<N>& limit(F32 maxMag)
+		{
+			if (magSqd() > (maxMag * maxMag))
+				setMag(maxMag);
+		}
+
 		inline F32& operator[](Size index)
 		{
 			return m_components[index];

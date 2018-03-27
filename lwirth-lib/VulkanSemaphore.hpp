@@ -18,7 +18,7 @@ namespace lw
 			Device*		m_pDevice	= nullptr;
 
 		public:
-			Semaphore();
+			Semaphore() = default;
 			~Semaphore();
 
 			void create(Device* pDevice);

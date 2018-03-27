@@ -14,7 +14,7 @@
 
 #ifdef _DEBUG
 
- //TODO inform of error (#expr, __FILE__, __LINE__)
+ //#TODO inform of error (#expr, __FILE__, __LINE__)
 #define ASSERT(expr) \
 	if(expr) {} \
 	else \

@@ -5,7 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
-#include <vector>
+#include "DynamicArray.hpp"
 #include <map>
 #include <string>
 
@@ -29,7 +29,7 @@ namespace lw
 			void find(const PhysicalDevice* pDevice, const Surface* pSurface, const QueueFamilies* pQueueFamilies);
 		public:
 			bool complete() const;
-			std::vector<U32> getIndices() const;
+			DynamicArray<U32> getIndices() const;
 
 			const QueueFamily* getGraphics() const;
 			const QueueFamily* getPresent() const;
@@ -44,18 +44,18 @@ namespace lw
 			VkPhysicalDeviceProperties				m_properties				= {};
 			VkPhysicalDeviceFeatures				m_features					= {};
 			VkPhysicalDeviceMemoryProperties		m_memoryProperties			= {};
-			std::vector<VkSurfaceFormatKHR>			m_surfaceFormats			= {};
-			std::vector<VkPresentModeKHR>			m_presentModes				= {};
-			std::vector<VkExtensionProperties>		m_extensionProperties		= {};
+			lw::DynamicArray<VkSurfaceFormatKHR>			m_surfaceFormats			= {};
+			lw::DynamicArray<VkPresentModeKHR>			m_presentModes				= {};
+			lw::DynamicArray<VkExtensionProperties>		m_extensionProperties		= {};
 			QueueFamilies							m_queueFamilies				= {};
 			SelectedQueueFamilies					m_selectedQueueFamilies		= {};
 			U32										m_rating					= 0;
 			
-			const static std::vector<std::string>	s_extensions;
+			const static lw::DynamicArray<std::string>	s_extensions;
 
 		public:
-			PhysicalDevice();
-			~PhysicalDevice();
+			PhysicalDevice() = default;
+			~PhysicalDevice() = default;
 
 
 			VkPhysicalDevice raw() const;
@@ -65,9 +65,9 @@ namespace lw
 			const VkPhysicalDeviceFeatures& features() const { return m_features; }
 			const VkPhysicalDeviceMemoryProperties& memoryProperties() const { return m_memoryProperties; }
 			VkSurfaceCapabilitiesKHR surfaceCapabilities() const;
-			const std::vector<VkSurfaceFormatKHR>& surfaceFormats() const { return m_surfaceFormats; }
-			const std::vector<VkPresentModeKHR>& presentModes() const { return m_presentModes; }
-			const std::vector<VkExtensionProperties>& extensionProperties() const { return m_extensionProperties; }
+			const lw::DynamicArray<VkSurfaceFormatKHR>& surfaceFormats() const { return m_surfaceFormats; }
+			const lw::DynamicArray<VkPresentModeKHR>& presentModes() const { return m_presentModes; }
+			const lw::DynamicArray<VkExtensionProperties>& extensionProperties() const { return m_extensionProperties; }
 			const SelectedQueueFamilies* queueFamiles() const { return &m_selectedQueueFamilies; }
 
 		private:
@@ -81,11 +81,11 @@ namespace lw
 		class API PhysicalDeviceContainer
 		{
 		private:
-			std::vector<PhysicalDevice> m_devices = {};
+			lw::DynamicArray<PhysicalDevice> m_devices = {};
 			PhysicalDevice* m_pBest = nullptr;
 		public:
-			PhysicalDeviceContainer() {}
-			~PhysicalDeviceContainer() {}
+			PhysicalDeviceContainer() = default;
+			~PhysicalDeviceContainer() = default;
 
 			void init(const Instance* instance, const Surface* surface);
 

@@ -136,7 +136,7 @@ namespace lw
 			if (exists())throw AlreadyInitializedException();
 
 			vkGetPhysicalDeviceQueueFamilyProperties(pDevice->raw(), &m_count, nullptr);
-			VkQueueFamilyProperties* props = new VkQueueFamilyProperties[m_count];
+			auto* props = new VkQueueFamilyProperties[m_count];
 			vkGetPhysicalDeviceQueueFamilyProperties(pDevice->raw(), &m_count, props);
 
 			m_families = new QueueFamily[m_count];

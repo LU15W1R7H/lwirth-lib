@@ -12,18 +12,10 @@ namespace lw
 {
 	namespace VK
 	{
-		const std::vector<std::string> PhysicalDevice::s_extensions =
+		const lw::DynamicArray<std::string> PhysicalDevice::s_extensions =
 		{
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
-
-		PhysicalDevice::PhysicalDevice()
-		{	
-		}
-
-		PhysicalDevice::~PhysicalDevice()
-		{
-		}
 
 		void PhysicalDevice::init(VkPhysicalDevice device, const Surface* pSurface)
 		{
@@ -57,17 +49,17 @@ namespace lw
 			U32 amountSurfaceFormats;
 			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, nullptr);
 			m_surfaceFormats.resize(amountSurfaceFormats);
-			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, m_surfaceFormats.data());
+			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, m_surfaceFormats.raw());
 
 			U32 amountPresentModes;
 			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, nullptr);
 			m_presentModes.resize(amountPresentModes);
-			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, m_presentModes.data());
+			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, m_presentModes.raw());
 
 			U32 amountExtensionProperties;
 			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, nullptr);
 			m_extensionProperties.resize(amountExtensionProperties);
-			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, m_extensionProperties.data());
+			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, m_extensionProperties.raw());
 		}
 
 		bool PhysicalDevice::checkExtensionSupport()
@@ -95,7 +87,7 @@ namespace lw
 			{
 				if (!m_selectedQueueFamilies.complete())m_rating = 0;
 				if (!checkExtensionSupport())m_rating = 0;
-				if (m_surfaceFormats.empty() || m_presentModes.empty())m_rating = 0;
+				if (m_surfaceFormats.isEmpty() || m_presentModes.isEmpty())m_rating = 0;
 				if (!m_features.samplerAnisotropy)m_rating = 0;
 			}
 		}
@@ -127,7 +119,7 @@ namespace lw
 				delete[] physicalDevices;
 			}
 
-			typedef U32 PhysicalDeviceIndex;
+			using PhysicalDeviceIndex = U32;
 			std::multimap<U32, PhysicalDeviceIndex> candidates;
 
 			for (U32 i = 0; i < m_devices.size(); i++)
@@ -171,10 +163,10 @@ namespace lw
 			}
 		}
 
-		std::vector<U32> SelectedQueueFamilies::getIndices() const
+		lw::DynamicArray<U32> SelectedQueueFamilies::getIndices() const
 		{
 			if (!complete())throw NotInitializedException();
-			std::vector<U32> r =
+			lw::DynamicArray<U32> r =
 			{
 				m_pGraphics->getIndex(),
 				m_pPresent->getIndex()

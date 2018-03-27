@@ -48,8 +48,6 @@ namespace lw
 
 
 		SimpleBrush3D::createPipeline(pRenderPass);
-
-		
 	}
 
 	void SimpleBrush3D::destroy()
@@ -64,12 +62,12 @@ namespace lw
 
 	void SimpleBrush3D::createPipeline(const VK::RenderPass* pRenderPass)
 	{
-		Vertex vertex;
+		m_pipeline.init(m_screenWidth, m_screenHeight);
 		m_pipeline.addVertexBinding(0, sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX);
 		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, Vertex::pos));
 		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, Vertex::color));
-		m_pipeline.enableDepthBuffer();
-		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader, m_screenWidth, m_screenHeight);
+		m_pipeline.setDepthStencil(true, true, VK_COMPARE_OP_LESS, false, false, {}, {}, 0.f, 1.f);
+		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader);
 	}
 
 	void SimpleBrush3D::destroyPipeline()

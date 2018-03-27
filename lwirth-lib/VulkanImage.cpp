@@ -168,7 +168,7 @@ namespace lw
 			imb.subresourceRange.baseArrayLayer = 0;
 			imb.subresourceRange.layerCount = 1;
 
-			vkCmdPipelineBarrier(commandBuffer.raw(), srcStage, dstStage, 0, 0, nullptr, 0, nullptr, 1, &imb); //TODO check for stage
+			vkCmdPipelineBarrier(commandBuffer.raw(), srcStage, dstStage, 0, 0, nullptr, 0, nullptr, 1, &imb); //#TODO check for stage
 
 			commandBuffer.endAndExecuteAndFree(pQueue);
 		}

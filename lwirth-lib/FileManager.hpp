@@ -3,12 +3,12 @@
 #include "Standard.hpp"
 
 #include <string>
-#include <vector>
+#include "DynamicArray.hpp"
 #include <fstream>
 
 namespace lw
 {
-	extern std::vector<Byte> readBinFile(const std::string& filePath);
+	extern lw::DynamicArray<Byte> readBinFile(const std::string& filePath);
 }
 
 
