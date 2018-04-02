@@ -5,7 +5,6 @@
 #include <memory>
 
 #include "Shape.hpp"
-#include "Vector2.hpp"
 #include "SimulationTime.hpp"
 
 namespace lw
@@ -19,12 +18,12 @@ namespace lw
 			Object(Shape& _shape, F32 _mass);
 			~Object();
 
-			Vector2& m_pos;
-			Vector2 m_vel;
-			Vector2 m_acc;
+			Vec2& m_pos;
+			Vec2 m_vel;
+			Vec2 m_acc;
 			F32 m_mass;
 
-			void applyForce(Vector2 force);
+			void applyForce(Vec2 force);
 
 			virtual void update(const Duration& duration);
 

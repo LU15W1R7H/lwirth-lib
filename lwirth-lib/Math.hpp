@@ -11,43 +11,43 @@ namespace lw
 	const F32 E = 2.71828182846f;
 
 	template<typename T>
-	API inline T min(T const& arg1, T const& arg2)
+	API constexpr inline T min(T const& arg1, T const& arg2)
 	{
 		return arg1 < arg2 ? arg1 : arg2;
 	}
 
 	template<typename T>
-	API inline T max(T const& arg1, T const& arg2)
+	API constexpr inline T max(T const& arg1, T const& arg2)
 	{
 		return arg1 > arg2 ? arg1 : arg2;
 	}
 
 	template<typename T>
-	API inline T add(T const& arg1, T const& arg2)
+	API constexpr inline T add(T const& arg1, T const& arg2)
 	{
 		return arg1 + arg2;
 	}
 
 	template<typename T>
-	API inline T sub(T const& arg1, T const& arg2)
+	API constexpr inline T sub(T const& arg1, T const& arg2)
 	{
 		return arg1 - arg2;
 	}
 
 	template<typename T>
-	API inline T mul(T const& arg1, T const& arg2)
+	API constexpr inline T mul(T const& arg1, T const& arg2)
 	{
 		return arg1 * arg2;
 	}
 
 	template<typename T>
-	API inline T div(T const& arg1, T const& arg2)
+	API constexpr inline T div(T const& arg1, T const& arg2)
 	{
 		return arg1 / arg2;
 	}
 
 	template<typename T>
-	API inline T mod(T const& arg1, T const& arg2)
+	API constexpr inline T mod(T const& arg1, T const& arg2)
 	{
 		return arg1 % arg2;
 	}
@@ -68,7 +68,7 @@ namespace lw
 	}
 
 	template<typename T>
-	API inline T lerp(const T& start, const T& dest, F32 beta)
+	API constexpr inline T lerp(const T& start, const T& dest, F32 beta)
 	{
 		return static_cast<T>((1.f - beta) * start + beta * dest);
 	}

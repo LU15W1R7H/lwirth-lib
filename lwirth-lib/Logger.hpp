@@ -6,39 +6,24 @@
 
 namespace lw
 {
-	enum MessageType { INFO_M, WARNING_M, ERROR_M };
+
+	template<typename T>
+	void print(T msg)
+	{
+		std::cout << msg;
+	}
+
+	template<typename T>
+	void println(T msg)
+	{
+		std::cout << msg << '\n';
+	}
 
 	class Logger
 	{
 	public:
 
-		template<typename T>
-		static std::ostream& print(T t, MessageType type = INFO_M)
-		{
-			switch (type)
-			{
-			case INFO_M:
-				return std::cout << "INFO: " << t;
-			case WARNING_M:
-				return std::cout << "WARNING: " << t;
-			case ERROR_M:
-				return std::cout << "ERROR: " << t;
-			}
-		}
-
-		template<typename T>
-		static std::ostream& println(T t, MessageType type = INFO_M)
-		{
-			switch (type)
-			{
-			case INFO_M:
-				return std::cout << "INFO: " << t << std::endl;
-			case WARNING_M:
-				return std::cout << "WARNING: " << t << std::endl;
-			case ERROR_M:
-				return std::cout << "ERROR: " << t << std::endl;
-			}
-		}
+		
 	};
 }
 

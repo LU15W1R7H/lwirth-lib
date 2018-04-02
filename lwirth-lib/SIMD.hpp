@@ -50,18 +50,18 @@ namespace lw
 		SIMDvector& operator-=(const SIMDvector& other);
 		SIMDvector& operator*=(const SIMDvector& other);
 
-		/*friend extern bool operator==(Vector3 const& v1, Vector3 const& v2);
-		friend extern bool operator!=(Vector3 const& v1, Vector3 const& v2);
-		friend extern Vector3 operator-(Vector3 v);
-		friend extern Vector3 operator+(Vector3 v1, Vector3 const& v2);
-		friend extern Vector3 operator-(Vector3 v1, Vector3 const& v2);
-		friend extern F32 operator*(Vector3 const& v1, Vector3 const& v2);
-		friend extern Vector3 operator^(Vector3 const& v1, Vector3 const& v2);
-		friend extern Vector3 operator*(Vector3 v, F32 scalar);
-		friend extern Vector3 operator*(F32 scalar, Vector3 v);
-		friend extern Vector3 operator/(Vector3 v, F32 scalar);
-		friend extern Vector3 min(Vector3 const& v1, Vector3 const& v2);
-		friend extern Vector3 max(Vector3 const& v1, Vector3 const& v2);*/
+		/*friend extern bool operator==(Vec3 const& v1, Vec3 const& v2);
+		friend extern bool operator!=(Vec3 const& v1, Vec3 const& v2);
+		friend extern Vec3 operator-(Vec3 v);
+		friend extern Vec3 operator+(Vec3 v1, Vec3 const& v2);
+		friend extern Vec3 operator-(Vec3 v1, Vec3 const& v2);
+		friend extern F32 operator*(Vec3 const& v1, Vec3 const& v2);
+		friend extern Vec3 operator^(Vec3 const& v1, Vec3 const& v2);
+		friend extern Vec3 operator*(Vec3 v, F32 scalar);
+		friend extern Vec3 operator*(F32 scalar, Vec3 v);
+		friend extern Vec3 operator/(Vec3 v, F32 scalar);
+		friend extern Vec3 min(Vec3 const& v1, Vec3 const& v2);
+		friend extern Vec3 max(Vec3 const& v1, Vec3 const& v2);*/
 	};
 
 	class SIMDmatrix

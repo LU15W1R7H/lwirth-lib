@@ -15,7 +15,7 @@ namespace lw
 		{
 		}
 
-		void Object::applyForce(Vector2 force)
+		void Object::applyForce(Vec2 force)
 		{
 			m_acc += force / m_mass;
 		}

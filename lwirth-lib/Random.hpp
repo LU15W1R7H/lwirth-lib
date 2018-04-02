@@ -7,7 +7,7 @@
 
 #include "DynamicArray.hpp"
 #include <string>
-#include "Vector2.hpp"
+#include "Vector.hpp"
 #include "Color.hpp"
 #include "Vertices.hpp"
 #include "Triangle.hpp"
@@ -73,18 +73,18 @@ namespace lw
 		}
 
 		//@return random F32(angle) in radians in range [0 -> 2PI]
-		Angle nextAngle();
+		F32 nextAngle();
 
-		//@return random lw::Vector2
-		Vector2 nextVector2(F32 minX, F32 maxX, F32 minY, F32 maxY);
-		//@return random lw::Vector2
-		Vector2 nextVector2(F32 maxX, F32 maxY);
-		Vector2 nextVector2();
-		//@return random lw::Vector2
-		Vector2 nextVector2(const Vector2& maxVec);
+		//@return random lw::Vec2
+		Vec2 nextVector2(F32 minX, F32 maxX, F32 minY, F32 maxY);
+		//@return random lw::Vec2
+		Vec2 nextVector2(F32 maxX, F32 maxY);
+		Vec2 nextVector2();
+		//@return random lw::Vec2
+		Vec2 nextVector2(const Vec2& maxVec);
 		//@return random lw::Color
 		Color nextColor();
-		Vertex nextVertex();
+		Vertex2D nextVertex();
 		Triangle nextTriangle();
 
 	private:

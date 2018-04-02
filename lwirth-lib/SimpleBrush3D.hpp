@@ -10,6 +10,7 @@
 #include "VulkanShader.hpp"
 #include "VulkanBuffer.hpp"
 #include "Triangle.hpp"
+#include "Vertices.hpp"
 
 #include "Random.hpp"
 
@@ -38,7 +39,7 @@ namespace lw
 
 	public:
 		void fillTriangle(const Triangle* tri);
-		void fillVertexArray(VertexArray& vertexArray);
+		void fillVertexArray(Vertex3DArray& vertexArray);
 
 	private:
 		void create(const VK::Device* pDevice, const VK::RenderPass* pRenderPass, const VK::CommandPool* pCommandPool, U32 screenWidth, U32 screenHeight);

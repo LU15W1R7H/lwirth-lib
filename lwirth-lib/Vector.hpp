@@ -2,7 +2,6 @@
 
 #include "Standard.hpp"
 
-#include "Angle.hpp"
 #include "Math.hpp"
 
 #include <iostream>
@@ -254,9 +253,9 @@ namespace lw
 	}
 
 	template<Size N>
-	inline Angle angle(const Vector<N>& v1, const Vector<N>& v2)
+	inline F32 angle(const Vector<N>& v1, const Vector<N>& v2)
 	{
-		return lw::acos((v1 * v2) / (v1.mag() * v2.mag()));
+		return std::acos((v1 * v2) / (v1.mag() * v2.mag()));
 	}
 
 	template<Size N>
@@ -276,3 +275,7 @@ namespace lw
 	}
 
 }
+
+#include "Vector2.hpp"
+#include "Vector3.hpp"
+#include "Vector4.hpp"

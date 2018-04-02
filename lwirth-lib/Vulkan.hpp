@@ -33,30 +33,34 @@ namespace lw
 	{
 		class API Vulkan
 		{
+			friend class SimpleBrush2D;
+			friend class SimpleBrush3D;
+			friend class Visualizer;
+
 		private:
 			const Frame* m_pFrame = nullptr;
 
-			Instance m_instance;
-			Surface m_surface;
-			PhysicalDeviceContainer m_physicalDeviceContatiner;
-			Device m_device;
-			RenderPass m_renderPass;
-			DepthImage m_depthImage;
-			Swapchain m_swapchain;
+			Instance m_instance									= {};
+			Surface m_surface									= {};
+			PhysicalDeviceContainer m_physicalDeviceContatiner	= {};
+			Device m_device										= {};
+			RenderPass m_renderPass								= {};
+			DepthImage m_depthImage								= {};
+			Swapchain m_swapchain								= {};
+			
+			CommandPool m_commandPool							= {};
+			Semaphore m_semaphoreImageAvailable					= {};
+			Semaphore m_semaphoreRenderingDone					= {};
+			CommandBuffer m_drawingCommandBuffer				= {};
+			DescriptorPool m_descriptorPool						= {};
+			Fence m_fence										= {};
 
-			CommandPool m_commandPool;
-			Semaphore m_semaphoreImageAvailable;
-			Semaphore m_semaphoreRenderingDone;
-			CommandBuffer m_drawingCommandBuffer;
-			DescriptorPool m_descriptorPool;
-			Fence m_fence;
+			SimpleBrush2D* m_pSimpleBrush2D = nullptr;
 
-			SimpleBrush2D m_simpleBrush2D;
+			U32 m_screenWidth = 0;
+			U32 m_screenHeight = 0;
 
-			U32 m_screenWidth;
-			U32 m_screenHeight;
-
-			U32 m_imageIndex;
+			U32 m_imageIndex = 0;
 		public:
 			Vulkan() {}
 			~Vulkan() {}
@@ -65,7 +69,8 @@ namespace lw
 			void start(const Frame* pFrame);
 			void destroy();
 
-			SimpleBrush2D* preDraw();
+			SimpleBrush2D* getSimpleBrush2D();
+			void preDraw();
 			void postDraw();
 
 			void resize(U32 width, U32 height);

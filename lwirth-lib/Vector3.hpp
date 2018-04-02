@@ -141,7 +141,6 @@ namespace lw
 		}
 	};
 
-	typedef Vector<3> Vector3;
 
 	inline bool operator==(const Vector<3>& v1, const Vector<3>& v2)
 	{
@@ -231,9 +230,9 @@ namespace lw
 			);
 	}
 
-	inline Angle angle(const Vector<3>& v1, const Vector<3>& v2)
+	inline F32 angle(const Vector<3>& v1, const Vector<3>& v2)
 	{
-		return lw::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
+		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
 	}
 
 	inline std::ostream& operator<<(std::ostream& os, const Vector<3>& v)
@@ -241,6 +240,8 @@ namespace lw
 		os << "[" << v.x << ", " << v.y << ", " << v.z << "]";
 		return os;
 	}
+
+	using Vec3 = Vector<3>;
 
 }
 

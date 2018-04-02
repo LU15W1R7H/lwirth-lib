@@ -88,11 +88,6 @@ namespace lw
 			m_pcbsci.blendConstants[1] = 0.f;
 			m_pcbsci.blendConstants[2] = 0.f;
 			m_pcbsci.blendConstants[3] = 0.f;
-
-			lw::DynamicArray<VkDynamicState> dynamicStates =
-			{
-				VK_DYNAMIC_STATE_VIEWPORT, VK_DYNAMIC_STATE_SCISSOR
-			};
 			
 			m_pdssci.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
 			m_pdssci.pNext = nullptr;
@@ -175,7 +170,7 @@ namespace lw
 			gpci.pMultisampleState = &m_pmsci;
 			gpci.pDepthStencilState = &m_pdssci;
 			gpci.pColorBlendState = &m_pcbsci;
-			gpci.pDynamicState = &pdsci;
+			gpci.pDynamicState = m_dynamicStates.size() == 0 ? nullptr : &pdsci;
 			gpci.layout = m_layout;
 			gpci.renderPass = pRenderPass->raw();
 			gpci.subpass = 0;

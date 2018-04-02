@@ -210,7 +210,7 @@ namespace lw
 		{
 			for (Size j = 0; j < 2; j++)
 			{
-				r[i] = m[i][j] * v[j];
+				r[i] += m[i][j] * v[j];
 			}
 		}
 		return r;
@@ -230,7 +230,7 @@ namespace lw
 		return r;
 	}
 
-	using Matrix2 = Matrix<2, 2>;
+	using Mat2 = Matrix<2, 2>;
 }
 
 

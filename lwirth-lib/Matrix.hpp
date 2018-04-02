@@ -197,7 +197,7 @@ namespace lw
 		{
 			for (Size j = 0; j < C; j++)
 			{
-				r[i] = m[i][j] * v[j];
+				r[i] += m[i][j] * v[j];
 			}
 		}
 		return r;

@@ -25,7 +25,7 @@ namespace lw
 		Frame* getFrame();
 		VK::Vulkan* getVulkan();
 
-		SimpleBrush2D* preDraw();
+		void preDraw();
 		void postDraw();
 
 	private:

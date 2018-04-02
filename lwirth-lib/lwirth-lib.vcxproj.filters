@@ -4,23 +4,11 @@
     <ClCompile Include="Math.cpp">
       <Filter>math</Filter>
     </ClCompile>
-    <ClCompile Include="Angle.cpp">
-      <Filter>math</Filter>
-    </ClCompile>
     <ClCompile Include="Allocations.cpp">
       <Filter>memory</Filter>
     </ClCompile>
     <ClCompile Include="PoolAllocator.cpp">
       <Filter>memory</Filter>
-    </ClCompile>
-    <ClCompile Include="Circle.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Shape.cpp">
-      <Filter>graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="Triangle.cpp">
-      <Filter>graphics</Filter>
     </ClCompile>
     <ClCompile Include="Chrono.cpp">
       <Filter>general</Filter>
@@ -140,32 +128,20 @@
     <ClCompile Include="Vulkan.cpp">
       <Filter>graphics\vulkan</Filter>
     </ClCompile>
+    <ClCompile Include="Circle.cpp">
+      <Filter>graphics\core\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Shape.cpp">
+      <Filter>graphics\core\drawables</Filter>
+    </ClCompile>
+    <ClCompile Include="Triangle.cpp">
+      <Filter>graphics\core\drawables</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.hpp" />
     <ClInclude Include="lwirth.hpp" />
-    <ClInclude Include="Matrix4x4.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="Math.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Angle.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.hpp">
       <Filter>math</Filter>
     </ClInclude>
     <ClInclude Include="Allocations.hpp">
@@ -176,15 +152,6 @@
     </ClInclude>
     <ClInclude Include="Array.hpp">
       <Filter>datatypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Circle.hpp">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Shape.hpp">
-      <Filter>graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="Triangle.hpp">
-      <Filter>graphics</Filter>
     </ClInclude>
     <ClInclude Include="Chrono.hpp">
       <Filter>general</Filter>
@@ -301,9 +268,6 @@
     <ClInclude Include="Root.hpp">
       <Filter>general</Filter>
     </ClInclude>
-    <ClInclude Include="Matrix2x2.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="Visualizer.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
@@ -315,6 +279,36 @@
     </ClInclude>
     <ClInclude Include="Vulkan.hpp">
       <Filter>graphics\vulkan</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x2.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>math</Filter>
+    </ClInclude>
+    <ClInclude Include="Circle.hpp">
+      <Filter>graphics\core\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Shape.hpp">
+      <Filter>graphics\core\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Triangle.hpp">
+      <Filter>graphics\core\drawables</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -353,6 +347,9 @@
     </Filter>
     <Filter Include="graphics\core\types">
       <UniqueIdentifier>{ad2274e6-36f5-4376-a097-610e92ad8847}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="graphics\core\drawables">
+      <UniqueIdentifier>{e103bfbe-6974-425b-9e30-f247d270360f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

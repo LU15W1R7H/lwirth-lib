@@ -206,9 +206,9 @@ namespace lw
 		return v1.x * v2.x + v1.y * v2.y;
 	}
 
-	inline Angle angle(const Vector<2>& v1, const Vector<2>& v2)
+	inline F32 angle(const Vector<2>& v1, const Vector<2>& v2)
 	{
-		return lw::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
+		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
 	}
 
 	inline std::ostream& operator<<(std::ostream& os, const Vector<2>& v)
@@ -217,7 +217,7 @@ namespace lw
 		return os;
 	}
 	
-	typedef Vector<2> Vector2;
+	using Vec2 = Vector<2>;
 
 }
 

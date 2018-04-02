@@ -1,8 +1,6 @@
 #include "stdafx.hpp"
 #include "Vulkan.hpp"
 
-#include "Matrix4x4.hpp"
-#include "Vector2.hpp"
 #include "Color.hpp"
 
 #include <iostream>
@@ -33,7 +31,6 @@ namespace lw
 			m_semaphoreRenderingDone.create(&m_device);
 			m_fence.create(&m_device);
 
-			m_simpleBrush2D.create(&m_device, &m_renderPass, &m_commandPool, m_screenWidth, m_screenHeight);
 		}
 
 		void Vulkan::destroy()
@@ -41,7 +38,7 @@ namespace lw
 			m_device.waitIdle();
 			//destroy rest
 
-			m_simpleBrush2D.destroy();
+			if (m_pSimpleBrush2D)m_pSimpleBrush2D->destroy();
 
 			m_descriptorPool.destroy();
 
@@ -59,7 +56,21 @@ namespace lw
 
 
 
-		SimpleBrush2D* Vulkan::preDraw()
+		SimpleBrush2D* Vulkan::getSimpleBrush2D()
+		{
+			if (m_pSimpleBrush2D)
+			{
+				return m_pSimpleBrush2D;
+			}
+			else
+			{
+				m_pSimpleBrush2D = new SimpleBrush2D();
+				m_pSimpleBrush2D->create(this, m_screenWidth, m_screenHeight);
+				return m_pSimpleBrush2D;
+			}
+		}
+
+		void Vulkan::preDraw()
 		{
 			VkResult result = vkAcquireNextImageKHR(m_device.raw(), m_swapchain.raw(), std::numeric_limits<uint64_t>::max(), m_semaphoreImageAvailable.raw(), VK_NULL_HANDLE, &m_imageIndex);
 
@@ -107,12 +118,13 @@ namespace lw
 			scissor.extent = { m_screenWidth, m_screenHeight };
 			vkCmdSetScissor(m_drawingCommandBuffer.raw(), 0, 1, &scissor);
 
-			m_simpleBrush2D.prepareDrawing(&m_drawingCommandBuffer);
-			return &m_simpleBrush2D;
+			if(m_pSimpleBrush2D)m_pSimpleBrush2D->prepare(&m_drawingCommandBuffer);
 		}
 
 		void Vulkan::postDraw()
 		{
+			if (m_pSimpleBrush2D)m_pSimpleBrush2D->disperse();
+
 			vkCmdEndRenderPass(m_drawingCommandBuffer.raw());
 
 			m_drawingCommandBuffer.end();
@@ -134,10 +146,9 @@ namespace lw
 
 			VkResult result = vkQueuePresentKHR(m_device.getPresentQueue()->raw(), &pi);
 
-			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) //#TODO fix -> result == OUT_OF_DATE
+			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
 			{
 				throw VulkanException("presentation was out of date or suboptimal");
-				//recreateSwapchain();
 			}
 			else if (result != VK_SUCCESS)
 			{
@@ -167,7 +178,6 @@ namespace lw
 		{
 			m_device.waitIdle();
 
-			m_simpleBrush2D.destroyPipeline();
 			m_renderPass.destroy();
 			m_depthImage.destroy();
 
@@ -176,7 +186,8 @@ namespace lw
 			m_renderPass.create(&m_device);
 			m_depthImage.create(&m_device, &m_commandPool, m_screenWidth, m_screenHeight);
 			newChain.create(&m_device, &m_surface, &m_depthImage, &m_renderPass, m_screenWidth, m_screenHeight, &m_swapchain);
-			m_simpleBrush2D.createPipeline(&m_renderPass);
+			if(m_pSimpleBrush2D)m_pSimpleBrush2D->resize(m_screenWidth, m_screenHeight);
+
 
 			m_swapchain.destroy();
 			m_swapchain = newChain;

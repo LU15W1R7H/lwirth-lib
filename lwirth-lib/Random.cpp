@@ -125,27 +125,27 @@ namespace lw
 		return nextIndex(0, max);
 	}
 
-	Angle Random::nextAngle()
+	F32 Random::nextAngle()
 	{
-		return Angle(mapRandom<F32>(0.f, PI2));
+		return mapRandom<F32>(0.f, PI2);
 	}
 
-	Vector2 Random::nextVector2(F32 minX, F32 maxX, F32 minY, F32 maxY)
+	Vec2 Random::nextVector2(F32 minX, F32 maxX, F32 minY, F32 maxY)
 	{
-		return Vector2(nextF32(minX, maxX), nextF32(minY, maxY));
+		return Vec2(nextF32(minX, maxX), nextF32(minY, maxY));
 	}
 
-	Vector2 Random::nextVector2(F32 maxX, F32 maxY)
+	Vec2 Random::nextVector2(F32 maxX, F32 maxY)
 	{
 		return nextVector2(0.f, maxX, 0.f, maxY);
 	}
 
-	Vector2 Random::nextVector2()
+	Vec2 Random::nextVector2()
 	{
-		return Vector2(nextF32(), nextF32());
+		return Vec2(nextF32(), nextF32());
 	}
 
-	Vector2 Random::nextVector2(const Vector2& maxVec)
+	Vec2 Random::nextVector2(const Vec2& maxVec)
 	{
 		return nextVector2(maxVec.x, maxVec.y);
 	}
@@ -155,9 +155,9 @@ namespace lw
 		return Color(nextF32(), nextF32(), nextF32());
 	}
 
-	Vertex Random::nextVertex()
+	Vertex2D Random::nextVertex()
 	{
-		return Vertex(nextVector2(-1.f, 1.f, -1.f, 1.f), nextColor());
+		return Vertex2D(nextVector2(-1.f, 1.f, -1.f, 1.f), nextColor());
 	}
 
 	Triangle Random::nextTriangle()

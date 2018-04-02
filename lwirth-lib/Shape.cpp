@@ -3,7 +3,7 @@
 
 namespace lw
 {
-	Shape::Shape(Vector2 _pos)
+	Shape::Shape(Vec2 _pos)
 		: m_pos(m_pos)
 	{
 	}

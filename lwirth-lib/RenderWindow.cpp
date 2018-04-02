@@ -50,9 +50,9 @@ namespace lw
 		return &m_vulkan;
 	}
 
-	SimpleBrush2D* RenderWindow::preDraw()
+	void RenderWindow::preDraw()
 	{
-		return m_vulkan.preDraw();
+		m_vulkan.preDraw();
 	}
 
 	void RenderWindow::postDraw()

@@ -167,7 +167,6 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Allocations.cpp" />
-    <ClCompile Include="Angle.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Chrono.cpp" />
     <ClCompile Include="Circle.cpp" />
@@ -221,7 +220,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Allocations.hpp" />
-    <ClInclude Include="Angle.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Array.hpp" />
     <ClInclude Include="DynamicArray.hpp" />

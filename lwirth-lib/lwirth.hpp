@@ -14,7 +14,6 @@
 #include "Vulkan.hpp"
 #include "RenderWindow.hpp"
 #include "Math.hpp"
-#include "Angle.hpp"
 #include "Vector.hpp"
 #include "Matrix.hpp"
 #include "Shape.hpp"

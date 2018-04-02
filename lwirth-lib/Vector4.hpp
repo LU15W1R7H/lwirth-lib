@@ -239,9 +239,9 @@ namespace lw
 		return v1.x * v2.x + v1.y * v2.y + v1.z * v2.z + v1.w * v2.w;
 	}
 
-	inline Angle angle(const Vector<4>& v1, const Vector<4>& v2)
+	inline F32 angle(const Vector<4>& v1, const Vector<4>& v2)
 	{
-		return lw::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
+		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
 	}
 
 	inline std::ostream& operator<<(std::ostream& os, const Vector<4>& v)
@@ -249,6 +249,8 @@ namespace lw
 		os << "[" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << "]";
 		return os;
 	}
+
+	using Vec4 = Vector<4>;
 
 }
 

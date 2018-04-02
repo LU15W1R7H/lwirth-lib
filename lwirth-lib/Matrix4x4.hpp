@@ -4,9 +4,6 @@
 
 #include "Matrix.hpp"
 #include "Vector.hpp"
-#include "Vector2.hpp"
-#include "Vector3.hpp"
-#include "Vector4.hpp"
 
 namespace lw
 {
@@ -20,7 +17,7 @@ namespace lw
 		static const Matrix<4, 4> zero;
 		static const Matrix<4, 4> identity;
 
-		static Matrix<4, 4> createTranslation(const Vector3& translation)
+		static Matrix<4, 4> createTranslation(const Vec3& translation)
 		{
 			Matrix<4, 4> r;
 			r[1][3] = translation.x;
@@ -29,14 +26,14 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createRotation(F32 radians, const Vector3& rotationAxis)
+		static Matrix<4, 4> createRotation(F32 radians, const Vec3& rotationAxis)
 		{
 			if (radians == 0)
 			{
 				return identity;
 			}
 
-			Vector3 nra = norm(rotationAxis);
+			Vec3 nra = norm(rotationAxis);
 			F32 x = nra.x;
 			F32 y = nra.y;
 			F32 z = nra.z;
@@ -59,7 +56,7 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createScale(const Vector3& scale)
+		static Matrix<4, 4> createScale(const Vec3& scale)
 		{
 			Matrix<4, 4> r;
 			r[0][0] = scale.x;
@@ -84,11 +81,11 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createView(const Vector3& cameraPos, const Vector3& lookingAt, const Vector3& upDirection)
+		static Matrix<4, 4> createView(const Vec3& cameraPos, const Vec3& lookingAt, const Vec3& upDirection)
 		{
-			Vector3 direction = norm(lookingAt - cameraPos);
-			Vector3 right = norm(cross(direction, upDirection));
-			Vector3 down = cross(right, direction);
+			Vec3 direction = norm(lookingAt - cameraPos);
+			Vec3 right = norm(cross(direction, upDirection));
+			Vec3 down = cross(right, direction);
 
 			Matrix<4, 4> r;
 			r[0][0] = right.x;
@@ -110,7 +107,7 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createTransform(const Vector3& pos, const Vector3& scale, const Vector3& rotationVector, F32 radians)
+		static Matrix<4, 4> createTransform(const Vec3& pos, const Vec3& scale, const Vec3& rotationVector, F32 radians)
 		{
 			Matrix<4, 4> matTranslation = createTranslation(pos);
 			Matrix<4, 4> matScale = createScale(scale);

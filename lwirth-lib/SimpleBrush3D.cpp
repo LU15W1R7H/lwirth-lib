@@ -1,10 +1,8 @@
 #include "stdafx.hpp"
-#include "SimpleBrush3D.hpp"
 
-#include "Vector3.hpp"
+#include "SimpleBrush3D.hpp"
 #include "Color.hpp"
 
-#include "Vertices.hpp"
 #include "VulkanDevice.hpp"
 
 
@@ -27,7 +25,7 @@ namespace lw
 		vkCmdDrawIndexed(m_pCmdBuffer->raw(), 3, 1, 0, 0, 0);
 	}
 
-	void SimpleBrush3D::fillVertexArray(VertexArray& vertexArray)
+	void SimpleBrush3D::fillVertexArray(Vertex3DArray& vertexArray)
 	{
 		//vertexArray.updateBuffer(m_pDevice, m_pCommandPool);
 
@@ -63,9 +61,11 @@ namespace lw
 	void SimpleBrush3D::createPipeline(const VK::RenderPass* pRenderPass)
 	{
 		m_pipeline.init(m_screenWidth, m_screenHeight);
-		m_pipeline.addVertexBinding(0, sizeof(Vertex), VK_VERTEX_INPUT_RATE_VERTEX);
-		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex, Vertex::pos));
-		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex, Vertex::color));
+		m_pipeline.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+		m_pipeline.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+		m_pipeline.addVertexBinding(0, sizeof(Vertex3D), VK_VERTEX_INPUT_RATE_VERTEX);
+		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex3D, Vertex3D::pos));
+		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex3D, Vertex3D::color));
 		m_pipeline.setDepthStencil(true, true, VK_COMPARE_OP_LESS, false, false, {}, {}, 0.f, 1.f);
 		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader);
 	}

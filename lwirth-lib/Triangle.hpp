@@ -21,14 +21,14 @@ namespace lw
 
 	public:
 		//vertices shall be counter clockwise
-		Triangle(Vertex v0, Vertex v1, Vertex v2);
+		Triangle(Vertex2D v0, Vertex2D v1, Vertex2D v2);
 		~Triangle();
 		Triangle* clone() const override;
 
-		Vertex m_vertices[3];
+		Vertex2D m_vertices[3];
 
 		F32 area() const override;
-		void rotate(F32 angle, Vector2& center) override;
+		void rotate(F32 angle, Vec2& center) override;
 
 		
 

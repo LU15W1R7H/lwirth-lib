@@ -6,7 +6,7 @@
 namespace lw
 {
 
-	Circle::Circle(F32 _radius, Vector2 _pos)
+	Circle::Circle(F32 _radius, Vec2 _pos)
 		: Shape(_pos), m_radius(_radius)
 	{
 	}
@@ -26,7 +26,7 @@ namespace lw
 	}
 
 	
-	void Circle::rotate(F32 angle, Vector2& center)
+	void Circle::rotate(F32 angle, Vec2& center)
 	{
 		//do nothing
 	}
