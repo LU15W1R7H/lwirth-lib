@@ -3,7 +3,7 @@
 #include "SimpleBrush3D.hpp"
 #include "Color.hpp"
 
-#include "VulkanDevice.hpp"
+#include "Vulkan.hpp"
 
 
 namespace lw
@@ -34,31 +34,27 @@ namespace lw
 		vkCmdDraw(m_pCmdBuffer->raw(), vertexArray.size(), 1, 0, 0);
 	}
 
-	void SimpleBrush3D::create(const VK::Device* pDevice, const VK::RenderPass* pRenderPass, const VK::CommandPool* pCommandPool, U32 screenWidth, U32 screenHeight)
+	void SimpleBrush3D::create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight)
 	{
-		m_pDevice = pDevice;
-		m_pCommandPool = pCommandPool;
+		m_pVK = pVulkan;
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
 
-		m_vertexShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/vert.spv");
-		m_fragmentShader.create(m_pDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/frag.spv");
+		m_vertexShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/vert.spv");
+		m_fragmentShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/frag.spv");
 
-
-		SimpleBrush3D::createPipeline(pRenderPass);
+		SimpleBrush3D::createPipeline();
 	}
 
 	void SimpleBrush3D::destroy()
 	{
-		
-
 		SimpleBrush3D::destroyPipeline();
 
 		m_fragmentShader.destroy();
 		m_vertexShader.destroy();
 	}
 
-	void SimpleBrush3D::createPipeline(const VK::RenderPass* pRenderPass)
+	void SimpleBrush3D::createPipeline()
 	{
 		m_pipeline.init(m_screenWidth, m_screenHeight);
 		m_pipeline.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
@@ -67,7 +63,7 @@ namespace lw
 		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32B32_SFLOAT, offsetof(Vertex3D, Vertex3D::pos));
 		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex3D, Vertex3D::color));
 		m_pipeline.setDepthStencil(true, true, VK_COMPARE_OP_LESS, false, false, {}, {}, 0.f, 1.f);
-		m_pipeline.create(m_pDevice, pRenderPass, &m_vertexShader, &m_fragmentShader);
+		m_pipeline.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 	}
 
 	void SimpleBrush3D::destroyPipeline()
@@ -75,9 +71,43 @@ namespace lw
 		m_pipeline.destroy();
 	}
 
-	void SimpleBrush3D::prepareDrawing(const VK::CommandBuffer* cmdBuffer)
+	void SimpleBrush3D::prepare(const VK::CommandBuffer* cmd)
 	{
-		m_pCmdBuffer = cmdBuffer;
+		m_pCmdBuffer = cmd;
 		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline.raw());
+
+		VkViewport viewport;
+		viewport.x = 0.f;
+		viewport.y = 0.f;
+		viewport.width = static_cast<F32>(m_screenWidth);
+		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.minDepth = 0.f;
+		viewport.maxDepth = 1.f;
+
+		VkRect2D scissor;
+		scissor.offset = { 0, 0 };
+		scissor.extent = { m_screenWidth, m_screenHeight };
+
+		vkCmdSetViewport(cmd->raw(), 0, 1, &viewport);
+		vkCmdSetScissor(cmd->raw(), 0, 1, &scissor);
+
+		m_ready = true;
 	}
+
+	void SimpleBrush3D::disperse()
+	{
+		m_pCmdBuffer = nullptr;
+
+		m_ready = false;
+	}
+
+	void SimpleBrush3D::resize(U32 screenWidth, U32 screenHeight)
+	{
+		m_screenWidth = screenWidth;
+		m_screenHeight = screenHeight;
+
+		destroyPipeline();
+		createPipeline();
+	}
+
 }

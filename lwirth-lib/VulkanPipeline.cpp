@@ -296,7 +296,6 @@ namespace lw
 		Pipeline& Pipeline::addDynamicState(VkDynamicState state)
 		{
 			checkInitNotCreated();
-			m_dynamicStates.clear();
 			m_dynamicStates.push(state);
 			return *this;
 		}

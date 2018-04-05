@@ -60,10 +60,6 @@ public:
 		}
 
 		
-
-
-
-
 		va[0].color = lw::Color(ABSSIN(run * 0.0001), ABSSIN(run * 0.0003), ABSSIN(run * 0.0002 + 2));
 		va[1].color = lw::Color(ABSSIN(run * 0.0003 + 3), ABSSIN(run * 0.0002 + 2), ABSSIN(run * 0.0001 + 1));
 		va[2].color = lw::Color(ABSSIN(run * 0.0002 + 1), ABSSIN(run * 0.0001 + 3), ABSSIN(run * 0.0003 + 2));
@@ -78,12 +74,6 @@ void vk()
 	int run = 0;
 
 	lw::init();
-
-	lw::DynamicArray<int> da;
-	da.push(321);
-	da.push(23461);
-	da.push(23462431);
-	std::cout << da[2] << std::endl;
 
 	lw::Random rand;
 	lw::RenderWindow window;

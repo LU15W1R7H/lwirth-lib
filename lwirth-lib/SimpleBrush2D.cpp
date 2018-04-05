@@ -16,10 +16,10 @@ namespace lw
 		if (!m_ready)throw NotReadyException("SimpleBrush2D is not ready.");
 
 		float pushConstantsPos[6] = { tri->m_vertices[0].pos.x / m_screenWidth * 2.f - 1.f, tri->m_vertices[0].pos.y / m_screenHeight * 2.f - 1.f, tri->m_vertices[1].pos.x / m_screenWidth * 2.f - 1.f, tri->m_vertices[1].pos.y / m_screenHeight * 2.f - 1.f, tri->m_vertices[2].pos.x / m_screenWidth * 2.f - 1.f, tri->m_vertices[2].pos.y / m_screenHeight * 2.f - 1.f };
-		vkCmdPushConstants(m_pCmdBuffer->raw(), m_pipeline.getLayout(), VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(float) * 6, pushConstantsPos);
+		vkCmdPushConstants(m_pCmdBuffer->raw(), m_trianglePipeline.getLayout(), VK_SHADER_STAGE_VERTEX_BIT, 0, sizeof(float) * 6, pushConstantsPos);
 
 		float pushConstantsColor[4] = { tri->m_vertices[0].color.r, tri->m_vertices[0].color.g, tri->m_vertices[0].color.b, tri->m_vertices[0].color.a };
-		vkCmdPushConstants(m_pCmdBuffer->raw(), m_pipeline.getLayout(), VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(float) * 4, pushConstantsColor);
+		vkCmdPushConstants(m_pCmdBuffer->raw(), m_trianglePipeline.getLayout(), VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(float) * 4, pushConstantsColor);
 
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, Triangle::s_vertexBuffer.ptr(), offsets);
@@ -66,24 +66,42 @@ namespace lw
 
 	void SimpleBrush2D::createPipeline()
 	{
-		m_pipeline.init(m_screenWidth, m_screenHeight);
-		m_pipeline.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-		m_pipeline.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
-		m_pipeline.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
-		m_pipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
-		m_pipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipeline.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
+		m_trianglePipeline.init(m_screenWidth, m_screenHeight);
+		m_trianglePipeline.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+		m_trianglePipeline.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+		m_trianglePipeline.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
+		m_trianglePipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
+		m_trianglePipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
+		m_trianglePipeline.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
+		
+		m_linePipeline.setTopology(VK_PRIMITIVE_TOPOLOGY_LINE_LIST);
+		m_linePipeline.setPolygonMode(VK_POLYGON_MODE_LINE);
 	}
 
 	void SimpleBrush2D::destroyPipeline()
 	{
-		m_pipeline.destroy();
+		m_trianglePipeline.destroy();
 	}
 
-	void SimpleBrush2D::prepare(const VK::CommandBuffer* cmdBuffer)
+	void SimpleBrush2D::prepare(const VK::CommandBuffer* cmd)
 	{
-		m_pCmdBuffer = cmdBuffer;
-		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipeline.raw());
+		m_pCmdBuffer = cmd;
+		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_trianglePipeline.raw());
+
+		VkViewport viewport;
+		viewport.x = 0.f;
+		viewport.y = 0.f;
+		viewport.width = static_cast<F32>(m_screenWidth);
+		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.minDepth = 0.f;
+		viewport.maxDepth = 1.f;
+
+		VkRect2D scissor;
+		scissor.offset = { 0, 0 };
+		scissor.extent = { m_screenWidth, m_screenHeight };
+
+		vkCmdSetViewport(cmd->raw(), 0, 1, &viewport);
+		vkCmdSetScissor(cmd->raw(), 0, 1, &scissor);
 
 		m_ready = true;
 	}
@@ -102,27 +120,6 @@ namespace lw
 
 		destroyPipeline();
 		createPipeline();
-
-		VK::CommandBuffer cmd;
-		cmd.allocate(&m_pVK->m_device, &m_pVK->m_commandPool);
-		cmd.beginSingleTime();
-
-		VkViewport viewport;
-		viewport.x = 0.f;
-		viewport.y = 0.f;
-		viewport.width = static_cast<F32>(m_screenWidth);
-		viewport.height = static_cast<F32>(m_screenHeight);
-		viewport.minDepth = 0.f;
-		viewport.maxDepth = 1.f;
-
-		VkRect2D scissor;
-		scissor.offset = { 0, 0 };
-		scissor.extent = { m_screenWidth, m_screenHeight };
-
-		vkCmdSetViewport(cmd.raw(), 0, 1, &viewport);
-		vkCmdSetScissor(cmd.raw(), 0, 1, &scissor);
-
-		cmd.endAndExecuteAndFree(m_pVK->m_device.getGraphicsQueue());
 	}
 
 }

@@ -1,5 +1,6 @@
 #include "lwirth.hpp"
 
+#include <iostream>
 #include <thread>
 #include <chrono>
 using namespace std::chrono_literals;
@@ -16,6 +17,4 @@ void sleep(float millisecs)
 int main()
 {
 	vk();
-	
-	std::cin.get();
 }

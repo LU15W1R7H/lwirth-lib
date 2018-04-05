@@ -33,23 +33,27 @@ namespace lw
 		U32 m_screenWidth;
 		U32 m_screenHeight;
 
-		const VK::Device* m_pDevice = nullptr;
+		bool m_ready = false;
+
+		VK::Vulkan* m_pVK = nullptr;
 		const VK::CommandBuffer* m_pCmdBuffer = nullptr;
-		const VK::CommandPool* m_pCommandPool = nullptr;
 
 	public:
 		void fillTriangle(const Triangle* tri);
 		void fillVertexArray(Vertex3DArray& vertexArray);
 
+
 	private:
-		void create(const VK::Device* pDevice, const VK::RenderPass* pRenderPass, const VK::CommandPool* pCommandPool, U32 screenWidth, U32 screenHeight);
+		void create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight);
 		void destroy();
 
-		void createPipeline(const VK::RenderPass* pRenderPass);
+		void createPipeline();
 		void destroyPipeline();
 
-		void prepareDrawing(const VK::CommandBuffer* cmdBuffer);
+		void prepare(const VK::CommandBuffer* cmdBuffer);
+		void disperse();
 
+		void resize(U32 screenWidth, U32 screenHeight);
 	};
 }
 

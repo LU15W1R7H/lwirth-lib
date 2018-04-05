@@ -104,19 +104,6 @@ namespace lw
 
 			vkCmdBeginRenderPass(m_drawingCommandBuffer.raw(), &rpbi, VK_SUBPASS_CONTENTS_INLINE);
 
-			VkViewport viewport;
-			viewport.x = 0.f;
-			viewport.y = 0.f;
-			viewport.width = m_screenWidth;
-			viewport.height = m_screenHeight;
-			viewport.minDepth = 0.f;
-			viewport.maxDepth = 1.f;
-			vkCmdSetViewport(m_drawingCommandBuffer.raw(), 0, 1, &viewport);
-
-			VkRect2D scissor;
-			scissor.offset = { 0, 0 };
-			scissor.extent = { m_screenWidth, m_screenHeight };
-			vkCmdSetScissor(m_drawingCommandBuffer.raw(), 0, 1, &scissor);
 
 			if(m_pSimpleBrush2D)m_pSimpleBrush2D->prepare(&m_drawingCommandBuffer);
 		}

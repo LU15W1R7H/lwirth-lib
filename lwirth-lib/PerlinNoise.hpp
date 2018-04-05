@@ -4,11 +4,6 @@
 # include <algorithm>
 # include <random>
 
-#ifdef COMPILE_LWIRTH
-#define API __declspec(dllexport)
-#else
-#define API __declspec(dllimport)
-#endif
 
 namespace siv
 {

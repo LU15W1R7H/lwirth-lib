@@ -12,8 +12,6 @@
 #include "Triangle.hpp"
 #include "Vertices.hpp"
 
-#include "Random.hpp"
-
 namespace lw
 {
 	namespace VK
@@ -26,9 +24,13 @@ namespace lw
 	{
 		friend class VK::Vulkan;
 	private:
-		VK::Pipeline m_pipeline;
+		VK::Pipeline m_trianglePipeline;
 		VK::VertexShader m_vertexShader;
 		VK::FragmentShader m_fragmentShader;
+
+		VK::Pipeline m_linePipeline;
+
+		VK::Pipeline m_pointPipeline;
 
 		U32 m_screenWidth;
 		U32 m_screenHeight;
@@ -52,8 +54,7 @@ namespace lw
 		void prepare(const VK::CommandBuffer* cmdBuffer);
 		void disperse();
 
-	public:
-		void resize(U32 m_screenWidth, U32 m_screenHeight);
+		void resize(U32 screenWidth, U32 screenHeight);
 	};
 }
 
