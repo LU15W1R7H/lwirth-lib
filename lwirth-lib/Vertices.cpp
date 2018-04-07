@@ -21,9 +21,19 @@ namespace lw
 		resize(size);
 	}
 
+	Vertex2DArray::Vertex2DArray()
+	{
+		resize(0);
+	}
+
 	U32 Vertex2DArray::size() const
 	{
 		return m_vertices.size();
+	}
+
+	bool Vertex2DArray::isEmpty() const
+	{
+		return m_vertices.isEmpty();
 	}
 
 	void Vertex2DArray::resize(U32 newSize)
@@ -41,6 +51,25 @@ namespace lw
 	Vertex2D& Vertex2DArray::operator[](U32 index)
 	{
 		return at(index);
+	}
+
+	void Vertex2DArray::push(const Vertex2D & vertex)
+	{
+		m_needsUpdate = true;
+		m_vertices.push(vertex);
+	}
+
+	void Vertex2DArray::push(const Vertex2D && vertex)
+	{
+		m_needsUpdate = true;
+		m_vertices.push(vertex);
+	}
+
+	void Vertex2DArray::clear()
+	{
+		m_vertices.clear();
+		m_buffer.destroy();
+		m_needsUpdate = true;
 	}
 
 	void Vertex2DArray::updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool)

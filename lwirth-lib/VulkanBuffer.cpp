@@ -105,6 +105,19 @@ namespace lw
 			commandBuffer.endAndExecuteAndFree(pQueue);
 		}
 
+		void Buffer::destroy()
+		{
+			if (!exists())return;
+
+			vkDestroyBuffer(m_pDevice->raw(), m_buffer, nullptr);
+			m_buffer = VK_NULL_HANDLE;
+			vkFreeMemory(m_pDevice->raw(), m_memory, nullptr);
+			m_memory = VK_NULL_HANDLE;
+
+			m_size = 0;
+			m_pDevice = nullptr;
+		}
+
 		void CPUBuffer::allocate(const Device* pDevice, U32 byteSize, VkBufferUsageFlags usage, VkSharingMode sharingMode)
 		{
 			if (exists())throw AlreadyCreatedException();

@@ -61,9 +61,11 @@ namespace lw
 			U32 m_screenHeight = 0;
 
 			U32 m_imageIndex = 0;
+
+			lw::DynamicArray<Buffer> m_bufferDestroyQueue = {};
 		public:
-			Vulkan() {}
-			~Vulkan() {}
+			Vulkan() = default;
+			~Vulkan() = default;
 
 			//void init();
 			void start(const Frame* pFrame);
@@ -74,8 +76,12 @@ namespace lw
 			void postDraw();
 
 			void resize(U32 width, U32 height);
+
+			void submitBufferToDestroy(const Buffer& buffer);
 		private:
 			void recreateSwapchain();
+			
+			void destroyPendingBuffers();
 		};
 	}
 	

@@ -39,6 +39,7 @@ namespace lw
 			//destroy rest
 
 			if (m_pSimpleBrush2D)m_pSimpleBrush2D->destroy();
+			delete m_pSimpleBrush2D;
 
 			m_descriptorPool.destroy();
 
@@ -144,6 +145,7 @@ namespace lw
 
 			m_fence.wait();
 			m_drawingCommandBuffer.free();
+			destroyPendingBuffers();
 		}
 
 
@@ -159,6 +161,11 @@ namespace lw
 			m_screenHeight = height;
 
 			recreateSwapchain();
+		}
+
+		void Vulkan::submitBufferToDestroy(const Buffer& buffer)
+		{
+			m_bufferDestroyQueue.push(buffer);
 		}
 
 		void Vulkan::recreateSwapchain()
@@ -179,6 +186,16 @@ namespace lw
 			m_swapchain.destroy();
 			m_swapchain = newChain;
 		}
+
+		void Vulkan::destroyPendingBuffers()
+		{
+			for (size_t i = 0; i < m_bufferDestroyQueue.size(); i++)
+			{
+				m_bufferDestroyQueue[i].destroy();
+			}
+			m_bufferDestroyQueue.clear();
+		}
+
 	}
 
 }

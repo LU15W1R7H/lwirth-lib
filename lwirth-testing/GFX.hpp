@@ -90,11 +90,21 @@ void vk()
 
 		window.update();
 		auto brush = window.getVulkan()->getSimpleBrush2D();
+		brush->setColor(1.f, 0.f, 0.f);
 		window.preDraw();
 		boi.update1();
 		boi2.update2();
-		brush->fillVertexArray(boi.va);
-		brush->fillVertexArray(boi2.va);
+		brush->drawVertexArray(boi.va);
+		brush->drawVertexArray(boi2.va);
+
+		for (F32 i = -1; i < 1; i+=0.1f)
+		{
+			for (F32 j = -1; j < 1; j += 0.1f)
+			{
+				brush->setColor(rand.nextColor());
+				brush->drawLine(i, j, 0, 0);
+			}
+		}
 
 		window.postDraw();
 

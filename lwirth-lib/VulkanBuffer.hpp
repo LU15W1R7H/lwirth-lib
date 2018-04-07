@@ -14,7 +14,7 @@ namespace lw
 		class CommandPool;
 		class Queue;
 		
-		class API Buffer //pure virtual
+		class API Buffer //virtual
 		{
 		protected:
 			VkBuffer			m_buffer	= VK_NULL_HANDLE;
@@ -26,7 +26,7 @@ namespace lw
 			Buffer() = default;
 			~Buffer() = default;
 
-			virtual void destroy() = 0;
+			virtual void destroy();
 
 			VkBuffer raw() const;
 			VkDeviceMemory memory() const;

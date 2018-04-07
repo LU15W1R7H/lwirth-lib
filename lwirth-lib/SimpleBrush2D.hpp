@@ -40,9 +40,21 @@ namespace lw
 		VK::Vulkan* m_pVK = nullptr;
 		const VK::CommandBuffer* m_pCmdBuffer = nullptr;
 
+		Color m_mainColor;
+		VK::GPUBuffer m_triangleLineIndexBuffer;
+		Vertex2DArray m_lineVertexArray;
+
 	public:
+		SimpleBrush2D() = default;
+		~SimpleBrush2D() = default;
+
+		void setColor(const Color& color);
+		void setColor(F32 r, F32 g, F32 b, F32 a = 1.f);
 		void fillTriangle(const Triangle* tri);
 		void fillVertexArray(Vertex2DArray& vertexArray);
+		void drawVertexArray(Vertex2DArray& vertexArray);
+		void drawLine(const Vertex2D& start, const Vertex2D& end);
+		void drawLine(F32 x1, F32 y1, F32 x2, F32 y2);
 
 	private:
 		void create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight);
@@ -55,6 +67,8 @@ namespace lw
 		void disperse();
 
 		void resize(U32 screenWidth, U32 screenHeight);
+
+		void drawAllLines();
 	};
 }
 

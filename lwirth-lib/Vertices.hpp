@@ -46,14 +46,18 @@ namespace lw
 
 		void updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool);
 	public:
+		Vertex2DArray();
 		Vertex2DArray(U32 size);
 		~Vertex2DArray() = default;
 
 		U32 size() const;
+		bool isEmpty() const;
 		void resize(U32 newSize);
 		Vertex2D& at(U32 index);
 		Vertex2D& operator[](U32 index);
-
+		void push(const Vertex2D&);
+		void push(const Vertex2D&&);
+		void clear();
 	};
 
 	class API Vertex3DArray

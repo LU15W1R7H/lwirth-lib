@@ -206,7 +206,7 @@ namespace lw
 	template<typename T>
 	inline T* DynamicArray<T>::end()
 	{
-		return &m_pData[m_size - 1];
+		return m_size ? &m_pData[m_size - 1] : &m_pData[0];
 	}
 
 	template<typename T>
