@@ -5,5 +5,6 @@
 int main()
 {
 	vk();
+
 	std::cin.get();
 }

@@ -44,6 +44,7 @@ namespace lw
 		const T* begin() const; //#TODO: use iterators
 		T* end();
 		const T* end() const;
+		DynamicArray& reserve(size_t memNeeded);
 		DynamicArray& resize(size_t newSize);
 		DynamicArray& push(const T& element);
 		DynamicArray& push(const T&& element);
@@ -224,9 +225,16 @@ namespace lw
 	}
 
 	template<typename T>
+	inline DynamicArray<T>& DynamicArray<T>::reserve(size_t memNeeded)
+	{
+		growIfNeeded(memNeeded);
+		return *this;
+	}
+
+	template<typename T>
 	inline DynamicArray<T>& DynamicArray<T>::push(const T& element)
 	{
-		growIfNeeded(1);
+		growIfNeeded(m_size + 1);
 		m_pData[m_size] = element;
 		m_size++;
 
@@ -249,8 +257,7 @@ namespace lw
 	template<typename T>
 	inline DynamicArray<T>& DynamicArray<T>::clear()
 	{
-		destroy();
-		allocate(ALLOCATE_STEPS);
+		m_size = 0;
 
 		return *this;
 	}
@@ -266,28 +273,29 @@ namespace lw
 	}
 
 	template<typename T>
-	inline void DynamicArray<T>::growIfNeeded(size_t addedElemsCount)
+	inline void DynamicArray<T>::growIfNeeded(size_t neededCap)
 	{
-		size_t capReq = addedElemsCount + m_size;
-		if (capReq < m_capacity)return;
-		size_t allocSize = capReq - m_capacity;
-		if (allocSize < ALLOCATE_STEPS)allocSize = ALLOCATE_STEPS;
-		allocate(allocSize);
+		if (neededCap <= m_capacity)return;
+		size_t newCap = neededCap;
+		if (m_capacity - newCap < ALLOCATE_STEPS)newCap += ALLOCATE_STEPS;
+		allocate(newCap);
 	}
 
 	template<typename T>
-	inline void DynamicArray<T>::allocate(size_t newAllocationsCount)
+	inline void DynamicArray<T>::allocate(size_t newCapacity)
 	{
-		size_t newCap = m_capacity + newAllocationsCount;
-		auto* pNewData = new T[newCap];
+		auto* pNewData = new T[newCapacity];
 
 		if (m_capacity != 0)
 		{
 			memcpy(pNewData, m_pData, sizeof(T) * m_size);
 		}
+		delete[] m_pData;
 
-		m_capacity = newCap;
+		m_capacity = newCapacity;
 		m_pData = pNewData;
+
+
 	}
 
 }

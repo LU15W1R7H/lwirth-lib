@@ -137,8 +137,7 @@ namespace lw
 			stagingBuffer.destroy();
 		}
 
-	
-		
+
 
 		Triangle::s_init(&m_pVK->m_device, &m_pVK->m_commandPool);
 	}
@@ -187,7 +186,9 @@ namespace lw
 	void SimpleBrush2D::prepare(const VK::CommandBuffer* cmd)
 	{
 		m_pCmdBuffer = cmd;
-		
+
+		m_lineVertexArray.clear();
+
 
 		m_ready = true;
 	}
@@ -213,8 +214,30 @@ namespace lw
 
 	void SimpleBrush2D::drawAllLines()
 	{
-		drawVertexArray(m_lineVertexArray);
-		m_lineVertexArray.clear();
+		if (m_lineVertexArray.isEmpty())return;
+
+		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_linePipeline.raw());
+
+		VkViewport viewport;
+		viewport.x = 0.f;
+		viewport.y = 0.f;
+		viewport.width = static_cast<F32>(m_screenWidth);
+		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.minDepth = 0.f;
+		viewport.maxDepth = 1.f;
+
+		VkRect2D scissor;
+		scissor.offset = { 0, 0 };
+		scissor.extent = { m_screenWidth, m_screenHeight };
+
+		vkCmdSetViewport(m_pCmdBuffer->raw(), 0, 1, &viewport);
+		vkCmdSetScissor(m_pCmdBuffer->raw(), 0, 1, &scissor);
+
+		m_lineVertexArray.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
+
+		VkDeviceSize offsets[] = { 0 };
+		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, m_lineVertexArray.m_buffer.ptr(), offsets);
+		vkCmdDraw(m_pCmdBuffer->raw(), m_lineVertexArray.size(), 1, 0, 0);
 	}
 
 }
