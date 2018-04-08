@@ -33,7 +33,7 @@ namespace lw
 		Color color;
 	};
 
-	//#TODO: Use special allocator not dynamic allocation... especially for drawing lines with SimpleBrush2D
+	//#TODO: Use special allocator, not dynamic allocation... especially for drawing lines with SimpleBrush2D
 	class API Vertex2DArray
 	{
 		friend class SimpleBrush2D;

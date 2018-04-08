@@ -109,8 +109,20 @@ namespace lw
 
 	void SimpleBrush2D::drawLine(F32 x1, F32 y1, F32 x2, F32 y2)
 	{
+		if (!m_ready)throw NotReadyException("SimpleBrush2D is not ready.");
+
 		m_lineVertexArray.push(Vertex2D({ x1, y1 }, m_mainColor));
 		m_lineVertexArray.push(Vertex2D({ x2, y2 }, m_mainColor));
+	}
+
+	void SimpleBrush2D::drawPoint(const Vertex2D & pos)
+	{
+		m_pointVertexArray.push(pos);
+	}
+
+	void SimpleBrush2D::drawPoint(F32 x, F32 y)
+	{
+		m_pointVertexArray.push(Vertex2D({ x, y }, m_mainColor));
 	}
 
 	void SimpleBrush2D::create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight)
@@ -137,7 +149,7 @@ namespace lw
 			stagingBuffer.destroy();
 		}
 
-
+		m_pointVertexArray.m_vertices.reserve(9000000);
 
 		Triangle::s_init(&m_pVK->m_device, &m_pVK->m_commandPool);
 	}
@@ -174,11 +186,21 @@ namespace lw
 		m_linePipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
 		m_linePipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
 		m_linePipeline.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
-		
+
+		m_pointPipeline.init(m_screenWidth, m_screenHeight);
+		m_pointPipeline.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
+		m_pointPipeline.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
+		m_pointPipeline.setTopology(VK_PRIMITIVE_TOPOLOGY_POINT_LIST);
+		m_pointPipeline.setPolygonMode(VK_POLYGON_MODE_POINT);
+		m_pointPipeline.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
+		m_pointPipeline.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
+		m_pointPipeline.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
+		m_pointPipeline.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 	}
 
 	void SimpleBrush2D::destroyPipeline()
 	{
+		m_pointPipeline.destroy();
 		m_linePipeline.destroy();
 		m_trianglePipeline.destroy();
 	}
@@ -188,6 +210,7 @@ namespace lw
 		m_pCmdBuffer = cmd;
 
 		m_lineVertexArray.clear();
+		m_pointVertexArray.clear();
 
 
 		m_ready = true;
@@ -196,6 +219,7 @@ namespace lw
 	void SimpleBrush2D::disperse()
 	{
 		drawAllLines();
+		drawAllPoints();
 
 
 		m_pCmdBuffer = nullptr;
@@ -238,6 +262,34 @@ namespace lw
 		VkDeviceSize offsets[] = { 0 };
 		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, m_lineVertexArray.m_buffer.ptr(), offsets);
 		vkCmdDraw(m_pCmdBuffer->raw(), m_lineVertexArray.size(), 1, 0, 0);
+	}
+
+	void SimpleBrush2D::drawAllPoints()
+	{
+		if (m_pointVertexArray.isEmpty())return;
+
+		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_pointPipeline.raw());
+
+		VkViewport viewport;
+		viewport.x = 0.f;
+		viewport.y = 0.f;
+		viewport.width = static_cast<F32>(m_screenWidth);
+		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.minDepth = 0.f;
+		viewport.maxDepth = 1.f;
+
+		VkRect2D scissor;
+		scissor.offset = { 0, 0 };
+		scissor.extent = { m_screenWidth, m_screenHeight };
+
+		vkCmdSetViewport(m_pCmdBuffer->raw(), 0, 1, &viewport);
+		vkCmdSetScissor(m_pCmdBuffer->raw(), 0, 1, &scissor);
+
+		m_pointVertexArray.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
+
+		VkDeviceSize offsets[] = { 0 };
+		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, m_pointVertexArray.m_buffer.ptr(), offsets);
+		vkCmdDraw(m_pCmdBuffer->raw(), m_pointVertexArray.size(), 1, 0, 0);
 	}
 
 }

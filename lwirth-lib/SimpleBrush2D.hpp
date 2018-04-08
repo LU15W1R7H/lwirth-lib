@@ -42,7 +42,9 @@ namespace lw
 
 		Color m_mainColor;
 		VK::GPUBuffer m_triangleLineIndexBuffer;
+
 		Vertex2DArray m_lineVertexArray;
+		Vertex2DArray m_pointVertexArray;
 
 	public:
 		SimpleBrush2D() = default;
@@ -55,6 +57,8 @@ namespace lw
 		void drawVertexArray(Vertex2DArray& vertexArray);
 		void drawLine(const Vertex2D& start, const Vertex2D& end);
 		void drawLine(F32 x1, F32 y1, F32 x2, F32 y2);
+		void drawPoint(const Vertex2D& pos);
+		void drawPoint(F32 x, F32 y);
 
 	private:
 		void create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight);
@@ -69,6 +73,7 @@ namespace lw
 		void resize(U32 screenWidth, U32 screenHeight);
 
 		void drawAllLines();
+		void drawAllPoints();
 	};
 }
 

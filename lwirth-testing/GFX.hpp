@@ -71,7 +71,7 @@ public:
 
 void vk()
 {
-	int run = 0;
+	F32 run = 0;
 
 	lw::init();
 
@@ -85,28 +85,39 @@ void vk()
 
 	lw::Root& r = lw::Root::get();
 
+	lw::Color color;
+
 	while (window.isOpen())
 	{
-
+		run+= 1;
 		window.update();
 		auto brush = window.getVulkan()->getSimpleBrush2D();
 		
-		brush->setColor(1.f, 0.f, 0.f);
 		window.preDraw();
 
-		for (F32 i = -1; i < 1; i += 0.01f)
+		F32 step = 0.001f;
+		
+
+		for (F32 i = -1; i < 1; i+=step)
 		{
-			for (F32 j = -1; j < 1; j += 0.01f)
+			for (F32 j = -1; j < 1; j+=step)
 			{
-				brush->setColor(rand.nextColor());
-				brush->drawLine(i, j, 0, 0);
+				
+
+				color.r = -run * i + 3;
+				color.g = run * j + 6;
+				color.b = -run * (i + j) + 8;
+
+				brush->setColor(color);
+				brush->drawPoint(i, j);
 			}
+			
 		}
 
 		boi.update1();
 		boi2.update2();
-		brush->fillVertexArray(boi.va);
-		brush->fillVertexArray(boi2.va);
+		//brush->fillVertexArray(boi.va);
+		//brush->fillVertexArray(boi2.va);
 
 		
 

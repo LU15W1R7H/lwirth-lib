@@ -70,12 +70,14 @@ namespace lw
 			Pipeline& addVertexDescription(const VkVertexInputAttributeDescription& viad);
 			Pipeline& addVertexDescription(U32 location, U32 binding, VkFormat format, U32 offset);
 			Pipeline& setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, F32 minDepthBounds, F32 maxDepthBounds);
+			//Pipeline& setMultisampling(VkSampleCountFlagBits sampleCount, bool enableSampleShading, F32 minSampleShading, VkSampleMask sampleMask, bool enableAlphaToCoverage, bool enableAlphaToOne);
 			Pipeline& addDesciptorSetLayout(const VkDescriptorSetLayout& dsl);
 			Pipeline& addPushConstantRange(const VkPushConstantRange& pcr);
 			Pipeline& addPushConstantRange(VkShaderStageFlags stageFlags, U32 offset, U32 size);
 
-			//#TODO: setMultisample()
 			//#TODO: setTesselationState()
+
+
 
 		private:
 			void checkInitNotCreated();
