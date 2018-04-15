@@ -28,7 +28,7 @@ namespace lw
 			void create(const Device* pDevice);
 			void destroy();
 
-			void wait(U64 timeout = std::numeric_limits<U64>::max());
+			void wait(u64 timeout = std::numeric_limits<u64>::max());
 			void reset();
 
 			VkFence raw() const;

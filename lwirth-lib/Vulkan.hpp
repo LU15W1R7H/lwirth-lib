@@ -59,10 +59,10 @@ namespace lw
 			SimpleBrush2D* m_pSimpleBrush2D = nullptr;
 			SimpleBrush3D* m_pSimpleBrush3D = nullptr;
 
-			U32 m_screenWidth = 0;
-			U32 m_screenHeight = 0;
+			u32 m_screenWidth = 0;
+			u32 m_screenHeight = 0;
 
-			U32 m_imageIndex = 0;
+			u32 m_imageIndex = 0;
 
 			lw::DynamicArray<Buffer> m_bufferDestroyQueue = {};
 		public:
@@ -78,7 +78,7 @@ namespace lw
 			void preDraw();
 			void postDraw();
 
-			void resize(U32 width, U32 height);
+			void resize(u32 width, u32 height);
 
 			void submitBufferToDestroy(const Buffer& buffer);
 		private:

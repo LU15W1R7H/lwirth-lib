@@ -10,7 +10,7 @@ namespace lw
 	{
 	}
 
-	Random::Random(U32 seed)
+	Random::Random(u32 seed)
 		: m_mt(seed)
 	{
 	}
@@ -19,7 +19,7 @@ namespace lw
 	{
 	}
 
-	void Random::setSeed(U32 seed)
+	void Random::setSeed(u32 seed)
 	{
 		m_mt.setSeed(seed);
 	}
@@ -30,64 +30,64 @@ namespace lw
 	
 
 
-	U32 Random::nextU32()
+	u32 Random::nextU32()
 	{
 		return m_mt.next();
 	}
 
-	U32 Random::nextU32(U32 min, U32 max)
+	u32 Random::nextU32(u32 min, u32 max)
 	{
-		return mapRandom<U32>(min, max);
+		return mapRandom<u32>(min, max);
 	}
 
-	U32 Random::nextU32(U32 max)
+	u32 Random::nextU32(u32 max)
 	{
-		return mapRandom<U32>(0, max);
+		return mapRandom<u32>(0, max);
 	}
 
-	I32 Random::nextI32(I32 min, I32 max)
+	i32 Random::nextI32(i32 min, i32 max)
 	{
-		return mapRandom<I32>(min, max);
+		return mapRandom<i32>(min, max);
 	}
 
-	I32 Random::nextI32(I32 max)
+	i32 Random::nextI32(i32 max)
 	{
 		return nextI32(0, max);
 	}
 
-	F32 Random::nextF32()
+	f32 Random::nextF32()
 	{
 		return nextF32(0.f, 1.f);
 	}
 
-	F32 Random::nextF32(F32 min, F32 max)
+	f32 Random::nextF32(f32 min, f32 max)
 	{
-		return mapRandom<F32>(min, max);
+		return mapRandom<f32>(min, max);
 	}
 
-	F32 Random::nextF32(F32 max)
+	f32 Random::nextF32(f32 max)
 	{
 		return nextF32(0.f, max);
 	}
 
-	D64 Random::nextD64()
+	d64 Random::nextD64()
 	{
 		return nextD64(0.0, 1.0);
 	}
 
-	D64 Random::nextD64(D64 min, D64 max)
+	d64 Random::nextD64(d64 min, d64 max)
 	{
-		return mapRandom<D64>(min, max);
+		return mapRandom<d64>(min, max);
 	}
 
-	D64 Random::nextD64(D64 max)
+	d64 Random::nextD64(d64 max)
 	{
 		return nextD64(0.0, max);
 	}
 
 	bool Random::nextBool()
 	{
-		return nextU32() > std::numeric_limits<U32>::max() / 2;
+		return nextU32() > std::numeric_limits<u32>::max() / 2;
 	}
 
 	char Random::nextChar()
@@ -105,37 +105,37 @@ namespace lw
 		return DIGITS.at(nextIndex(DIGITS.size()));
 	}
 
-	std::string Random::nextString(Size length)
+	std::string Random::nextString(size_t length)
 	{
 		std::string s = "";
-		for (Size i = 0; i < length; i++)
+		for (size_t i = 0; i < length; i++)
 		{
 			s += nextChar();
 		}
 		return s;
 	}
 
-	Size Random::nextIndex(Size min, Size max)
+	size_t Random::nextIndex(size_t min, size_t max)
 	{
-		return mapRandom<Size>(min, max - 1);
+		return mapRandom<size_t>(min, max - 1);
 	}
 
-	Size Random::nextIndex(Size max)
+	size_t Random::nextIndex(size_t max)
 	{
 		return nextIndex(0, max);
 	}
 
-	F32 Random::nextAngle()
+	f32 Random::nextAngle()
 	{
-		return mapRandom<F32>(0.f, PI2);
+		return mapRandom<f32>(0.f, PI2);
 	}
 
-	Vec2 Random::nextVector2(F32 minX, F32 maxX, F32 minY, F32 maxY)
+	Vec2 Random::nextVector2(f32 minX, f32 maxX, f32 minY, f32 maxY)
 	{
 		return Vec2(nextF32(minX, maxX), nextF32(minY, maxY));
 	}
 
-	Vec2 Random::nextVector2(F32 maxX, F32 maxY)
+	Vec2 Random::nextVector2(f32 maxX, f32 maxY)
 	{
 		return nextVector2(0.f, maxX, 0.f, maxY);
 	}
@@ -173,7 +173,7 @@ namespace lw
 	template<typename T>
 	T Random::mapRandom(T min, T max)
 	{
-		return map<U32, T>(nextU32(), std::numeric_limits<U32>::min(), std::numeric_limits<U32>::max(), min, max);
+		return map<u32, T>(nextU32(), std::numeric_limits<u32>::min(), std::numeric_limits<u32>::max(), min, max);
 	}
 
 }

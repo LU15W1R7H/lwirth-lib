@@ -22,7 +22,7 @@ namespace lw
 		{
 		private:
 			VkSwapchainKHR	m_swapchain		= VK_NULL_HANDLE;
-			U32				m_imageCount	= 0;
+			u32				m_imageCount	= 0;
 			VkImage*		m_images		= nullptr;
 			VkImageView*	m_imageViews	= nullptr;
 			VkFramebuffer*	m_frameBuffers	= nullptr;
@@ -34,15 +34,15 @@ namespace lw
 			Swapchain() = default;
 			~Swapchain() = default;
 
-			void create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, U32 width, U32 height, Swapchain* pOldSwapchain = nullptr);
+			void create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, u32 width, u32 height, Swapchain* pOldSwapchain = nullptr);
 			void destroy();
 
 			VkSwapchainKHR raw() const;
 			VkSwapchainKHR* ptr();
 			
-			VkFramebuffer getFramebuffer(U32 index) const;
+			VkFramebuffer getFramebuffer(u32 index) const;
 		private:
-			void chooseExtent(U32 width, U32 height);
+			void chooseExtent(u32 width, u32 height);
 			void chooseImageCount();
 
 			void setupImages();

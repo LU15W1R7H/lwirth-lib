@@ -29,7 +29,7 @@ namespace lw
 			void find(const PhysicalDevice* pDevice, const Surface* pSurface, const QueueFamilies* pQueueFamilies);
 		public:
 			bool complete() const;
-			DynamicArray<U32> getIndices() const;
+			DynamicArray<u32> getIndices() const;
 
 			const QueueFamily* getGraphics() const;
 			const QueueFamily* getPresent() const;
@@ -49,7 +49,7 @@ namespace lw
 			lw::DynamicArray<VkExtensionProperties>		m_extensionProperties		= {};
 			QueueFamilies							m_queueFamilies				= {};
 			SelectedQueueFamilies					m_selectedQueueFamilies		= {};
-			U32										m_rating					= 0;
+			u32										m_rating					= 0;
 			
 			const static lw::DynamicArray<std::string>	s_extensions;
 

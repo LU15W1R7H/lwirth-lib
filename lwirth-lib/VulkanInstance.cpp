@@ -20,7 +20,7 @@ namespace lw
 			if (m_instance != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
-		void Instance::create(std::string& appName, U32 ver_major, U32 ver_minor, U32 ver_patch)
+		void Instance::create(std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch)
 		{
 			if (m_instance != VK_NULL_HANDLE)throw AlreadyCreatedException();
 
@@ -37,7 +37,7 @@ namespace lw
 			if (!layersAvailable(s_layers))throw VulkanException("Layers are not available");
 
 			//extensions
-			U32 glfwExtensionCount = 0;
+			u32 glfwExtensionCount = 0;
 			const char** glfwExtensions;
 			glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
@@ -79,7 +79,7 @@ namespace lw
 
 		bool Instance::layersAvailable(lw::DynamicArray<const char*>& layers)
 		{
-			U32 layerCount;
+			u32 layerCount;
 			vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
 			lw::DynamicArray<VkLayerProperties> availableLayers(layerCount);
 			vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.raw());

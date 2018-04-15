@@ -24,15 +24,15 @@ namespace lw
 		{
 		private:
 			QueueFamily* m_families = nullptr;
-			U32 m_count = 0;
+			u32 m_count = 0;
 
 		public:
 			bool exists() const;
 			void init(const PhysicalDevice* pDevice);
 			void deinit();
 
-			U32 count() const;
-			const QueueFamily* get(U32 index) const;
+			u32 count() const;
+			const QueueFamily* get(u32 index) const;
 		};
 
 		class API QueueFamily //pure virtual
@@ -43,12 +43,12 @@ namespace lw
 
 		public:
 			bool exists() const;
-			void init(U32 index, const VkQueueFamilyProperties& pProperties);
+			void init(u32 index, const VkQueueFamilyProperties& pProperties);
 			void deinit();
 
-			U32 getIndex() const;
+			u32 getIndex() const;
 			const VkQueueFamilyProperties& getProperties() const;
-			Queue getQueue(const Device* pDevice, U32 index) const;
+			Queue getQueue(const Device* pDevice, u32 index) const;
 		};
 
 		class API Queue
@@ -57,7 +57,7 @@ namespace lw
 			VkQueue m_queue;
 
 		public:
-			void init(const Device* pDevice, const QueueFamily* pFamily, U32 index);
+			void init(const Device* pDevice, const QueueFamily* pFamily, u32 index);
 			void clear();
 
 			bool exists() const;

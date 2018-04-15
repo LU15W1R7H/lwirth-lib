@@ -7,15 +7,15 @@ namespace lw
 	class API Color
 	{
 	public:
-		Color(F32 r, F32 g, F32 b, F32 a = 1.f);
-		Color(U32 color);
+		Color(f32 r, f32 g, f32 b, f32 a = 1.f);
+		Color(u32 color);
 		Color();
 		~Color() = default;
 
-		F32 r;
-		F32 g;
-		F32 b;
-		F32 a;
+		f32 r;
+		f32 g;
+		f32 b;
+		f32 a;
 
 		static Color red;
 		static Color green;

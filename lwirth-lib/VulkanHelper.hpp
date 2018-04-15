@@ -20,7 +20,7 @@ namespace lw
 		API extern bool isFormatSupported(const PhysicalDevice* physicalDevice, VkFormat format, VkImageTiling tiling, VkFormatFeatureFlags features);
 		API extern VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::DynamicArray<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 		API extern bool hasStencilComponent(VkFormat format);
-		API extern U32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, U32 typeFilter, VkMemoryPropertyFlags properties);
+		API extern u32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, u32 typeFilter, VkMemoryPropertyFlags properties);
 	}
 }
 

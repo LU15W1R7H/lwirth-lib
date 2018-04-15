@@ -7,20 +7,20 @@ namespace lw
 	class API PerlinNoise
 	{
 	private:
-		I32 m_p[512];
+		i32 m_p[512];
 
 	public:
-		explicit PerlinNoise(U32 seed);
-		void reseed(U32 seed);
+		explicit PerlinNoise(u32 seed);
+		void reseed(u32 seed);
 
-		F32 noise(F32 x, F32 y, F32 z) const;
-		F32 noise(F32 x, F32 y, F32 z, size_t octaves) const;
-		F32 noise0_1(F32 x, F32 y, F32 z) const;
-		F32 noise0_1(F32 x, F32 y, F32 z, size_t octaves) const;
+		f32 noise(f32 x, f32 y, f32 z) const;
+		f32 noise(f32 x, f32 y, f32 z, size_t octaves) const;
+		f32 noise0_1(f32 x, f32 y, f32 z) const;
+		f32 noise0_1(f32 x, f32 y, f32 z, size_t octaves) const;
 
 	private:
-		static F32 fade(F32 t) noexcept;
-		static F32 lerp(F32 t, F32 a, F32 b) noexcept;
-		static F32 grad(I32 hash, F32 x, F32 y, F32 z) noexcept;
+		static f32 fade(f32 t) noexcept;
+		static f32 lerp(f32 t, f32 a, f32 b) noexcept;
+		static f32 grad(i32 hash, f32 x, f32 y, f32 z) noexcept;
 	};
 }

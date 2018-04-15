@@ -33,7 +33,7 @@ namespace lw
 		{
 		}
 
-		Time::Time(F32 value)
+		Time::Time(f32 value)
 			: value(value)
 		{
 		}
@@ -65,7 +65,7 @@ namespace lw
 		{
 		}
 
-		Duration::Duration(F32 span)
+		Duration::Duration(f32 span)
 			: span(span)
 		{
 		}
@@ -80,12 +80,12 @@ namespace lw
 			span -= d.span;
 		}
 
-		void Duration::mul(F32 scalar)
+		void Duration::mul(f32 scalar)
 		{
 			span *= scalar;
 		}
 
-		void Duration::div(F32 divisor)
+		void Duration::div(f32 divisor)
 		{
 			span /= divisor;
 		}
@@ -102,13 +102,13 @@ namespace lw
 			return *this;
 		}
 
-		Duration& Duration::operator*=(F32 scalar)
+		Duration& Duration::operator*=(f32 scalar)
 		{
 			mul(scalar);
 			return *this;
 		}
 
-		Duration& Duration::operator/=(F32 divisor)
+		Duration& Duration::operator/=(f32 divisor)
 		{
 			div(divisor);
 			return *this;
@@ -159,12 +159,12 @@ namespace lw
 			return Duration(d1.span - d2.span);
 		}
 
-		Duration mul(const Duration& d, F32 scalar)
+		Duration mul(const Duration& d, f32 scalar)
 		{
 			return Duration(d.span * scalar);
 		}
 
-		Duration div(const Duration& d, F32 divisor)
+		Duration div(const Duration& d, f32 divisor)
 		{
 			return Duration(d.span / divisor);
 		}
@@ -179,22 +179,22 @@ namespace lw
 			return sub(d1, d2);
 		}
 
-		Duration operator*(const Duration& d, F32 scalar)
+		Duration operator*(const Duration& d, f32 scalar)
 		{
 			return mul(d, scalar);
 		}
 
-		Duration operator*(F32 scalar, const Duration& d)
+		Duration operator*(f32 scalar, const Duration& d)
 		{
 			return mul(d, scalar);
 		}
 
-		Duration operator/(const Duration& d, F32 scalar)
+		Duration operator/(const Duration& d, f32 scalar)
 		{
 			return div(d, scalar);
 		}
 
-		Duration operator/(F32 scalar, const Duration& d)
+		Duration operator/(f32 scalar, const Duration& d)
 		{
 			return div(d, scalar);
 		}

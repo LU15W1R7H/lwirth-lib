@@ -42,9 +42,9 @@ namespace lw
 		__m128 m_register;
 
 	public:
-		SIMDvector(F32 x, F32 y, F32 z, F32 w);
+		SIMDvector(f32 x, f32 y, f32 z, f32 w);
 
-		void set(F32 x, F32 y, F32 z, F32 w);
+		void set(f32 x, f32 y, f32 z, f32 w);
 
 		SIMDvector& operator+=(const SIMDvector& other);
 		SIMDvector& operator-=(const SIMDvector& other);
@@ -70,9 +70,9 @@ namespace lw
 		__m128 m_registers[4];
 
 	public:
-		SIMDmatrix(F32 x, F32 y, F32 z, F32 w);
+		SIMDmatrix(f32 x, f32 y, f32 z, f32 w);
 
-		void set(F32 x, F32 y, F32 z, F32 w);
+		void set(f32 x, f32 y, f32 z, f32 w);
 
 		SIMDmatrix& operator+=(const SIMDvector& other);
 		SIMDmatrix& operator-=(const SIMDvector& other);

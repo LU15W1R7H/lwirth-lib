@@ -6,7 +6,7 @@
 
 void vk()
 {
-	F32 run = 0;
+	f32 run = 0;
 
 	lw::init();
 

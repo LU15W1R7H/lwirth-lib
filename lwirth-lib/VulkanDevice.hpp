@@ -39,7 +39,7 @@ namespace lw
 			void create(const PhysicalDeviceContainer* physicalDevices, const Surface* surface);
 			void destroy();
 
-			Queue getQueue(QueueFamily* pFamily, U32 index) const;
+			Queue getQueue(QueueFamily* pFamily, u32 index) const;
 			void waitIdle() const;
 
 			VkDevice raw() const;

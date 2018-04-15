@@ -7,7 +7,7 @@
 
 namespace lw
 {
-	template<typename T, U32 LENGTH>
+	template<typename T, u32 LENGTH>
 	class Array
 	{
 	private:
@@ -22,7 +22,7 @@ namespace lw
 		Array(std::initializer_list<T> const& il)
 		{
 			static_assert(il.end() - il.begin() == LENGTH, "Wrong length");
-			Size i = 0;
+			size_t i = 0;
 			for (auto iter = 0; iter != il.end(); iter++)
 			{
 				m_pdata = *iter;
@@ -37,7 +37,7 @@ namespace lw
 
 		Array(Array<T, LENGTH>&& other)
 		{
-			for (Size i = 0; i < LENGTH; i++)
+			for (size_t i = 0; i < LENGTH; i++)
 			{
 				m_pdata[i] = std::move(other.m_pdata[i]);
 			}
@@ -51,7 +51,7 @@ namespace lw
 
 		Array& operator=(Array<T, LENGTH>&& other)
 		{
-			for (Size i = 0; i < LENGTH; i++)
+			for (size_t i = 0; i < LENGTH; i++)
 			{
 				m_pdata[i] = std::move(other.m_pdata[i]);
 			}
@@ -63,17 +63,17 @@ namespace lw
 
 		}
 
-		T& operator[](U32 index)
+		T& operator[](u32 index)
 		{
 			return m_pdata[index];
 		}
 
-		T const& operator[](U32 index) const
+		T const& operator[](u32 index) const
 		{
 			return m_pdata[index];
 		}
 
-		constexpr U32 size() const
+		constexpr u32 size() const
 		{
 			return LENGTH;
 		}

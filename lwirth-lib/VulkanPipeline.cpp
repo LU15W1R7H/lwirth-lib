@@ -18,7 +18,7 @@ namespace lw
 			if (m_pipeline != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
-		void Pipeline::init(U32 screenWidth, U32 screenHeight)
+		void Pipeline::init(u32 screenWidth, u32 screenHeight)
 		{
 			if (m_init)throw AlreadyInitializedException();
 
@@ -32,8 +32,8 @@ namespace lw
 				VkViewport viewport;
 				viewport.x = 0.f;
 				viewport.y = 0.f;
-				viewport.width = static_cast<F32>(screenWidth);
-				viewport.height = static_cast<F32>(screenHeight);
+				viewport.width = static_cast<f32>(screenWidth);
+				viewport.height = static_cast<f32>(screenHeight);
 				viewport.minDepth = 0.f;
 				viewport.maxDepth = 1.f;
 				m_viewports.push(viewport);
@@ -276,7 +276,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::setDepthBias(bool enable, F32 constFactor, F32 clamp, F32 slopeFactor)
+		Pipeline& Pipeline::setDepthBias(bool enable, f32 constFactor, f32 clamp, f32 slopeFactor)
 		{
 			checkInitNotCreated();
 			m_prsci.depthBiasEnable = enable ? VK_TRUE : VK_FALSE;
@@ -286,7 +286,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::setLineWidth(F32 width)
+		Pipeline& Pipeline::setLineWidth(f32 width)
 		{
 			checkInitNotCreated();
 			m_prsci.lineWidth = width;
@@ -300,7 +300,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::setColorBlending(const VkPipelineColorBlendAttachmentState& attachment, bool enableLogicOp, VkLogicOp logicOp, F32 blendConst0, F32 blendConst1, F32 blendConst2, F32 blendConst3)
+		Pipeline& Pipeline::setColorBlending(const VkPipelineColorBlendAttachmentState& attachment, bool enableLogicOp, VkLogicOp logicOp, f32 blendConst0, f32 blendConst1, f32 blendConst2, f32 blendConst3)
 		{
 			checkInitNotCreated();
 			m_cbas = attachment;
@@ -322,7 +322,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::addVertexBinding(U32 binding, U32 stride, VkVertexInputRate inputRate)
+		Pipeline& Pipeline::addVertexBinding(u32 binding, u32 stride, VkVertexInputRate inputRate)
 		{
 			VkVertexInputBindingDescription vibd;
 			vibd.binding = binding;
@@ -338,7 +338,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::addVertexDescription(U32 location, U32 binding, VkFormat format, U32 offset)
+		Pipeline& Pipeline::addVertexDescription(u32 location, u32 binding, VkFormat format, u32 offset)
 		{
 			VkVertexInputAttributeDescription viad;
 			viad.location = location;
@@ -349,7 +349,7 @@ namespace lw
 		}
 
 
-		Pipeline& Pipeline::setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, F32 minDepthBounds, F32 maxDepthBounds)
+		Pipeline& Pipeline::setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, f32 minDepthBounds, f32 maxDepthBounds)
 		{
 			checkInitNotCreated();
 			m_pdssci.depthTestEnable = enableDepthTest ? VK_TRUE : VK_FALSE;
@@ -378,7 +378,7 @@ namespace lw
 			return *this;
 		}
 
-		Pipeline& Pipeline::addPushConstantRange(VkShaderStageFlags stageFlags, U32 offset, U32 size)
+		Pipeline& Pipeline::addPushConstantRange(VkShaderStageFlags stageFlags, u32 offset, u32 size)
 		{
 			VkPushConstantRange pcr;
 			pcr.stageFlags = stageFlags;

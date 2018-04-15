@@ -51,14 +51,14 @@ namespace lw
 		void updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool);
 	public:
 		Vertex2DArray();
-		Vertex2DArray(U32 size, PrimitiveType primitive);
+		Vertex2DArray(u32 size, PrimitiveType primitive);
 		~Vertex2DArray() = default;
 
-		U32 size() const;
+		u32 size() const;
 		bool isEmpty() const;
-		void resize(U32 newSize);
-		Vertex2D& at(U32 index);
-		Vertex2D& operator[](U32 index);
+		void resize(u32 newSize);
+		Vertex2D& at(u32 index);
+		Vertex2D& operator[](u32 index);
 		void push(const Vertex2D&);
 		void push(const Vertex2D&&);
 		void clear();
@@ -78,13 +78,13 @@ namespace lw
 
 		void updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool);
 	public:
-		Vertex3DArray(U32 size);
+		Vertex3DArray(u32 size);
 		~Vertex3DArray();
 
-		U32 size() const;
-		void resize(U32 newSize);
-		Vertex3D& at(U32 index);
-		Vertex3D& operator[](U32 index);
+		u32 size() const;
+		void resize(u32 newSize);
+		Vertex3D& at(u32 index);
+		Vertex3D& operator[](u32 index);
 
 	};
 }

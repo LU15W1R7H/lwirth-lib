@@ -16,7 +16,7 @@ namespace lw
 	{
 	}
 
-	Vertex2DArray::Vertex2DArray(U32 size, PrimitiveType primitive)
+	Vertex2DArray::Vertex2DArray(u32 size, PrimitiveType primitive)
 	{
 		m_primitive = primitive;
 		resize(size);
@@ -28,7 +28,7 @@ namespace lw
 		resize(0);
 	}
 
-	U32 Vertex2DArray::size() const
+	u32 Vertex2DArray::size() const
 	{
 		return m_vertices.size();
 	}
@@ -38,19 +38,19 @@ namespace lw
 		return m_vertices.isEmpty();
 	}
 
-	void Vertex2DArray::resize(U32 newSize)
+	void Vertex2DArray::resize(u32 newSize)
 	{
 		m_vertices.resize(newSize);
 	}
 
-	Vertex2D& Vertex2DArray::at(U32 index)
+	Vertex2D& Vertex2DArray::at(u32 index)
 	{
 		if (index >= size())throw IllegalIndexException();
 		m_needsUpdate = true;
 		return m_vertices[index];
 	}
 
-	Vertex2D& Vertex2DArray::operator[](U32 index)
+	Vertex2D& Vertex2DArray::operator[](u32 index)
 	{
 		return at(index);
 	}
@@ -111,29 +111,29 @@ namespace lw
 	{
 	}
 
-	Vertex3DArray::Vertex3DArray(U32 size)
+	Vertex3DArray::Vertex3DArray(u32 size)
 	{
 		resize(size);
 	}
 
-	U32 Vertex3DArray::size() const
+	u32 Vertex3DArray::size() const
 	{
 		return m_vertices.size();
 	}
 
-	void Vertex3DArray::resize(U32 newSize)
+	void Vertex3DArray::resize(u32 newSize)
 	{
 		m_vertices.resize(newSize);
 	}
 
-	Vertex3D& Vertex3DArray::at(U32 index)
+	Vertex3D& Vertex3DArray::at(u32 index)
 	{
 		if (index >= size())throw IllegalIndexException();
 		m_needsUpdate = true;
 		return m_vertices[index];
 	}
 
-	Vertex3D& Vertex3DArray::operator[](U32 index)
+	Vertex3D& Vertex3DArray::operator[](u32 index)
 	{
 		return at(index);
 	}

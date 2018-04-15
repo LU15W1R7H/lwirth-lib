@@ -40,7 +40,7 @@ namespace lw
 			m_fence = VK_NULL_HANDLE;
 		}
 
-		void Fence::wait(U64 timeout)
+		void Fence::wait(u64 timeout)
 		{
 			if (m_fence == VK_NULL_HANDLE)throw NotCreatedException();
 

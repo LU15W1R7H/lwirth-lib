@@ -3,16 +3,16 @@
 
 namespace lw
 {
-	Color::Color(F32 r, F32 g, F32 b, F32 a)
+	Color::Color(f32 r, f32 g, f32 b, f32 a)
 		: r(r), g(g), b(b), a(a)
 	{
 	}
 
-	Color::Color(U32 color)
+	Color::Color(u32 color)
 	{
-		U8 red = (color & 0xFF000000) >> 24;
-		U8 green = (color & 0x00FF0000) >> 16;
-		U8 blue = (color & 0x0000FF00) >> 8;
+		u8 red = (color & 0xFF000000) >> 24;
+		u8 green = (color & 0x00FF0000) >> 16;
+		u8 blue = (color & 0x0000FF00) >> 8;
 
 		r = red / 255.f;
 		g = green / 255.f;

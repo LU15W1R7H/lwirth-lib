@@ -63,7 +63,7 @@ namespace lw
 				{
 					throw VulkanException("Queue family indices are not complete");
 				}
-				lw::DynamicArray<U32> familyIndices = queueFamilies->getIndices();
+				lw::DynamicArray<u32> familyIndices = queueFamilies->getIndices();
 				bci.queueFamilyIndexCount = familyIndices.size();
 				bci.pQueueFamilyIndices = familyIndices.raw();
 			}
@@ -118,7 +118,7 @@ namespace lw
 			m_pDevice = nullptr;
 		}
 
-		void CPUBuffer::allocate(const Device* pDevice, U32 byteSize, VkBufferUsageFlags usage, VkSharingMode sharingMode)
+		void CPUBuffer::allocate(const Device* pDevice, u32 byteSize, VkBufferUsageFlags usage, VkSharingMode sharingMode)
 		{
 			if (exists())throw AlreadyCreatedException();
 
@@ -169,7 +169,7 @@ namespace lw
 		}
 
 
-		void StagingBuffer::allocate(const Device* pDevice, U32 byteSize)
+		void StagingBuffer::allocate(const Device* pDevice, u32 byteSize)
 		{
 			if (exists())throw AlreadyCreatedException();
 

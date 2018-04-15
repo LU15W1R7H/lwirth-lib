@@ -8,16 +8,16 @@
 
 namespace lw
 {
-	template <Size N>
+	template <size_t N>
 	class Vector
 	{
 	private:
-		F32 m_components[N];
+		f32 m_components[N];
 
 	public:
 		Vector()
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] = 0;
 			}
@@ -28,9 +28,9 @@ namespace lw
 		{
 		}
 
-		Vector(F32 data[N])
+		Vector(f32 data[N])
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] = data[i];
 			}
@@ -38,21 +38,21 @@ namespace lw
 
 		Vector(const Vector<N>& v)
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] = v.m_components[i];
 			}
 		}
 
-		F32 mag() const
+		f32 mag() const
 		{
 			return lw::sqrt(magSqd());
 		}
 
-		F32 magSqd() const
+		f32 magSqd() const
 		{
-			F32 r = 0;
-			for (Size i = 0; i < N; i++)
+			f32 r = 0;
+			for (size_t i = 0; i < N; i++)
 			{
 				r += m_components[i] * m_components[i];
 			}
@@ -61,53 +61,53 @@ namespace lw
 
 		Vector<N>& norm()
 		{
-			F32 f = 1.f / mag();
-			for (Size i = 0; i < N; i++)
+			f32 f = 1.f / mag();
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] *= f;
 			}
 			return *this;
 		}
 
-		Vector<N>& setMag(F32 newMag)
+		Vector<N>& setMag(f32 newMag)
 		{
-			F32 f = newMag / mag();
-			for (Size i = 0; i < N; i++)
+			f32 f = newMag / mag();
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] *= f;
 			}
 			return *this;
 		}
 
-		Vector<N>& limit(F32 maxMag)
+		Vector<N>& limit(f32 maxMag)
 		{
 			if (magSqd() > (maxMag * maxMag))
 				setMag(maxMag);
 		}
 
-		inline F32& operator[](Size index)
+		inline f32& operator[](size_t index)
 		{
 			return m_components[index];
 		}
 
-		inline const F32& operator[](Size index) const
+		inline const f32& operator[](size_t index) const
 		{
 			return m_components[index];
 		}
 
-		Vector<N>& operator*=(F32 scalar)
+		Vector<N>& operator*=(f32 scalar)
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] *= scalar;
 			}
 			return *this;
 		}
 
-		Vector<N>& operator/=(F32 scalar)
+		Vector<N>& operator/=(f32 scalar)
 		{
-			F32 f = 1.f / scalar;
-			for (Size i = 0; i < N; i++)
+			f32 f = 1.f / scalar;
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] *= f;
 			}
@@ -116,7 +116,7 @@ namespace lw
 
 		Vector<N>& operator+=(const Vector<N>& v)
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] += v.m_components[i];
 			}
@@ -125,7 +125,7 @@ namespace lw
 
 		Vector<N>& operator-=(const Vector<N>& v)
 		{
-			for (Size i = 0; i < N; i++)
+			for (size_t i = 0; i < N; i++)
 			{
 				m_components[i] -= v.m_components[i];
 			}
@@ -133,10 +133,10 @@ namespace lw
 		}
 	};
 
-	template<Size N>
+	template<size_t N>
 	bool operator==(const Vector<N>& v1, const Vector<N>& v2)
 	{
-		for (Size i = 0; i < N; i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			if (v1.m_components[i] != v2.m_components[i])
 			{
@@ -146,24 +146,24 @@ namespace lw
 		return true;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline bool operator!=(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		return !(v1 == v2);
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> operator-(const Vector<N>& v)
 	{
 		Vector<N> r;
-		for (Size i = 0; i < N; i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			r.m_components[i] = -v.m_components[i];
 		}
 		return r;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> operator+(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		Vector<N> r = v1;
@@ -171,7 +171,7 @@ namespace lw
 		return r;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> operator-(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		Vector<N> r = v1;
@@ -179,53 +179,53 @@ namespace lw
 		return r;
 	}
 
-	template<Size N>
-	inline Vector<N> operator*(const Vector<N>& v, F32 scalar)
+	template<size_t N>
+	inline Vector<N> operator*(const Vector<N>& v, f32 scalar)
 	{
 		Vector<N> r = v;
 		r *= scalar;
 		return r;
 	}
 
-	template<Size N>
-	inline Vector<N> operator*(F32 scalar, const Vector<N>& v)
+	template<size_t N>
+	inline Vector<N> operator*(f32 scalar, const Vector<N>& v)
 	{
 		Vector<N> r = v;
 		r *= scalar;
 		return r;
 	}
 
-	template<Size N>
-	inline Vector<N> operator/(const Vector<N>& v, F32 scalar)
+	template<size_t N>
+	inline Vector<N> operator/(const Vector<N>& v, f32 scalar)
 	{
 		Vector<N> r = v;
 		r /= scalar;
 		return r;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> min(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		Vector<N> r;
-		for (Size i = 0; i < N; i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			r.m_components[i] = lw::min(v1.m_components[i], v2.m_components[i]);
 		}
 		return r;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> max(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		Vector<N> r;
-		for (Size i = 0; i < N; i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			r.m_components[i] = lw::max(v1.m_components[i], v2.m_components[i]);
 		}
 		return r;
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline Vector<N> norm(const Vector<N>& v)
 	{
 		Vector<N> r = v;
@@ -233,36 +233,36 @@ namespace lw
 		return r;
 	}
 
-	template<Size N>
-	inline Vector<N> setMag(const Vector<N>& v, F32 mag)
+	template<size_t N>
+	inline Vector<N> setMag(const Vector<N>& v, f32 mag)
 	{
 		Vector<N> r = v;
 		r.setMag(mag);
 		return r;
 	}
 
-	template<Size N>
-	inline F32 dot(const Vector<N>& v1, const Vector<N>& v2)
+	template<size_t N>
+	inline f32 dot(const Vector<N>& v1, const Vector<N>& v2)
 	{
-		F32 r = 0;
-		for (Size i = 0; i < N; i++)
+		f32 r = 0;
+		for (size_t i = 0; i < N; i++)
 		{
 			r += v1.m_components[i] * v2.m_components[i];
 		}
 		return r;
 	}
 
-	template<Size N>
-	inline F32 angle(const Vector<N>& v1, const Vector<N>& v2)
+	template<size_t N>
+	inline f32 angle(const Vector<N>& v1, const Vector<N>& v2)
 	{
 		return std::acos((v1 * v2) / (v1.mag() * v2.mag()));
 	}
 
-	template<Size N>
+	template<size_t N>
 	inline std::ostream& operator<<(std::ostream& os, const Vector<N>& v)
 	{
 		os << "[";
-		for (Size i = 0; i < N; i++)
+		for (size_t i = 0; i < N; i++)
 		{
 			os << v.m_components[i];
 			if (i != N - 1)

@@ -19,7 +19,7 @@ namespace lw
 			layoutInfo.pNext = nullptr;
 			layoutInfo.flags = 0;
 			layoutInfo.bindingCount = m_bindings.size();
-			layoutInfo.pBindings = m_bindings.data();
+			layoutInfo.pBindings = m_bindings.raw();
 
 			if (vkCreateDescriptorSetLayout(m_device->raw(), &layoutInfo, nullptr, &m_layout) != VK_SUCCESS)
 			{
@@ -44,10 +44,10 @@ namespace lw
 			{
 				throw VulkanException("descriptor set layout was already created");
 			}
-			m_bindings.push_back(binding);
+			m_bindings.push(binding);
 		}
 
-		void DescriptorSetLayout::addBinding(U32 binding, VkDescriptorType type, U32 descriptorCount, VkShaderStageFlags stageFlags, const VkSampler * immutableSampler)
+		void DescriptorSetLayout::addBinding(u32 binding, VkDescriptorType type, u32 descriptorCount, VkShaderStageFlags stageFlags, const VkSampler * immutableSampler)
 		{
 			VkDescriptorSetLayoutBinding bindInfo;
 			bindInfo.binding = binding;;
@@ -116,7 +116,7 @@ namespace lw
 
 		}
 
-		void DescriptorSet::addUniformBuffer(const Buffer * buffer, U32 binding)
+		void DescriptorSet::addUniformBuffer(const Buffer * buffer, u32 binding)
 		{
 			if (m_set != VK_NULL_HANDLE)
 			{
@@ -150,14 +150,14 @@ namespace lw
 		{
 			m_device = device;
 
-			U32 setCount = 0;
-			U32 uniformBufferCount = 0;
-			U32 combinedImageSamplerCount = 0;
-			U32 samplerCount = 0;
+			u32 setCount = 0;
+			u32 uniformBufferCount = 0;
+			u32 combinedImageSamplerCount = 0;
+			u32 samplerCount = 0;
 
 			for (auto & setLayoutContainer : m_setLayoutContainers)
 			{
-				for (U32 k = 0; k < setLayoutContainer.m_pLayouts->m_bindings.size(); k++)
+				for (u32 k = 0; k < setLayoutContainer.m_pLayouts->m_bindings.size(); k++)
 				{
 					switch (setLayoutContainer.m_pLayouts->m_bindings[k].descriptorType)
 					{
@@ -226,7 +226,7 @@ namespace lw
 			}
 		}
 
-		void DescriptorPool::addLayout(const DescriptorSetLayout * layout, U32 setCount)
+		void DescriptorPool::addLayout(const DescriptorSetLayout * layout, u32 setCount)
 		{
 			if (m_pool != VK_NULL_HANDLE)
 			{

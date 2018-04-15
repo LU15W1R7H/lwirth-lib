@@ -23,7 +23,7 @@ namespace lw
 		createLayer(Layer::output);
 	}
 
-	Size NeuralNetwork::createLayer(Layer::LayerType layerType)
+	size_t NeuralNetwork::createLayer(Layer::LayerType layerType)
 	{
 		if (m_meshed)throw std::logic_error("Net is already meshed");
 
@@ -49,9 +49,9 @@ namespace lw
 		throw std::runtime_error("LayerType doesn't exist");
 	}
 
-	Size NeuralNetwork::createHiddenNeuron(Size hiddenLayerIndex)
+	size_t NeuralNetwork::createHiddenNeuron(size_t hiddenLayerIndex)
 	{
-		Size layerIndex = hiddenLayerIndex + 1;
+		size_t layerIndex = hiddenLayerIndex + 1;
 		if (layerIndex >= m_layers.size())throw std::logic_error("HiddenLayer doesn't exist");
 		m_layers[layerIndex].neurons.push_back(Neuron(Neuron::hidden));
 		return m_layers[layerIndex].neurons.size() - 1;
@@ -59,7 +59,7 @@ namespace lw
 
 	
 
-	Size NeuralNetwork::createInput(std::string name)
+	size_t NeuralNetwork::createInput(std::string name)
 	{
 		if (m_meshed)throw std::logic_error("Net is already meshed");
 		Neuron newInput(Neuron::input);
@@ -68,7 +68,7 @@ namespace lw
 		return m_layers.front().neurons.size() - 1;
 	}
 
-	Size NeuralNetwork::createOutput(std::string name)
+	size_t NeuralNetwork::createOutput(std::string name)
 	{
 		if (m_meshed)throw std::logic_error("Net is already meshed");
 		Neuron newOutput(Neuron::output);
@@ -77,42 +77,42 @@ namespace lw
 		return m_layers.back().neurons.size() - 1;
 	}
 
-	F32& NeuralNetwork::getInput(Size index)
+	f32& NeuralNetwork::getInput(size_t index)
 	{
 		return m_layers.front().neurons[index].value;
 	}
 
-	F32& NeuralNetwork::getInput(std::string name)
+	f32& NeuralNetwork::getInput(std::string name)
 	{
-		for (Size i = 0; i < m_layers.front().neurons.size(); i++)
+		for (size_t i = 0; i < m_layers.front().neurons.size(); i++)
 		{
 			if (m_layers.front().neurons[i].name == name)return getInput(i);
 		}
 		throw std::runtime_error("input doesn't exist");
 	}
 
-	F32& NeuralNetwork::getOutput(Size index)
+	f32& NeuralNetwork::getOutput(size_t index)
 	{
 		return m_layers.back().neurons[index].value;
 	}
 
-	F32& NeuralNetwork::getOutput(std::string name)
+	f32& NeuralNetwork::getOutput(std::string name)
 	{
-		for (Size i = 0; i < m_layers.front().neurons.size(); i++)
+		for (size_t i = 0; i < m_layers.front().neurons.size(); i++)
 		{
 			if (m_layers.back().neurons[i].name == name)return getOutput(i);
 		}
 		throw std::runtime_error("output doesn't exist");
 	}
 
-	void NeuralNetwork::generateHiddenNeurons(Size numLayers, Size numNeurons)
+	void NeuralNetwork::generateHiddenNeurons(size_t numLayers, size_t numNeurons)
 	{
 		if (m_meshed)throw std::logic_error("Net is already meshed");
 
-		for (Size i = 0; i < numLayers; i++)
+		for (size_t i = 0; i < numLayers; i++)
 		{
 			createLayer(Layer::hidden);
-			for (Size k = 0; k < numNeurons; k++)
+			for (size_t k = 0; k < numNeurons; k++)
 			{
 				createHiddenNeuron(hiddenLayerCount() - 1);
 			}
@@ -123,13 +123,13 @@ namespace lw
 	{
 		if (m_meshed)throw std::logic_error("Net is already meshed");
 
-		for (Size layer = 0; layer < m_layers.size() - 1; layer++)
+		for (size_t layer = 0; layer < m_layers.size() - 1; layer++)
 		{
-			std::vector<std::vector<F32>> layerWeights;
-			for (Size entry = 0; entry < m_layers[layer].neurons.size(); entry++)
+			std::vector<std::vector<f32>> layerWeights;
+			for (size_t entry = 0; entry < m_layers[layer].neurons.size(); entry++)
 			{
-				std::vector<F32> neuronWeights;
-				for (Size exit = 0; exit < m_layers[layer + 1].neurons.size(); exit++)
+				std::vector<f32> neuronWeights;
+				for (size_t exit = 0; exit < m_layers[layer + 1].neurons.size(); exit++)
 				{
 					neuronWeights.push_back(1.0f);
 				}
@@ -143,12 +143,12 @@ namespace lw
 
 	void NeuralNetwork::randomizeWeights()
 	{
-		F32 factor = m_layers.size() / (2.f * std::sqrtf(static_cast<F32>(m_layers.size()))) + 0.5f;
-		for (Size i = 0; i < m_weights.size(); i++)
+		f32 factor = m_layers.size() / (2.f * std::sqrtf(static_cast<f32>(m_layers.size()))) + 0.5f;
+		for (size_t i = 0; i < m_weights.size(); i++)
 		{
-			for (Size j = 0; j < m_weights[i].size(); j++)
+			for (size_t j = 0; j < m_weights[i].size(); j++)
 			{
-				for (Size k = 0; k < m_weights[i][j].size(); k++)
+				for (size_t k = 0; k < m_weights[i][j].size(); k++)
 				{
 					m_weights[i][j][k] = m_random.nextF32(-factor, factor);
 				}
@@ -156,28 +156,28 @@ namespace lw
 		}
 	}
 
-	void NeuralNetwork::mutate(F32 factor)
+	void NeuralNetwork::mutate(f32 factor)
 	{
-		U32 amount = m_random.nextU32(m_layers.size() * m_layers[1].neurons.size());
+		u32 amount = m_random.nextU32(m_layers.size() * m_layers[1].neurons.size());
 
-		for (Size i = 0; i < amount; i++)
+		for (size_t i = 0; i < amount; i++)
 		{
-			Size layer = m_random.nextIndex(m_weights.size());
-			Size entry = m_random.nextIndex(m_layers[layer].neurons.size());
-			Size exit = m_random.nextIndex(m_layers[layer + 1].neurons.size());
+			size_t layer = m_random.nextIndex(m_weights.size());
+			size_t entry = m_random.nextIndex(m_layers[layer].neurons.size());
+			size_t exit = m_random.nextIndex(m_layers[layer + 1].neurons.size());
 			m_weights[layer][entry][exit] += m_random.nextF32(-factor, factor);
 		}
 	}
 
 	void NeuralNetwork::compute()
 	{
-		for (Size layer = 0; layer < m_layers.size() - 1; layer++)
+		for (size_t layer = 0; layer < m_layers.size() - 1; layer++)
 		{
-			for (Size exit = 0; exit < m_layers[layer + 1].neurons.size(); exit++)
+			for (size_t exit = 0; exit < m_layers[layer + 1].neurons.size(); exit++)
 			{
 				if (m_layers[layer + 1].neurons[exit].type == Neuron::bias)continue;
-				F32 sum = 0;
-				for (Size entry = 0; entry < m_layers[layer].neurons.size(); entry++)
+				f32 sum = 0;
+				for (size_t entry = 0; entry < m_layers[layer].neurons.size(); entry++)
 				{
 					sum += m_layers[layer].neurons[entry].value * m_weights[layer][entry][exit];
 				}
@@ -186,28 +186,28 @@ namespace lw
 		}
 	}
 
-	void NeuralNetwork::addHiddenNeuronAndMesh(Size hiddenLayerIndex)
+	void NeuralNetwork::addHiddenNeuronAndMesh(size_t hiddenLayerIndex)
 	{
-		Size layerIndex = hiddenLayerIndex + 1;
+		size_t layerIndex = hiddenLayerIndex + 1;
 		if (layerIndex >= m_layers.size())throw std::logic_error("HiddenLayer doesn't exist");
 		m_layers[layerIndex].neurons.push_back(Neuron(Neuron::hidden));
 		//connect layers in front of
-		for (Size entry = 0; entry < m_layers[layerIndex - 1].neurons.size(); entry++)
+		for (size_t entry = 0; entry < m_layers[layerIndex - 1].neurons.size(); entry++)
 		{
 			m_weights[layerIndex - 1][entry].push_back(0.0f);
 		}
 		//connect layers behind
-		std::vector<F32> newWeights;
-		for (Size exit = 0; exit < m_layers[layerIndex + 1].neurons.size(); exit++)
+		std::vector<f32> newWeights;
+		for (size_t exit = 0; exit < m_layers[layerIndex + 1].neurons.size(); exit++)
 		{
 			newWeights.push_back(0.0f);
 		}
 		m_weights[layerIndex].push_back(newWeights);
 	}
 	
-	void NeuralNetwork::removeHiddenNeuronAndMesh(Size hiddenLayerIndex)
+	void NeuralNetwork::removeHiddenNeuronAndMesh(size_t hiddenLayerIndex)
 	{
-		Size layerIndex = hiddenLayerIndex + 1;
+		size_t layerIndex = hiddenLayerIndex + 1;
 		if (layerIndex >= m_layers.size())throw std::logic_error("HiddenLayer doesn't exist");
 		if (m_layers[layerIndex].neurons.size() < 2)
 		{
@@ -217,7 +217,7 @@ namespace lw
 
 
 		//delete connections to layers in front of
-		for (Size entry = 0; entry < m_layers[layerIndex - 1].neurons.size(); entry++)
+		for (size_t entry = 0; entry < m_layers[layerIndex - 1].neurons.size(); entry++)
 		{
 			m_weights[layerIndex - 1][entry].pop_back();
 		}
@@ -226,17 +226,17 @@ namespace lw
 
 	}
 
-	F32 NeuralNetwork::activationFunction(F32 value)
+	f32 NeuralNetwork::activationFunction(f32 value)
 	{
 		return tanh(value);
 	}
 
-	Size NeuralNetwork::hiddenLayerCount()
+	size_t NeuralNetwork::hiddenLayerCount()
 	{
 		return m_layers.size() - 2;
 	}
 
-	Size NeuralNetwork::neuronCount(Size layerIndex)
+	size_t NeuralNetwork::neuronCount(size_t layerIndex)
 	{
 		return m_layers[layerIndex].neurons.size();
 	}

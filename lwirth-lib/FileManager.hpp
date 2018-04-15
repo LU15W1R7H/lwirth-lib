@@ -8,7 +8,7 @@
 
 namespace lw
 {
-	extern lw::DynamicArray<Byte> readBinFile(const std::string& filePath);
+	extern lw::DynamicArray<byte> readBinFile(const std::string& filePath);
 }
 
 

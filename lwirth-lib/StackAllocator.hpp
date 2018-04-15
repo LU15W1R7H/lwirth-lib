@@ -8,11 +8,11 @@ namespace lw
 	class API StackAllocator
 	{
 	public:
-		typedef U32 Marker;
+		typedef u32 Marker;
 
-		explicit StackAllocator(U32 stackSize_bytes) {}
+		explicit StackAllocator(u32 stackSize_bytes) {}
 		
-		void* alloc(U32 size_bytes) { return nullptr; }
+		void* alloc(u32 size_bytes) { return nullptr; }
 
 		Marker getMarker() { return 0; } //Maker to current stack top
 

@@ -5,6 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
+#include "DynamicArray.hpp"
 #include <vector>
 
 namespace lw
@@ -18,20 +19,20 @@ namespace lw
 		class API DescriptorBuffer
 		{
 		public:
-			DescriptorBuffer(VkDescriptorBufferInfo info, U32 binding)
+			DescriptorBuffer(VkDescriptorBufferInfo info, u32 binding)
 				: m_info(info), m_binding(binding) {}
 
 			VkDescriptorBufferInfo m_info;
-			U32 m_binding;
+			u32 m_binding;
 		};
 
 		class API DescriptorImage
 		{
 		public:
-			DescriptorImage(VkDescriptorImageInfo info, U32 binding)
+			DescriptorImage(VkDescriptorImageInfo info, u32 binding)
 				: m_info(info), m_binding(binding) {}
 			VkDescriptorImageInfo m_info;
-			U32 m_binding;
+			u32 m_binding;
 		};
 
 		class API DescriptorSetLayout
@@ -41,7 +42,7 @@ namespace lw
 			VkDescriptorSetLayout m_layout = VK_NULL_HANDLE;
 			Device* m_device = nullptr;
 
-			std::vector<VkDescriptorSetLayoutBinding> m_bindings = {};
+			DynamicArray<VkDescriptorSetLayoutBinding> m_bindings = {};
 		public:
 			DescriptorSetLayout() = default;
 			~DescriptorSetLayout() = default;
@@ -52,16 +53,16 @@ namespace lw
 			const VkDescriptorSetLayout& raw() const { return m_layout; }
 
 			void addBinding(const VkDescriptorSetLayoutBinding& binding);
-			void addBinding(U32 binding, VkDescriptorType type, U32 descriptorCount, VkShaderStageFlags stageFlags, const VkSampler* immutableSampler = nullptr);
+			void addBinding(u32 binding, VkDescriptorType type, u32 descriptorCount, VkShaderStageFlags stageFlags, const VkSampler* immutableSampler = nullptr);
 		};
 
 		class API DescriptorSetLayoutContainer
 		{
 		public:
 			const DescriptorSetLayout * m_pLayouts;
-			U32 m_setCount;
+			u32 m_setCount;
 
-			DescriptorSetLayoutContainer(const DescriptorSetLayout* layout, U32 setCount)
+			DescriptorSetLayoutContainer(const DescriptorSetLayout* layout, u32 setCount)
 				: m_pLayouts(layout), m_setCount(setCount) {}
 		};
 
@@ -71,8 +72,8 @@ namespace lw
 			VkDescriptorSet m_set = VK_NULL_HANDLE;
 			Device* m_device = nullptr;
 
-			std::vector<DescriptorBuffer> m_bufferDescriptors;
-			std::vector<DescriptorImage> m_imageDescriptors;
+			std::vector<DescriptorBuffer> m_bufferDescriptors = {};
+			std::vector<DescriptorImage> m_imageDescriptors = {};
 		public:
 			DescriptorSet() = default;
 			~DescriptorSet() = default;
@@ -81,7 +82,7 @@ namespace lw
 
 			VkDescriptorSet raw() const { return m_set; }
 
-			void addUniformBuffer(const Buffer* buffer, U32 binding);
+			void addUniformBuffer(const Buffer* buffer, u32 binding);
 			//void addImageSampler(const Image* image, U32 binding);
 		};
 
@@ -101,7 +102,7 @@ namespace lw
 
 			VkDescriptorPool raw() const { return m_pool; }
 
-			void addLayout(const DescriptorSetLayout* layout, U32 setCount);
+			void addLayout(const DescriptorSetLayout* layout, u32 setCount);
 		};
 
 		

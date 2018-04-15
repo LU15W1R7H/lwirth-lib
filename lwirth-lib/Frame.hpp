@@ -14,7 +14,7 @@ namespace lw
 		friend class RenderWindow;
 
 	private:
-		static Size s_frameCount;
+		static size_t s_frameCount;
 		GLFWwindow* m_pFrame = nullptr;
 		bool m_created = false;
 
@@ -22,8 +22,8 @@ namespace lw
 		Frame();
 		~Frame();
 
-		virtual void create(std::string& title, U32 width, U32 height);
-		virtual void create(std::string&& title, U32 width, U32 height);
+		virtual void create(std::string& title, u32 width, u32 height);
+		virtual void create(std::string&& title, u32 width, u32 height);
 		virtual void destroy();
 
 		virtual void update();
@@ -35,16 +35,16 @@ namespace lw
 		bool isOpen() const;
 		void open() const;
 		void close() const;
-		U32 getWidth() const;
-		U32 getHeight() const;
-		void setWidth(U32 newWidth) const;
-		void setHeight(U32 newHeight) const;
-		void setSize(U32 newWidth, U32 newHeight) const;
-		U32 getPosX() const;
-		U32 getPosY() const;
-		void setPosX(U32 newX) const;
-		void setPosY(U32 newY) const;
-		void setPos(U32 newX, U32 newY) const;
+		u32 getWidth() const;
+		u32 getHeight() const;
+		void setWidth(u32 newWidth) const;
+		void setHeight(u32 newHeight) const;
+		void setSize(u32 newWidth, u32 newHeight) const;
+		u32 getPosX() const;
+		u32 getPosY() const;
+		void setPosX(u32 newX) const;
+		void setPosY(u32 newY) const;
+		void setPos(u32 newX, u32 newY) const;
 		void setTitle(std::string& newTitle) const;
 		void setTitle(std::string&& newTitle) const;
 		//void setIcon(lw::Image& image) const;
@@ -54,7 +54,7 @@ namespace lw
 
 
 	private:
-		virtual void resize(U32 width, U32 height) {}
+		virtual void resize(u32 width, u32 height) {}
 
 		static void keyCallback(GLFWwindow* glfwWin, int key, int scancode, int action, int mods);
 		static void mouseButtonCallback(GLFWwindow* glfwWin, int button, int action, int mods);

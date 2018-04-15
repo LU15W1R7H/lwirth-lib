@@ -10,7 +10,7 @@
 
 namespace lw
 {
-	Size Frame::s_frameCount = 0;
+	size_t Frame::s_frameCount = 0;
 
 	Frame::Frame()
 	{
@@ -21,7 +21,7 @@ namespace lw
 		Frame::destroy();
 	}
 
-	void Frame::create(std::string& title, U32 width, U32 height)
+	void Frame::create(std::string& title, u32 width, u32 height)
 	{
 		if (m_created)throw AlreadyCreatedException();
 
@@ -54,7 +54,7 @@ namespace lw
 
 	}
 
-	void Frame::create(std::string&& title, U32 width, U32 height)
+	void Frame::create(std::string&& title, u32 width, u32 height)
 	{
 		Frame::create(title, width, height);
 	}
@@ -92,60 +92,60 @@ namespace lw
 		glfwSetWindowShouldClose(m_pFrame, GLFW_TRUE);
 	}
 
-	U32 Frame::getWidth() const
+	u32 Frame::getWidth() const
 	{
 		int x, y;
 		glfwGetWindowSize(m_pFrame, &x, &y);
-		return static_cast<U32>(x);
+		return static_cast<u32>(x);
 	}
 
-	U32 Frame::getHeight() const
+	u32 Frame::getHeight() const
 	{
 		int x, y;
 		glfwGetWindowSize(m_pFrame, &x, &y);
-		return static_cast<U32>(y);
+		return static_cast<u32>(y);
 	}
 
-	void Frame::setWidth(U32 newWidth) const
+	void Frame::setWidth(u32 newWidth) const
 	{
 		glfwSetWindowSize(m_pFrame, newWidth, getHeight());
 	}
 
-	void Frame::setHeight(U32 newHeight) const
+	void Frame::setHeight(u32 newHeight) const
 	{
 		glfwSetWindowSize(m_pFrame, getWidth(), newHeight);
 	}
 
-	void Frame::setSize(U32 newWidth, U32 newHeight) const
+	void Frame::setSize(u32 newWidth, u32 newHeight) const
 	{
 		glfwSetWindowSize(m_pFrame, newWidth, newHeight);
 	}
 
-	U32 Frame::getPosX() const
+	u32 Frame::getPosX() const
 	{
 		int x, y;
 		glfwGetWindowPos(m_pFrame, &x, &y);
 		return x;
 	}
 
-	U32 Frame::getPosY() const
+	u32 Frame::getPosY() const
 	{
 		int x, y;
 		glfwGetWindowPos(m_pFrame, &x, &y);
 		return y;
 	}
 
-	void Frame::setPosX(U32 newX) const
+	void Frame::setPosX(u32 newX) const
 	{
 		glfwSetWindowPos(m_pFrame, newX, getPosY());
 	}
 
-	void Frame::setPosY(U32 newY) const
+	void Frame::setPosY(u32 newY) const
 	{
 		glfwSetWindowPos(m_pFrame, newY, getPosY());
 	}
 
-	void Frame::setPos(U32 newX, U32 newY) const
+	void Frame::setPos(u32 newX, u32 newY) const
 	{
 		glfwSetWindowPos(m_pFrame, newX, newY);
 	}

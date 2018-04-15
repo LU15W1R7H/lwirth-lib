@@ -15,13 +15,13 @@ namespace lw
 		{
 		public:
 			Object() = delete;
-			Object(Shape& _shape, F32 _mass);
+			Object(Shape& _shape, f32 _mass);
 			~Object();
 
 			Vec2& m_pos;
 			Vec2 m_vel;
 			Vec2 m_acc;
-			F32 m_mass;
+			f32 m_mass;
 
 			void applyForce(Vec2 force);
 

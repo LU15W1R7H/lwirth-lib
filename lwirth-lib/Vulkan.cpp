@@ -163,7 +163,7 @@ namespace lw
 		}
 
 
-		void Vulkan::resize(U32 width, U32 height)
+		void Vulkan::resize(u32 width, u32 height)
 		{
 			if (width == 0 || height == 0) return;
 

@@ -9,7 +9,7 @@
 
 namespace lw
 {
-	void RenderWindow::create(std::string& title, U32 width, U32 height)
+	void RenderWindow::create(std::string& title, u32 width, u32 height)
 	{
 		if (m_created)throw AlreadyCreatedException();
 
@@ -18,7 +18,7 @@ namespace lw
 		m_vulkan.start(getFrame());
 	}
 
-	void RenderWindow::create(std::string&& title, U32 width, U32 height)
+	void RenderWindow::create(std::string&& title, u32 width, u32 height)
 	{
 		RenderWindow::create(title, width, height);
 	}
@@ -60,7 +60,7 @@ namespace lw
 		m_vulkan.postDraw();
 	}
 
-	void RenderWindow::resize(U32 width, U32 height)
+	void RenderWindow::resize(u32 width, u32 height)
 	{
 		m_vulkan.resize(width, height);
 	}

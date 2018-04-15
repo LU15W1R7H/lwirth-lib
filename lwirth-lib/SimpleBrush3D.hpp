@@ -32,8 +32,8 @@ namespace lw
 		VK::Pipeline m_pipelineTriangleFill;
 
 
-		U32 m_screenWidth;
-		U32 m_screenHeight;
+		u32 m_screenWidth;
+		u32 m_screenHeight;
 
 		bool m_ready = false;
 
@@ -52,15 +52,15 @@ namespace lw
 		~SimpleBrush3D() = default;
 
 		void setColor(const Color& color);
-		void setColor(F32 r, F32 g, F32 b, F32 a = 1.f);
+		void setColor(f32 r, f32 g, f32 b, f32 a = 1.f);
 		void drawVertexArray(Vertex2DArray& vertexArray);
 		void drawLine(const Vertex2D& start, const Vertex2D& end);
-		void drawLine(F32 x1, F32 y1, F32 x2, F32 y2);
+		void drawLine(f32 x1, f32 y1, f32 x2, f32 y2);
 		void drawPoint(const Vertex2D& pos);
-		void drawPoint(F32 x, F32 y);
+		void drawPoint(f32 x, f32 y);
 
 	private:
-		void create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight);
+		void create(VK::Vulkan* pVulkan, u32 screenWidth, u32 screenHeight);
 		void destroy();
 
 		void createPipeline();
@@ -69,7 +69,7 @@ namespace lw
 		void prepare(const VK::CommandBuffer* cmdBuffer);
 		void disperse();
 
-		void resize(U32 screenWidth, U32 screenHeight);
+		void resize(u32 screenWidth, u32 screenHeight);
 
 		void drawAllLines();
 		void drawAllPoints();

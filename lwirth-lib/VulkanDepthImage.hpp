@@ -26,7 +26,7 @@ namespace lw
 			DepthImage() = default;
 			~DepthImage();
 
-			void create(Device* pDevice, CommandPool* pCommandPool, U32 width, U32 height);
+			void create(Device* pDevice, CommandPool* pCommandPool, u32 width, u32 height);
 			void destroy();
 
 			VkImage image() const;

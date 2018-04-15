@@ -47,7 +47,7 @@ namespace lw
 			Pipeline() = default;
 			~Pipeline();
 
-			void init(U32 screenWidth, U32 screenHeight);
+			void init(u32 screenWidth, u32 screenHeight);
 			void create(const Device* pDevice, const RenderPass* pRenderPass, const VertexShader* pVertexShader, const FragmentShader* pFragmentShader);
 			void destroy();
 
@@ -61,19 +61,19 @@ namespace lw
 			Pipeline& setRasterizerDiscardEnable(bool enable);
 			Pipeline& setPolygonMode(VkPolygonMode mode);
 			Pipeline& setCulling(VkCullModeFlags mode, VkFrontFace frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE);
-			Pipeline& setDepthBias(bool enable, F32 constFactor, F32 clamp, F32 slopeFactor);
-			Pipeline& setLineWidth(F32 width);
+			Pipeline& setDepthBias(bool enable, f32 constFactor, f32 clamp, f32 slopeFactor);
+			Pipeline& setLineWidth(f32 width);
 			Pipeline& addDynamicState(VkDynamicState state);
-			Pipeline& setColorBlending(const VkPipelineColorBlendAttachmentState& attachment, bool enableLogigOp, VkLogicOp logicOp, F32 blendConst0, F32 blendConst1, F32 blendConst2, F32 blendConst3);
+			Pipeline& setColorBlending(const VkPipelineColorBlendAttachmentState& attachment, bool enableLogigOp, VkLogicOp logicOp, f32 blendConst0, f32 blendConst1, f32 blendConst2, f32 blendConst3);
 			Pipeline& addVertexBinding(const VkVertexInputBindingDescription& vibd);
-			Pipeline& addVertexBinding(U32 binding, U32 stride, VkVertexInputRate inputRate);
+			Pipeline& addVertexBinding(u32 binding, u32 stride, VkVertexInputRate inputRate);
 			Pipeline& addVertexDescription(const VkVertexInputAttributeDescription& viad);
-			Pipeline& addVertexDescription(U32 location, U32 binding, VkFormat format, U32 offset);
-			Pipeline& setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, F32 minDepthBounds, F32 maxDepthBounds);
+			Pipeline& addVertexDescription(u32 location, u32 binding, VkFormat format, u32 offset);
+			Pipeline& setDepthStencil(bool enableDepthTest, bool enableDepthWrite, VkCompareOp depthCompareOp, bool enableDepthBoundsTest, bool enableStencilTest, VkStencilOpState front, VkStencilOpState back, f32 minDepthBounds, f32 maxDepthBounds);
 			//Pipeline& setMultisampling(VkSampleCountFlagBits sampleCount, bool enableSampleShading, F32 minSampleShading, VkSampleMask sampleMask, bool enableAlphaToCoverage, bool enableAlphaToOne);
 			Pipeline& addDesciptorSetLayout(const VkDescriptorSetLayout& dsl);
 			Pipeline& addPushConstantRange(const VkPushConstantRange& pcr);
-			Pipeline& addPushConstantRange(VkShaderStageFlags stageFlags, U32 offset, U32 size);
+			Pipeline& addPushConstantRange(VkShaderStageFlags stageFlags, u32 offset, u32 size);
 
 			//#TODO: setTesselationState()
 

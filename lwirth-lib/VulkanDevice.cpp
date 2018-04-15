@@ -34,8 +34,8 @@ namespace lw
 			m_pPhysical = physicalDevices->getBest();
 
 
-			lw::DynamicArray<U32> temp = m_pPhysical->queueFamiles()->getIndices();
-			std::set<U32> familyIndices;
+			lw::DynamicArray<u32> temp = m_pPhysical->queueFamiles()->getIndices();
+			std::set<u32> familyIndices;
 			for (unsigned int i : temp)
 			{
 				familyIndices.insert(i);
@@ -43,7 +43,7 @@ namespace lw
 
 			lw::DynamicArray<VkDeviceQueueCreateInfo> queueInfos;
 			float queuePriority = 1.f;
-			for (U32 index : familyIndices)
+			for (u32 index : familyIndices)
 			{
 				VkDeviceQueueCreateInfo info;
 				info.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
@@ -96,7 +96,7 @@ namespace lw
 			m_pPhysical = nullptr;
 		}
 
-		Queue Device::getQueue(QueueFamily* pFamily, U32 index) const
+		Queue Device::getQueue(QueueFamily* pFamily, u32 index) const
 		{
 			if (m_device == VK_NULL_HANDLE)throw NotCreatedException();
 			Queue r;

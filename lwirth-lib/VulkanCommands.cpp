@@ -27,7 +27,7 @@ namespace lw
 			poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 			poolInfo.pNext = nullptr;
 			poolInfo.flags = 0;
-			poolInfo.queueFamilyIndex = static_cast<U32>(m_pDevice->getPhysical()->queueFamiles()->getGraphics()->getIndex());
+			poolInfo.queueFamilyIndex = static_cast<u32>(m_pDevice->getPhysical()->queueFamiles()->getGraphics()->getIndex());
 
 			if (vkCreateCommandPool(m_pDevice->raw(), &poolInfo, nullptr, &m_pool) != VK_SUCCESS)
 			{

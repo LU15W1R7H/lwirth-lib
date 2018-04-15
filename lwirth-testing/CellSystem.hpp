@@ -5,7 +5,7 @@
 class Cell
 {
 public:
-	F32 m_energy;
+	f32 m_energy;
 
 };
 
@@ -30,7 +30,7 @@ public:
 			m_cells[i] = new Cell[m_height];
 		}
 
-		F32 sizeOfCell = lw::min(2.f / m_width, 2.f / m_height);
+		f32 sizeOfCell = lw::min(2.f / m_width, 2.f / m_height);
 
 		size_t index = 0;
 
@@ -52,7 +52,7 @@ public:
 		}
 	}
 
-	F32 energ(int i, int j)
+	f32 energ(int i, int j)
 	{
 		if (i >= m_width || i < 0 || j >= m_height || j < 0)return 0;
 

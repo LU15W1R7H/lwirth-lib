@@ -11,8 +11,8 @@ namespace lw
 	class Vector<2>
 	{
 	public:
-		F32 x;
-		F32 y;
+		f32 x;
+		f32 y;
 
 		Vector()
 		{
@@ -20,19 +20,19 @@ namespace lw
 			this->y = 0;
 		}
 
-		Vector(F32 x, F32 y)
+		Vector(f32 x, f32 y)
 		{
 			this->x = x;
 			this->y = y;
 		}
 
-		Vector(F32 xy)
+		Vector(f32 xy)
 		{
 			this->x = xy;
 			this->y = xy;
 		}
 
-		Vector(F32 data[2])
+		Vector(f32 data[2])
 		{
 			this->x = data[0];
 			this->y = data[1];
@@ -44,34 +44,34 @@ namespace lw
 			this->y = v.y;
 		}
 
-		F32 mag() const
+		f32 mag() const
 		{
 			return lw::sqrt(magSqd());
 		}
 
-		F32 magSqd() const
+		f32 magSqd() const
 		{
 			return x * x + y * y;
 		}
 
 		Vector<2>& norm()
 		{
-			F32 f = 1.f / mag();
+			f32 f = 1.f / mag();
 			x *= f;
 			y *= f;
 			return *this;
 		}
 
-		Vector<2>& setMag(F32 newMag)
+		Vector<2>& setMag(f32 newMag)
 		{
-			F32 f = newMag / mag();
+			f32 f = newMag / mag();
 			x *= f;
 			y *= f;
 			return *this;
 		}
 
 
-		F32& operator[](U32 index)
+		f32& operator[](u32 index)
 		{
 			switch (index)
 			{
@@ -84,7 +84,7 @@ namespace lw
 			}
 		}
 
-		const F32& operator[](U32 index) const
+		const f32& operator[](u32 index) const
 		{
 			switch (index)
 			{
@@ -97,14 +97,14 @@ namespace lw
 			}
 		}
 
-		Vector<2>& operator*=(F32 scalar)
+		Vector<2>& operator*=(f32 scalar)
 		{
 			x *= scalar;
 			y *= scalar;
 			return *this;
 		}
 
-		Vector<2>& operator/=(F32 scalar)
+		Vector<2>& operator/=(f32 scalar)
 		{
 			x /= scalar;
 			y /= scalar;
@@ -156,21 +156,21 @@ namespace lw
 		return r;
 	}
 
-	inline Vector<2> operator*(const Vector<2>& v, F32 scalar)
+	inline Vector<2> operator*(const Vector<2>& v, f32 scalar)
 	{
 		Vector<2> r = v;
 		r *= scalar;
 		return r;
 	}
 
-	inline Vector<2> operator*(F32 scalar, const Vector<2>& v)
+	inline Vector<2> operator*(f32 scalar, const Vector<2>& v)
 	{
 		Vector<2> r = v;
 		r *= scalar;
 		return r;
 	}
 
-	inline Vector<2> operator/(const Vector<2>& v, F32 scalar)
+	inline Vector<2> operator/(const Vector<2>& v, f32 scalar)
 	{
 		Vector<2> r = v;
 		r /= scalar;
@@ -194,19 +194,19 @@ namespace lw
 		return r;
 	}
 
-	inline Vector<2> setMag(const Vector<2>& v, F32 mag)
+	inline Vector<2> setMag(const Vector<2>& v, f32 mag)
 	{
 		Vector<2> r = v;
 		r.setMag(mag);
 		return r;
 	}
 
-	inline F32 dot(const Vector<2>& v1, const Vector<2>& v2)
+	inline f32 dot(const Vector<2>& v1, const Vector<2>& v2)
 	{
 		return v1.x * v2.x + v1.y * v2.y;
 	}
 
-	inline F32 angle(const Vector<2>& v1, const Vector<2>& v2)
+	inline f32 angle(const Vector<2>& v1, const Vector<2>& v2)
 	{
 		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
 	}

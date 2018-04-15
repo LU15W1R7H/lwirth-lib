@@ -13,7 +13,7 @@ namespace lw
 	namespace VK
 	{
 
-		void Queue::init(const Device* pDevice, const QueueFamily* pFamily, U32 index)
+		void Queue::init(const Device* pDevice, const QueueFamily* pFamily, u32 index)
 		{
 			if (exists())throw AlreadyInitializedException();
 			vkGetDeviceQueue(pDevice->raw(), pFamily->getIndex(), index, &m_queue);
@@ -93,7 +93,7 @@ namespace lw
 			return m_index >= 0;
 		}
 
-		void QueueFamily::init(U32 index, const VkQueueFamilyProperties& pProperties)
+		void QueueFamily::init(u32 index, const VkQueueFamilyProperties& pProperties)
 		{
 			m_index = index;
 			m_properties = pProperties;
@@ -106,7 +106,7 @@ namespace lw
 			m_properties = {};
 		}
 
-		U32 QueueFamily::getIndex() const
+		u32 QueueFamily::getIndex() const
 		{
 			if (!exists())throw NotInitializedException();
 			return m_index;
@@ -118,7 +118,7 @@ namespace lw
 			return m_properties;
 		}
 
-		Queue QueueFamily::getQueue(const Device* pDevice, U32 index) const
+		Queue QueueFamily::getQueue(const Device* pDevice, u32 index) const
 		{
 
 			Queue r;
@@ -140,7 +140,7 @@ namespace lw
 			vkGetPhysicalDeviceQueueFamilyProperties(pDevice->raw(), &m_count, props);
 
 			m_families = new QueueFamily[m_count];
-			for (Size i = 0; i < m_count; i++)
+			for (size_t i = 0; i < m_count; i++)
 			{
 				m_families[i].init(i, props[i]);
 			}
@@ -151,7 +151,7 @@ namespace lw
 		{
 			if (!exists())return;
 
-			for (Size i = 0; i < m_count; i++)
+			for (size_t i = 0; i < m_count; i++)
 			{
 				m_families[i].deinit();
 			}
@@ -161,13 +161,13 @@ namespace lw
 			m_count = 0;
 		}
 
-		U32 QueueFamilies::count() const
+		u32 QueueFamilies::count() const
 		{
 			if (!exists())throw NotInitializedException();
 			return m_count;
 		}
 
-		const QueueFamily* QueueFamilies::get(U32 index) const
+		const QueueFamily* QueueFamilies::get(u32 index) const
 		{
 			if (!exists())throw NotInitializedException();
 			return m_families;

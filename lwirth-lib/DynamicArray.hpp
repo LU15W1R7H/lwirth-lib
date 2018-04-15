@@ -20,282 +20,215 @@ namespace lw
 		size_t m_capacity;
 
 	public:
-		DynamicArray();
-		DynamicArray(const DynamicArray<T>& d);
-		DynamicArray(size_t length);
-		DynamicArray(const std::initializer_list<T>& il);
-		~DynamicArray();
+		DynamicArray()
+		{
+			m_pData = nullptr;
+			m_size = 0;
+			m_capacity = 0;
+		}
 
-		void operator=(const DynamicArray<T>& d);
-		void operator=(const std::initializer_list<T>& il);
+		DynamicArray(const DynamicArray<T>& d)
+		{
+			operator=(d);
+		}
 
-		size_t size() const;
-		bool isEmpty() const;
-		T* raw();
-		T& at(size_t index);
-		const T& at(size_t index) const;
-		T& operator[](size_t index);
-		const T& operator[](size_t index) const;
-		T& front();
-		const T& front() const;
-		T& back();
-		const T& back() const;
-		T* begin(); //#TODO: use iterators
-		const T* begin() const; //#TODO: use iterators
-		T* end();
-		const T* end() const;
-		DynamicArray& reserve(size_t memNeeded);
-		DynamicArray& resize(size_t newSize);
-		DynamicArray& push(const T& element);
-		DynamicArray& push(const T&& element);
-		DynamicArray& pop();
-		DynamicArray& clear();
+		DynamicArray(size_t length)
+		{
+			m_pData = nullptr;
+			m_size = length;
+			allocate(m_size + ALLOCATE_STEPS);
+			for (size_t i = 0; i < m_size; i++)
+			{
+				m_pData[i] = T();
+			}
+		}
+
+		DynamicArray(const std::initializer_list<T>& il)
+		{
+			operator=(il);
+		}
+
+		~DynamicArray()
+		{
+			destroy();
+		}
+
+		void operator=(const DynamicArray<T>& d)
+		{
+			if (m_pData != nullptr)
+			{
+				delete[] m_pData;
+				m_pData = nullptr;
+			}
+			m_size = d.m_size;
+			m_capacity = d.m_capacity;
+			m_pData = new T[m_capacity];
+			memcpy(m_pData, d.m_pData, sizeof(T) * m_size);
+		}
+
+		void operator=(const std::initializer_list<T>& il)
+		{
+			destroy();
+			growIfNeeded(il.size());
+			m_size = il.size();
+			size_t k = 0;
+			for (const T* i = il.begin(); i != il.end(); i++)
+			{
+				m_pData[k] = *i;
+				k++;
+			}
+		}
+
+		size_t size() const
+		{
+			return m_size;
+		}
+
+		bool isEmpty() const
+		{
+			return m_size == 0;
+		}
+
+		T* raw()
+		{
+			return m_pData;
+		}
+
+		T& at(size_t index)
+		{
+			if (index >= m_size)throw IllegalIndexException("Illegal dynamic array index");
+			return m_pData[index];
+		}
+
+		const T& at(size_t index) const
+		{
+			if (index >= m_size)throw IllegalIndexException("Illegal dynamic array index");
+			return m_pData[index];
+		}
+
+		T& operator[](size_t index)
+		{
+			return at(index);
+		}
+
+		const T& operator[](size_t index) const
+		{
+			return at(index);
+		}
+		
+		T& front()
+		{
+			return m_pData[0];
+		}
+
+		const T& front() const
+		{
+			return m_pData[0];
+		}
+
+		T& back()
+		{
+			return m_pData[m_size - 1];
+		}
+
+		const T& back() const
+		{
+			return m_pData[m_size - 1];
+		}
+
+		T* begin() //#TODO: use iterators
+		{
+			return &m_pData[0];
+		}
+
+		const T* begin() const
+		{
+			return &m_pData[0];
+		}
+
+		T* end()
+		{
+			return m_size ? &m_pData[m_size - 1] : &m_pData[0];
+		}
+
+		const T* end() const
+		{
+			return &m_pData[m_size - 1];
+		}
+
+		DynamicArray& reserve(size_t memNeeded)
+		{
+			growIfNeeded(memNeeded);
+			return *this;
+		}
+
+		DynamicArray& resize(size_t newSize)
+		{
+			growIfNeeded(newSize);
+			m_size = newSize;
+			return *this;
+		}
+
+		DynamicArray& push(const T& element) //#TODO parameter pack
+		{
+			growIfNeeded(m_size + 1);
+			m_pData[m_size] = element;
+			m_size++;
+
+			return *this;
+		}
+
+		DynamicArray& push(const T&& element)
+		{
+			return push(element);
+		}
+
+		//#TODO emplace
+
+		DynamicArray& pop()
+		{
+			m_size--;
+			return *this;
+		}
+		DynamicArray& clear()
+		{
+			m_size = 0;
+
+			return *this;
+		}
 
 	private:
-		void destroy();
-		void growIfNeeded(size_t addedElemsCount);
-		void allocate(size_t newAllocationsCount);
-	};
-
-	template<typename T>
-	inline DynamicArray<T>::DynamicArray()
-	{
-		m_pData = nullptr;
-		m_size = 0;
-		m_capacity = 0;
-		allocate(ALLOCATE_STEPS);
-	}
-
-	template<typename T>
-	inline DynamicArray<T>::DynamicArray(const DynamicArray<T>& d)
-	{
-		operator=(d);
-	}
-
-	template<typename T>
-	inline DynamicArray<T>::DynamicArray(size_t length)
-	{
-		m_pData = nullptr;
-		m_size = length;
-		allocate(m_size + ALLOCATE_STEPS);
-		for (size_t i = 0; i < m_size; i++)
-		{
-			m_pData[i] = T();
-		}
-	}
-
-	template<typename T>
-	inline DynamicArray<T>::DynamicArray(const std::initializer_list<T>& il)
-	{
-		operator=(il);
-	}
-
-	template<typename T>
-	inline DynamicArray<T>::~DynamicArray()
-	{
-		destroy();
-	}
-
-	template<typename T>
-	inline void DynamicArray<T>::operator=(const DynamicArray<T>& d)
-	{
-		if (m_pData != nullptr)
+		void destroy()
 		{
 			delete[] m_pData;
 			m_pData = nullptr;
+			m_size = 0;
+			m_capacity = 0;
 		}
-		m_size = d.m_size;
-		m_capacity = d.m_capacity;
-		m_pData = new T[m_capacity];
-		memcpy(m_pData, d.m_pData, sizeof(T) * m_size);
-	}
 
-	template<typename T>
-	inline void DynamicArray<T>::operator=(const std::initializer_list<T>& il)
-	{
-		destroy();
-		growIfNeeded(il.size());
-		m_size = il.size();
-		size_t k = 0;
-		for (const T* i = il.begin(); i != il.end(); i++)
+		void growIfNeeded(size_t neededCap)
 		{
-			m_pData[k] = *i;
-			k++;
+			if (neededCap <= m_capacity)return;
+			size_t newCap = neededCap;
+			if (m_capacity - newCap < ALLOCATE_STEPS)newCap += ALLOCATE_STEPS;
+			allocate(newCap);
 		}
-	}
 
-	template<typename T>
-	inline size_t DynamicArray<T>::size() const
-	{
-		return m_size;
-	}
-
-	template<typename T>
-	inline bool DynamicArray<T>::isEmpty() const
-	{
-		return m_size == 0;
-	}
-
-	template<typename T>
-	inline T* DynamicArray<T>::raw()
-	{
-		return m_pData;
-	}
-
-	template<typename T>
-	inline T& DynamicArray<T>::at(size_t index)
-	{
-		if (index >= m_size)throw IllegalIndexException("Illegal dynamic array index");
-		return m_pData[index];
-	}
-
-	template<typename T>
-	inline T& DynamicArray<T>::operator[](size_t index)
-	{
-		return at(index);
-	}
-
-	template<typename T>
-	inline const T& DynamicArray<T>::at(size_t index) const
-	{
-		if (index >= m_size)throw IllegalIndexException("Illegal dynamic array index");
-		return m_pData[index];
-	}
-
-	template<typename T>
-	inline const T& DynamicArray<T>::operator[](size_t index) const
-	{
-		return at(index);
-	}
-
-	template<typename T>
-	inline T& DynamicArray<T>::front()
-	{
-		return m_pData[0];
-	}
-
-	template<typename T>
-	inline const T& DynamicArray<T>::front() const
-	{
-		return m_pData[0];
-	}
-
-	template<typename T>
-	inline T & DynamicArray<T>::back()
-	{
-		return m_pData[m_size - 1];
-	}
-
-	template<typename T>
-	inline const T & DynamicArray<T>::back() const
-	{
-		return m_pData[m_size - 1];
-	}
-
-	template<typename T>
-	inline T* DynamicArray<T>::begin()
-	{
-		return &m_pData[0];
-	}
-
-	template<typename T>
-	inline const T* DynamicArray<T>::begin() const
-	{
-		return &m_pData[0];
-	}
-
-	template<typename T>
-	inline T* DynamicArray<T>::end()
-	{
-		return m_size ? &m_pData[m_size - 1] : &m_pData[0];
-	}
-
-	template<typename T>
-	inline const T * DynamicArray<T>::end() const
-	{
-		return &m_pData[m_size - 1];
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::resize(size_t newSize)
-	{
-		growIfNeeded(newSize);
-		m_size = newSize;
-		return *this;
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::reserve(size_t memNeeded)
-	{
-		growIfNeeded(memNeeded);
-		return *this;
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::push(const T& element)
-	{
-		growIfNeeded(m_size + 1);
-		m_pData[m_size] = element;
-		m_size++;
-
-		return *this;
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::push(const T&& element)
-	{
-		return push(element);
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::pop()
-	{
-		m_size--;
-		return *this;
-	}
-
-	template<typename T>
-	inline DynamicArray<T>& DynamicArray<T>::clear()
-	{
-		m_size = 0;
-
-		return *this;
-	}
-
-	
-	template<typename T>
-	inline void DynamicArray<T>::destroy()
-	{
-		delete[] m_pData;
-		m_pData = nullptr;
-		m_size = 0;
-		m_capacity = 0;
-	}
-
-	template<typename T>
-	inline void DynamicArray<T>::growIfNeeded(size_t neededCap)
-	{
-		if (neededCap <= m_capacity)return;
-		size_t newCap = neededCap;
-		if (m_capacity - newCap < ALLOCATE_STEPS)newCap += ALLOCATE_STEPS;
-		allocate(newCap);
-	}
-
-	template<typename T>
-	inline void DynamicArray<T>::allocate(size_t newCapacity)
-	{
-		auto* pNewData = new T[newCapacity];
-
-		if (m_capacity != 0)
+		void allocate(size_t newCapacity)
 		{
-			memcpy(pNewData, m_pData, sizeof(T) * m_size);
+			auto* pNewData = new T[newCapacity];
+
+			if (m_capacity != 0)
+			{
+				memcpy(pNewData, m_pData, sizeof(T) * m_size);
+			}
+			delete[] m_pData;
+
+			m_capacity = newCapacity;
+			m_pData = pNewData;
+
+
 		}
-		delete[] m_pData;
 
-		m_capacity = newCapacity;
-		m_pData = pNewData;
-
-
-	}
-
+	};
 }

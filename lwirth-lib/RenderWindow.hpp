@@ -16,8 +16,8 @@ namespace lw
 	private:
 		VK::Vulkan m_vulkan;
 	public:
-		void create(std::string& title, U32 width, U32 height) override;
-		void create(std::string&& title, U32 width, U32 height) override;
+		void create(std::string& title, u32 width, u32 height) override;
+		void create(std::string&& title, u32 width, u32 height) override;
 		void destroy() override;
 
 		void update() override;
@@ -29,7 +29,7 @@ namespace lw
 		void postDraw();
 
 	private:
-		void resize(U32 width, U32 height) override;
+		void resize(u32 width, u32 height) override;
 	};
 
 }

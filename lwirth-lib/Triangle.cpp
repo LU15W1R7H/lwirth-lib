@@ -24,10 +24,10 @@ namespace lw
 
 		{
 			VK::StagingBuffer staging;
-			staging.allocate(pDevice, sizeof(U32) * 3);
-			U32 data[] = { 0, 1, 2 };
+			staging.allocate(pDevice, sizeof(u32) * 3);
+			u32 data[] = { 0, 1, 2 };
 			void* dataPtr = staging.map();
-			memcpy(dataPtr, data, sizeof(U32) * 3);
+			memcpy(dataPtr, data, sizeof(u32) * 3);
 			staging.unmap();
 			s_indexBuffer.allocate(pDevice, pCommandPool, pDevice->getGraphicsQueue(), &staging, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			staging.destroy();
@@ -59,12 +59,12 @@ namespace lw
 		return new Triangle(*this);
 	}
 
-	F32 Triangle::area() const
+	f32 Triangle::area() const
 	{
 		return 0.5f * std::abs((m_vertices[0].pos.x - m_vertices[2].pos.x) * (m_vertices[1].pos.y - m_vertices[0].pos.y) - (m_vertices[0].pos.x - m_vertices[1].pos.x) * (m_vertices[2].pos.y - m_vertices[0].pos.y));
 	}
 
-	void Triangle::rotate(F32 angle, Vec2 & center)
+	void Triangle::rotate(f32 angle, Vec2 & center)
 	{
 	}
 

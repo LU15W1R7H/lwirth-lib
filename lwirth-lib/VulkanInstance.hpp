@@ -23,8 +23,8 @@ namespace lw
 			Instance() = default;
 			~Instance();
 
-			void create(std::string& appName, U32 ver_major, U32 ver_minor, U32 ver_patch);
-			void create(std::string&& appName, U32 ver_major, U32 ver_minor, U32 ver_patch) { create(appName, ver_major, ver_minor, ver_patch); }
+			void create(std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch);
+			void create(std::string&& appName, u32 ver_major, u32 ver_minor, u32 ver_patch) { create(appName, ver_major, ver_minor, ver_patch); }
 			void destroy();
 
 			VkInstance raw() const;

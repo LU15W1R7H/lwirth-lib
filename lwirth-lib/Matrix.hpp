@@ -7,11 +7,11 @@
 
 namespace lw
 {
-	template<Size R, Size C>
+	template<size_t R, size_t C>
 	class Matrix
 	{
 	private:
-		F32 m_elements[R][C]; //first index = row, second index = column
+		f32 m_elements[R][C]; //first index = row, second index = column
 	
 	public:
 		static const Matrix<R, C> zero;
@@ -20,20 +20,20 @@ namespace lw
 		//creates identity matrix
 		Matrix()
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] = 0;
 				}
 			}
 		}
 
-		Matrix(F32 values[R][C])
+		Matrix(f32 values[R][C])
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] = values[i][j];
 				}
@@ -47,30 +47,30 @@ namespace lw
 
 		Matrix(const Matrix<R, C>& m)
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] = m.m_elements[i][j];
 				}
 			}
 		}
 
-		inline F32* operator[](Size rowIndex)
+		inline f32* operator[](size_t rowIndex)
 		{
 			return m_elements[rowIndex];
 		}
 
-		inline const F32* operator[](Size rowIndex) const
+		inline const f32* operator[](size_t rowIndex) const
 		{
 			return m_elements[rowIndex];
 		}
 
-		Matrix<R, C>& operator*=(F32 scalar)
+		Matrix<R, C>& operator*=(f32 scalar)
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] *= scalar;
 				}
@@ -80,9 +80,9 @@ namespace lw
 
 		Matrix<R, C>& operator+=(const Matrix<R, C>& other)
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] += other.m_elements[i][j];
 				}
@@ -92,9 +92,9 @@ namespace lw
 
 		Matrix<R, C>& operator-=(const Matrix<R, C>& other)
 		{
-			for (Size i = 0; i < R; i++)
+			for (size_t i = 0; i < R; i++)
 			{
-				for (Size j = 0; j < C; j++)
+				for (size_t j = 0; j < C; j++)
 				{
 					m_elements[i][j] -= other.m_elements[i][j];
 				}
@@ -104,16 +104,16 @@ namespace lw
 
 	};
 
-	template<Size R1, Size C1, Size R2, Size C2>
+	template<size_t R1, size_t C1, size_t R2, size_t C2>
 	inline bool operator==(const Matrix<R1, C1>& m1, const Matrix<R2, C2>& m2)
 	{
 		if (R1 != R2 || C1 != C2)
 		{
 			return false;
 		}
-		for (Size i = 0; i < R1; i++)
+		for (size_t i = 0; i < R1; i++)
 		{
-			for (Size j = 0; j < C1; j++)
+			for (size_t j = 0; j < C1; j++)
 			{
 				if (m1[i][j] != m2[i][j])return false;
 			}
@@ -121,29 +121,29 @@ namespace lw
 		return true;
 	}
 
-	template<Size R1, Size C1, Size R2, Size C2>
+	template<size_t R1, size_t C1, size_t R2, size_t C2>
 	inline bool operator!=(const Matrix<R1, C1>& m1, const Matrix<R2, C2>& m2)
 	{
 		return !(m1 == m2);
 	}
 
-	template<Size R, Size C>
-	inline Matrix<R, C> operator*(const Matrix<R, C>& m, F32 scalar)
+	template<size_t R, size_t C>
+	inline Matrix<R, C> operator*(const Matrix<R, C>& m, f32 scalar)
 	{
 		Matrix<R, C> r = m1;
 		r *= scalar;
 		return r;
 	}
 
-	template<Size R, Size C>
-	inline Matrix<R, C> operator*(F32 scalar, const Matrix<R, C>& m)
+	template<size_t R, size_t C>
+	inline Matrix<R, C> operator*(f32 scalar, const Matrix<R, C>& m)
 	{
 		Matrix<R, C> r = m1;
 		r *= scalar;
 		return r;
 	}
 
-	template<Size R, Size C>
+	template<size_t R, size_t C>
 	inline Matrix<R, C> operator+(const Matrix<R, C>& m1, const Matrix<R, C>& m2)
 	{
 		Matrix<R, C> r = m1;
@@ -151,7 +151,7 @@ namespace lw
 		return r;
 	}
 
-	template<Size R, Size C>
+	template<size_t R, size_t C>
 	inline Matrix<R, C> operator-(const Matrix<R, C>& m1, const Matrix<R, C>& m2)
 	{
 		Matrix<R, C> r = m1;
@@ -159,16 +159,16 @@ namespace lw
 		return r;
 	}
 
-	template<Size R1, Size C1R2, Size C2>
+	template<size_t R1, size_t C1R2, size_t C2>
 	inline Matrix<R1, C2> operator*(const Matrix<R1, C1R2>& m1, const Matrix<C1R2, C2>& m2)
 	{
 		Matrix<R1, C2> r;
-		for (Size i = 0; i < R1; i++)
+		for (size_t i = 0; i < R1; i++)
 		{
-			for (Size j = 0; j < C2; j++)
+			for (size_t j = 0; j < C2; j++)
 			{
-				F32 v = 0;
-				for (Size k = 0; k < C1R2; k++)
+				f32 v = 0;
+				for (size_t k = 0; k < C1R2; k++)
 				{
 					v += m1[i][k] * m2[k][j];
 				}
@@ -178,24 +178,24 @@ namespace lw
 		return r;
 	}
 
-	template<Size R, Size C>
-	inline Matrix<R, C> pow(const Matrix<R, C>& m, Size exponent)
+	template<size_t R, size_t C>
+	inline Matrix<R, C> pow(const Matrix<R, C>& m, size_t exponent)
 	{
 		auto r = Matrix<R, C>::identity;
-		for (Size i = 0; i < exponent; i++)
+		for (size_t i = 0; i < exponent; i++)
 		{
 			r = m * m;
 		}
 		return r;
 	}
 
-	template<Size R, Size C>
+	template<size_t R, size_t C>
 	inline Vector<C> operator*(const Matrix<R, C>& m, const Vector<R>& v)
 	{
 		Vector<C> r;
-		for (Size i = 0; i < R; i++)
+		for (size_t i = 0; i < R; i++)
 		{
-			for (Size j = 0; j < C; j++)
+			for (size_t j = 0; j < C; j++)
 			{
 				r[i] += m[i][j] * v[j];
 			}
@@ -203,13 +203,13 @@ namespace lw
 		return r;
 	}
 
-	template<Size R, Size C>
+	template<size_t R, size_t C>
 	inline Matrix<C, R> transpose(const Matrix<R, C>& m)
 	{
 		Matrix<C, R> r;
-		for (Size i = 0; i < R; i++)
+		for (size_t i = 0; i < R; i++)
 		{
-			for (Size j = 0; j < C; j++)
+			for (size_t j = 0; j < C; j++)
 			{
 				r[j][i] = m[i][j];
 			}

@@ -14,7 +14,7 @@ namespace lw
 		m_mainColor = color;
 	}
 
-	void SimpleBrush2D::setColor(F32 r, F32 g, F32 b, F32 a /*= 1.f*/)
+	void SimpleBrush2D::setColor(f32 r, f32 g, f32 b, f32 a /*= 1.f*/)
 	{
 		m_mainColor = { r, g, b, a };
 	}
@@ -44,7 +44,7 @@ namespace lw
 		m_lineVertexArray.push(end);
 	}
 
-	void SimpleBrush2D::drawLine(F32 x1, F32 y1, F32 x2, F32 y2)
+	void SimpleBrush2D::drawLine(f32 x1, f32 y1, f32 x2, f32 y2)
 	{
 		if (!m_ready)throw NotReadyException("SimpleBrush2D is not ready.");
 
@@ -57,12 +57,12 @@ namespace lw
 		m_pointVertexArray.push(pos);
 	}
 
-	void SimpleBrush2D::drawPoint(F32 x, F32 y)
+	void SimpleBrush2D::drawPoint(f32 x, f32 y)
 	{
 		m_pointVertexArray.push(Vertex2D({ x, y }, m_mainColor));
 	}
 
-	void SimpleBrush2D::create(VK::Vulkan* pVulkan, U32 screenWidth, U32 screenHeight)
+	void SimpleBrush2D::create(VK::Vulkan* pVulkan, u32 screenWidth, u32 screenHeight)
 	{
 		m_pVK = pVulkan;
 		m_screenWidth = screenWidth;
@@ -76,9 +76,9 @@ namespace lw
 
 		//prepare index buffers
 		{
-			lw::DynamicArray<U16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
+			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
 			VK::StagingBuffer stagingBuffer;
-			size_t dataSize = indexArrayVec.size() * sizeof(U16);
+			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
 			void* dataPtr = stagingBuffer.map();
 			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
@@ -88,9 +88,9 @@ namespace lw
 		}
 
 		{
-			lw::DynamicArray<U16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
+			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
 			VK::StagingBuffer stagingBuffer;
-			size_t dataSize = indexArrayVec.size() * sizeof(U16);
+			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
 			void* dataPtr = stagingBuffer.map();
 			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
@@ -178,7 +178,7 @@ namespace lw
 		m_ready = false;
 	}
 
-	void SimpleBrush2D::resize(U32 screenWidth, U32 screenHeight)
+	void SimpleBrush2D::resize(u32 screenWidth, u32 screenHeight)
 	{
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
@@ -196,8 +196,8 @@ namespace lw
 		VkViewport viewport;
 		viewport.x = 0.f;
 		viewport.y = 0.f;
-		viewport.width = static_cast<F32>(m_screenWidth);
-		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.width = static_cast<f32>(m_screenWidth);
+		viewport.height = static_cast<f32>(m_screenHeight);
 		viewport.minDepth = 0.f;
 		viewport.maxDepth = 1.f;
 
@@ -224,8 +224,8 @@ namespace lw
 		VkViewport viewport;
 		viewport.x = 0.f;
 		viewport.y = 0.f;
-		viewport.width = static_cast<F32>(m_screenWidth);
-		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.width = static_cast<f32>(m_screenWidth);
+		viewport.height = static_cast<f32>(m_screenHeight);
 		viewport.minDepth = 0.f;
 		viewport.maxDepth = 1.f;
 
@@ -250,8 +250,8 @@ namespace lw
 		VkViewport viewport;
 		viewport.x = 0.f;
 		viewport.y = 0.f;
-		viewport.width = static_cast<F32>(m_screenWidth);
-		viewport.height = static_cast<F32>(m_screenHeight);
+		viewport.width = static_cast<f32>(m_screenWidth);
+		viewport.height = static_cast<f32>(m_screenHeight);
 		viewport.minDepth = 0.f;
 		viewport.maxDepth = 1.f;
 

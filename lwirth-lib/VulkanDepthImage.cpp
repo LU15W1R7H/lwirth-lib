@@ -18,7 +18,7 @@ namespace lw
 			if (m_image != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
-		void DepthImage::create(Device* pDevice, CommandPool* pCommandPool, U32 width, U32 height)
+		void DepthImage::create(Device* pDevice, CommandPool* pCommandPool, u32 width, u32 height)
 		{
 			if (m_image != VK_NULL_HANDLE)throw AlreadyCreatedException();
 

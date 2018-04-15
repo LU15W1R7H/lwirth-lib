@@ -6,7 +6,7 @@ namespace lw
 	namespace phy
 	{
 		
-		Object::Object(Shape& _shape, F32 _mass)
+		Object::Object(Shape& _shape, f32 _mass)
 			: m_shape(_shape.clone()), m_pos(m_shape->m_pos), m_mass(_mass)
 		{
 		}

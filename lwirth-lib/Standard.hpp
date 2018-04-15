@@ -25,23 +25,20 @@
 #define ASSERT(expr)
 #endif
 
-#include <cstdint>
+#include <stdint.h>
 
-typedef std::uint8_t	U8;
-typedef std::uint16_t	U16;
-typedef std::uint32_t	U32;
-typedef std::uint64_t	U64;
-typedef std::int8_t		I8;
-typedef std::int16_t	I16;
-typedef std::int32_t	I32;
-typedef std::int64_t	I64;
-typedef float			F32;
-typedef double			D64;
-typedef char			Byte;
-typedef size_t			Size;
+using u8	= uint8_t;
+using u16	= uint16_t;
+using u32	= uint32_t;
+using u64	= uint64_t;
+using i8	= int8_t;
+using i16	= int16_t;
+using i32	= int32_t;
+using i64	= int64_t;
+using f32	= float;
+using d64	= double;
+using byte	= char;
 
-
-typedef const char* CString;
 
 namespace lw
 {

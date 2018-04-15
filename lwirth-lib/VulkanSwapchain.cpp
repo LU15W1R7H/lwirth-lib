@@ -15,7 +15,7 @@ namespace lw
 	namespace VK
 	{
 
-		void Swapchain::create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, U32 width, U32 height, Swapchain* pOldSwapchain)
+		void Swapchain::create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, u32 width, u32 height, Swapchain* pOldSwapchain)
 		{
 			if (m_swapchain != VK_NULL_HANDLE)throw AlreadyCreatedException();
 
@@ -70,7 +70,7 @@ namespace lw
 		{
 			if (m_swapchain == VK_NULL_HANDLE)return;
 
-			for (U32 i = 0; i < m_imageCount; i++)
+			for (u32 i = 0; i < m_imageCount; i++)
 			{
 				vkDestroyFramebuffer(m_pDevice->raw(), m_frameBuffers[i], nullptr);
 				vkDestroyImageView(m_pDevice->raw(), m_imageViews[i], nullptr);
@@ -101,7 +101,7 @@ namespace lw
 			return &m_swapchain;
 		}
 
-		VkFramebuffer Swapchain::getFramebuffer(U32 index) const
+		VkFramebuffer Swapchain::getFramebuffer(u32 index) const
 		{
 			if (m_swapchain == VK_NULL_HANDLE)throw NotCreatedException();
 			if (index >= m_imageCount)throw IllegalIndexException();
@@ -109,7 +109,7 @@ namespace lw
 		}
 
 
-		void Swapchain::chooseExtent(U32 width, U32 height)
+		void Swapchain::chooseExtent(u32 width, u32 height)
 		{
 			const VkSurfaceCapabilitiesKHR& cap = m_pDevice->getPhysical()->surfaceCapabilities();
 			if (cap.currentExtent.width != std::numeric_limits<uint32_t>::max())
@@ -142,7 +142,7 @@ namespace lw
 			vkGetSwapchainImagesKHR(m_pDevice->raw(), m_swapchain, &m_imageCount, m_images);
 
 			m_imageViews = new VkImageView[m_imageCount];
-			for (U32 i = 0; i < m_imageCount; i++)
+			for (u32 i = 0; i < m_imageCount; i++)
 			{
 				VkImageViewCreateInfo ivci;
 				ivci.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -172,7 +172,7 @@ namespace lw
 		{
 			m_frameBuffers = new VkFramebuffer[m_imageCount];
 
-			for (U32 i = 0; i < m_imageCount; i++)
+			for (u32 i = 0; i < m_imageCount; i++)
 			{
 				lw::DynamicArray<VkImageView> attachments = { m_imageViews[i], pDepthImage->view() };
 

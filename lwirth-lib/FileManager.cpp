@@ -3,7 +3,7 @@
 
 namespace lw
 {
-	lw::DynamicArray<Byte> readBinFile(const std::string& filePath)
+	lw::DynamicArray<byte> readBinFile(const std::string& filePath)
 	{
 		{
 			std::ifstream file(filePath, std::ios::ate | std::ios::binary);
@@ -13,7 +13,7 @@ namespace lw
 				throw std::runtime_error("failed to open file");
 			}
 
-			U32 fileSize = static_cast<U32>(file.tellg());
+			u32 fileSize = static_cast<u32>(file.tellg());
 			lw::DynamicArray<char> buffer(fileSize);
 			file.seekg(0);
 			file.read(buffer.raw(), fileSize);

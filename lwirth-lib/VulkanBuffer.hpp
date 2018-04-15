@@ -45,7 +45,7 @@ namespace lw
 		private:
 			bool m_mapped = false;
 		public:
-			void allocate(const Device* pDevice, U32 byteSize, VkBufferUsageFlags usage, VkSharingMode sharingMode);
+			void allocate(const Device* pDevice, u32 byteSize, VkBufferUsageFlags usage, VkSharingMode sharingMode);
 			void destroy() override;
 
 			void* map();
@@ -57,7 +57,7 @@ namespace lw
 		private:
 			bool m_mapped = false;
 		public:
-			void allocate(const Device* pDevice, U32 byteSize);
+			void allocate(const Device* pDevice, u32 byteSize);
 			void destroy() override;
 
 			void* map();

@@ -15,8 +15,8 @@ namespace lw
 
 		Vec2 m_pos;
 
-		virtual F32 area() const = 0;
-		virtual void rotate(F32 angle, Vec2& center) = 0;
+		virtual f32 area() const = 0;
+		virtual void rotate(f32 angle, Vec2& center) = 0;
 	};
 
 	API bool intersects(Shape& s1, Shape& s2);

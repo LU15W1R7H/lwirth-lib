@@ -46,17 +46,17 @@ namespace lw
 
 			m_queueFamilies.init(this);
 
-			U32 amountSurfaceFormats;
+			u32 amountSurfaceFormats;
 			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, nullptr);
 			m_surfaceFormats.resize(amountSurfaceFormats);
 			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, m_surfaceFormats.raw());
 
-			U32 amountPresentModes;
+			u32 amountPresentModes;
 			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, nullptr);
 			m_presentModes.resize(amountPresentModes);
 			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, m_presentModes.raw());
 
-			U32 amountExtensionProperties;
+			u32 amountExtensionProperties;
 			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, nullptr);
 			m_extensionProperties.resize(amountExtensionProperties);
 			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, m_extensionProperties.raw());
@@ -105,24 +105,24 @@ namespace lw
 		{
 			{
 				VkPhysicalDevice* physicalDevices;
-				U32 amountDevices;
+				u32 amountDevices;
 				vkEnumeratePhysicalDevices(instance->raw(), &amountDevices, nullptr);
 				physicalDevices = new VkPhysicalDevice[amountDevices];
 				vkEnumeratePhysicalDevices(instance->raw(), &amountDevices, physicalDevices);
 
 				m_devices.resize(amountDevices);
 
-				for (U32 i = 0; i < amountDevices; i++)
+				for (u32 i = 0; i < amountDevices; i++)
 				{
 					m_devices[i].init(physicalDevices[i], surface);
 				}
 				delete[] physicalDevices;
 			}
 
-			using PhysicalDeviceIndex = U32;
-			std::multimap<U32, PhysicalDeviceIndex> candidates;
+			using PhysicalDeviceIndex = u32;
+			std::multimap<u32, PhysicalDeviceIndex> candidates;
 
-			for (U32 i = 0; i < m_devices.size(); i++)
+			for (u32 i = 0; i < m_devices.size(); i++)
 			{
 				candidates.insert(std::make_pair(m_devices[i].m_rating, i));
 			}
@@ -144,7 +144,7 @@ namespace lw
 
 		void SelectedQueueFamilies::find(const PhysicalDevice* pDevice, const Surface* pSurface, const QueueFamilies* pQueueFamilies)
 		{
-			for (U32 i = 0; i < pQueueFamilies->count(); i++)
+			for (u32 i = 0; i < pQueueFamilies->count(); i++)
 			{
 				auto& f = pQueueFamilies->get(i)->getProperties();;
 				if (f.queueCount > 0 && f.queueFlags & VK_QUEUE_GRAPHICS_BIT)
@@ -163,10 +163,10 @@ namespace lw
 			}
 		}
 
-		lw::DynamicArray<U32> SelectedQueueFamilies::getIndices() const
+		lw::DynamicArray<u32> SelectedQueueFamilies::getIndices() const
 		{
 			if (!complete())throw NotInitializedException();
-			lw::DynamicArray<U32> r =
+			lw::DynamicArray<u32> r =
 			{
 				m_pGraphics->getIndex(),
 				m_pPresent->getIndex()

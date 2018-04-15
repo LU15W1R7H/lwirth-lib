@@ -20,7 +20,7 @@ namespace lw
 		NeuronType type = undefined;
 
 		std::string name = "UNDEFINED";
-		F32 value = 1.0f;
+		f32 value = 1.0f;
 	};
 
 	struct API Layer
@@ -35,48 +35,48 @@ namespace lw
 		std::vector<Neuron> neurons;
 	};
 
-	[[deprecated]]
+
 	class API NeuralNetwork
 	{
 	private:
 		//avoid using neurons & weights directly
 		std::vector<Layer> m_layers;
-		std::vector<std::vector<std::vector<F32>>> m_weights;
+		std::vector<std::vector<std::vector<f32>>> m_weights;
 
 		Random m_random;
 	public:
 		NeuralNetwork();
 		~NeuralNetwork() = default;
 
-		Size createInput(std::string name);
-		Size createOutput(std::string name);
-		F32& getInput(Size index);
-		F32& getInput(std::string name);
-		F32& getOutput(Size index);
-		F32& getOutput(std::string name);
+		size_t createInput(std::string name);
+		size_t createOutput(std::string name);
+		f32& getInput(size_t index);
+		f32& getInput(std::string name);
+		f32& getOutput(size_t index);
+		f32& getOutput(std::string name);
 
-		void generateHiddenNeurons(Size numLayers, Size numNeurons);
+		void generateHiddenNeurons(size_t numLayers, size_t numNeurons);
 
 		void generateMesh();
 		void randomizeWeights();
-		void mutate(F32 factor);
+		void mutate(f32 factor);
 
 		void compute();
 
-		void addHiddenNeuronAndMesh(Size hiddenLayerIndex);
-		void removeHiddenNeuronAndMesh(Size hiddenLayerIndex);
-		//void addHiddenLayerAndMesh(Size neuronCount);
-		//void removeHiddenLayerAndMesh(Size hiddenLayerIndex);
+		void addHiddenNeuronAndMesh(size_t hiddenLayerIndex);
+		void removeHiddenNeuronAndMesh(size_t hiddenLayerIndex);
+		//void addHiddenLayerAndMesh(size_t neuronCount);
+		//void removeHiddenLayerAndMesh(size_t hiddenLayerIndex);
 
-		Size hiddenLayerCount();
-		Size neuronCount(Size layerIndex);
+		size_t hiddenLayerCount();
+		size_t neuronCount(size_t layerIndex);
 	private:
 		bool m_meshed = false;
 
-		Size createLayer(Layer::LayerType layerType);
-		Size createHiddenNeuron(Size hiddenLayerIndex);
+		size_t createLayer(Layer::LayerType layerType);
+		size_t createHiddenNeuron(size_t hiddenLayerIndex);
 
-		F32 activationFunction(F32 value);
+		f32 activationFunction(f32 value);
 	};
 
 

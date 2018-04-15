@@ -27,8 +27,8 @@ namespace lw
 
 		Vertex2D m_vertices[3];
 
-		F32 area() const override;
-		void rotate(F32 angle, Vec2& center) override;
+		f32 area() const override;
+		void rotate(f32 angle, Vec2& center) override;
 
 		
 

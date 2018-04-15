@@ -10,7 +10,7 @@ namespace lw
 {
 	namespace VK
 	{
-		void Image::s_create(Device * device, U32 width, U32 height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usageFlags, VkMemoryPropertyFlags propertyFlags, VkImage * image, VkDeviceMemory * imageMemory, U32 mipLevels)
+		void Image::s_create(Device * device, u32 width, u32 height, VkFormat format, VkImageTiling tiling, VkImageUsageFlags usageFlags, VkMemoryPropertyFlags propertyFlags, VkImage * image, VkDeviceMemory * imageMemory, u32 mipLevels)
 		{
 			VkImageCreateInfo ici;
 			ici.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
@@ -53,7 +53,7 @@ namespace lw
 			vkBindImageMemory(device->raw(), *image, *imageMemory, 0);
 		}
 
-		void Image::s_createView(Device * device, VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageView * imageView, U32 mipLevels)
+		void Image::s_createView(Device * device, VkImage image, VkFormat format, VkImageAspectFlags aspectFlags, VkImageView * imageView, u32 mipLevels)
 		{
 			VkImageViewCreateInfo ivci;
 			ivci.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
@@ -78,7 +78,7 @@ namespace lw
 			}
 		}
 
-		void Image::s_transitionLayout(const Device* pDevice, const CommandPool* pCommandPool, const Queue* pQueue, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, U32 baseMipLevel, U32 levelCount)
+		void Image::s_transitionLayout(const Device* pDevice, const CommandPool* pCommandPool, const Queue* pQueue, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout, u32 baseMipLevel, u32 levelCount)
 		{
 			CommandBuffer commandBuffer;
 			commandBuffer.allocate(pDevice, pCommandPool);

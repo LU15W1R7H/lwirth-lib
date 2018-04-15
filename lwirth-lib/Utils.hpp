@@ -5,7 +5,7 @@
 #include <math.h>
 #include <string>
 
-#define precCast(x) static_cast<D64>(x)
+#define precCast(x) static_cast<d64>(x)
 
 namespace lw
 {
@@ -34,7 +34,7 @@ namespace lw
 	template<typename T, typename U>
 	inline U map(T value, T oldMin, T oldMax, U newMin, U newMax)
 	{
-		double percise = (((precCast(value) - precCast(oldMin)) *
+		d64 percise = (((precCast(value) - precCast(oldMin)) *
 			(precCast(newMax) - precCast(newMin))) /
 			(precCast(oldMax) - precCast(oldMin))) + precCast(newMin);
 

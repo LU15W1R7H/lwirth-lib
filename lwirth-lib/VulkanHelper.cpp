@@ -46,12 +46,12 @@ namespace lw
 		}
 
 
-		U32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, U32 typeFilter, VkMemoryPropertyFlags properties)
+		u32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, u32 typeFilter, VkMemoryPropertyFlags properties)
 		{
 			VkPhysicalDeviceMemoryProperties pdmp;
 			vkGetPhysicalDeviceMemoryProperties(physicalDevice->raw(), &pdmp);
 
-			for (U32 i = 0; i < pdmp.memoryTypeCount; i++)
+			for (u32 i = 0; i < pdmp.memoryTypeCount; i++)
 			{
 				if (typeFilter & (1 << i) && (pdmp.memoryTypes[i].propertyFlags & properties) == properties)
 				{
