@@ -174,10 +174,13 @@
     <ClCompile Include="Exceptions.cpp" />
     <ClCompile Include="FileManager.cpp" />
     <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="Line.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="Object.cpp" />
+    <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
@@ -229,6 +232,7 @@
     <ClInclude Include="Exceptions.hpp" />
     <ClInclude Include="FileManager.hpp" />
     <ClInclude Include="Frame.hpp" />
+    <ClInclude Include="Line.hpp" />
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="lwirth.hpp" />
     <ClInclude Include="Math.hpp" />
@@ -239,6 +243,7 @@
     <ClInclude Include="NeuralNetwork.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="PerlinNoise.hpp" />
+    <ClInclude Include="Plane.hpp" />
     <ClInclude Include="PoolAllocator.hpp" />
     <ClInclude Include="Random.hpp" />
     <ClInclude Include="RenderWindow.hpp" />

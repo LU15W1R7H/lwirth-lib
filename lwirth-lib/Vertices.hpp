@@ -11,6 +11,8 @@
 
 namespace lw
 {
+	enum PrimitiveType { Points, Lines, LineStrip, Triangles, TriangleStrip, TriangleFan, Quads };
+
 	class API Vertex2D
 	{
 	public:
@@ -44,10 +46,12 @@ namespace lw
 		VK::GPUBuffer m_buffer;
 		VK::StagingBuffer m_stagingBuffer;
 
+		PrimitiveType m_primitive;
+
 		void updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool);
 	public:
 		Vertex2DArray();
-		Vertex2DArray(U32 size);
+		Vertex2DArray(U32 size, PrimitiveType primitive);
 		~Vertex2DArray() = default;
 
 		U32 size() const;
@@ -58,6 +62,8 @@ namespace lw
 		void push(const Vertex2D&);
 		void push(const Vertex2D&&);
 		void clear();
+
+		void setPrimitiveType(PrimitiveType primitive);
 	};
 
 	class API Vertex3DArray

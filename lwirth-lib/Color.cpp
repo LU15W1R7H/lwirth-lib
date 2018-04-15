@@ -8,6 +8,17 @@ namespace lw
 	{
 	}
 
+	Color::Color(U32 color)
+	{
+		U8 red = (color & 0xFF000000) >> 24;
+		U8 green = (color & 0x00FF0000) >> 16;
+		U8 blue = (color & 0x0000FF00) >> 8;
+
+		r = red / 255.f;
+		g = green / 255.f;
+		b = blue / 255.f;
+	}
+
 	Color::Color()
 		: r(0.f), g(0.f), b(0.f), a(0.f)
 	{

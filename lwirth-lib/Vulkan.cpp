@@ -71,6 +71,20 @@ namespace lw
 			}
 		}
 
+		lw::SimpleBrush3D* Vulkan::getSimpleBrush3D()
+		{
+			if (m_pSimpleBrush3D)
+			{
+				return m_pSimpleBrush3D;
+			}
+			else
+			{
+				m_pSimpleBrush3D = new SimpleBrush3D();
+				m_pSimpleBrush3D->create(this, m_screenWidth, m_screenHeight);
+				return m_pSimpleBrush3D;
+			}
+		}
+
 		void Vulkan::preDraw()
 		{
 			VkResult result = vkAcquireNextImageKHR(m_device.raw(), m_swapchain.raw(), std::numeric_limits<uint64_t>::max(), m_semaphoreImageAvailable.raw(), VK_NULL_HANDLE, &m_imageIndex);

@@ -16,13 +16,15 @@ namespace lw
 	{
 	}
 
-	Vertex2DArray::Vertex2DArray(U32 size)
+	Vertex2DArray::Vertex2DArray(U32 size, PrimitiveType primitive)
 	{
+		m_primitive = primitive;
 		resize(size);
 	}
 
 	Vertex2DArray::Vertex2DArray()
 	{
+		m_primitive = Lines;
 		resize(0);
 	}
 
@@ -70,6 +72,11 @@ namespace lw
 		m_vertices.clear();
 		m_buffer.destroy();
 		m_needsUpdate = true;
+	}
+
+	void Vertex2DArray::setPrimitiveType(PrimitiveType primitive)
+	{
+		m_primitive = primitive;
 	}
 
 	void Vertex2DArray::updateBuffer(const VK::Device* pDevice, const VK::CommandPool* pCommandPool)

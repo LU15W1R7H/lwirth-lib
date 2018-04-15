@@ -158,7 +158,6 @@ namespace lw
 
 	};
 
-	typedef Vector<4> Vector4;
 
 	inline bool operator==(const Vector<4>& v1, const Vector<4>& v2)
 	{

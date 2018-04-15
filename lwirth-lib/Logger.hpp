@@ -7,16 +7,30 @@
 namespace lw
 {
 
-	template<typename T>
-	void print(T msg)
+	template<class First, class... Rest>
+	void print(First first, Rest... rest)
 	{
-		std::cout << msg;
+		std::cout << first;
+		print(rest...);
 	}
 
-	template<typename T>
-	void println(T msg)
+	template<class Only>
+	void print(Only only)
 	{
-		std::cout << msg << '\n';
+		std::cout << only;
+	}
+
+	template<class First, class... Rest>
+	void println(First first, Rest... rest)
+	{
+		std::cout << first;
+		println(rest...);
+	}
+
+	template<class Only>
+	void println(Only only)
+	{
+		std::cout << only << '\n';
 	}
 
 	class Logger

@@ -8,6 +8,7 @@ namespace lw
 	{
 	public:
 		Color(F32 r, F32 g, F32 b, F32 a = 1.f);
+		Color(U32 color);
 		Color();
 		~Color() = default;
 

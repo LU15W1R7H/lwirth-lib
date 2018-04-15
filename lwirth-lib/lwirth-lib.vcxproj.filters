@@ -31,9 +31,6 @@
     <ClCompile Include="Random.cpp">
       <Filter>random</Filter>
     </ClCompile>
-    <ClCompile Include="NeuralNetwork.cpp">
-      <Filter>random</Filter>
-    </ClCompile>
     <ClCompile Include="SimulationTime.cpp">
       <Filter>physics</Filter>
     </ClCompile>
@@ -137,6 +134,18 @@
     <ClCompile Include="Triangle.cpp">
       <Filter>graphics\core\drawables</Filter>
     </ClCompile>
+    <ClCompile Include="Line.cpp">
+      <Filter>math\mathematical objects\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Plane.cpp">
+      <Filter>math\mathematical objects\geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="PerlinNoise.cpp">
+      <Filter>random</Filter>
+    </ClCompile>
+    <ClCompile Include="NeuralNetwork.cpp">
+      <Filter>AI\neural network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.hpp" />
@@ -172,12 +181,6 @@
       <Filter>general</Filter>
     </ClInclude>
     <ClInclude Include="Random.hpp">
-      <Filter>random</Filter>
-    </ClInclude>
-    <ClInclude Include="NeuralNetwork.hpp">
-      <Filter>random</Filter>
-    </ClInclude>
-    <ClInclude Include="PerlinNoise.hpp">
       <Filter>random</Filter>
     </ClInclude>
     <ClInclude Include="MersenneTwister.hpp">
@@ -280,27 +283,6 @@
     <ClInclude Include="Vulkan.hpp">
       <Filter>graphics\vulkan</Filter>
     </ClInclude>
-    <ClInclude Include="Vector3.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector4.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix2x2.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Matrix4x4.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.hpp">
-      <Filter>math</Filter>
-    </ClInclude>
     <ClInclude Include="Circle.hpp">
       <Filter>graphics\core\drawables</Filter>
     </ClInclude>
@@ -309,6 +291,39 @@
     </ClInclude>
     <ClInclude Include="Triangle.hpp">
       <Filter>graphics\core\drawables</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector4.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2x2.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix4x4.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="Line.hpp">
+      <Filter>math\mathematical objects\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Plane.hpp">
+      <Filter>math\mathematical objects\geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="PerlinNoise.hpp">
+      <Filter>random</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuralNetwork.hpp">
+      <Filter>AI\neural network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -350,6 +365,21 @@
     </Filter>
     <Filter Include="graphics\core\drawables">
       <UniqueIdentifier>{e103bfbe-6974-425b-9e30-f247d270360f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math\mathematical objects">
+      <UniqueIdentifier>{d1d1b500-5b9c-422d-bd00-6e0edc4b297d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math\mathematical objects\linear algebra">
+      <UniqueIdentifier>{a7687388-bdc9-4755-a945-0d4ec9bea060}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="math\mathematical objects\geometry">
+      <UniqueIdentifier>{b14c7620-abb9-4555-8e6f-205c7c6b8e33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI">
+      <UniqueIdentifier>{67eccde6-5a1f-4c91-a5b3-566ce85de894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AI\neural network">
+      <UniqueIdentifier>{75dfdc48-b55e-4289-bc27-7091f8f75ffe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

@@ -5,5 +5,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GFX.hpp" />
+    <ClInclude Include="Boi.hpp" />
+    <ClInclude Include="CellSystem.hpp" />
   </ItemGroup>
 </Project>

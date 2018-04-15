@@ -24,13 +24,13 @@ namespace lw
 	{
 		friend class VK::Vulkan;
 	private:
-		VK::Pipeline m_trianglePipeline;
 		VK::VertexShader m_vertexShader;
 		VK::FragmentShader m_fragmentShader;
 
-		VK::Pipeline m_linePipeline;
+		VK::Pipeline m_pipelineLine;
+		VK::Pipeline m_pipelinePoint;
+		VK::Pipeline m_pipelineTriangleFill;
 
-		VK::Pipeline m_pointPipeline;
 
 		U32 m_screenWidth;
 		U32 m_screenHeight;
@@ -41,7 +41,8 @@ namespace lw
 		const VK::CommandBuffer* m_pCmdBuffer = nullptr;
 
 		Color m_mainColor;
-		VK::GPUBuffer m_triangleLineIndexBuffer;
+		VK::GPUBuffer m_triangleMeshIndexBuffer;
+		VK::GPUBuffer m_quadFillIndexBuffer;
 
 		Vertex2DArray m_lineVertexArray;
 		Vertex2DArray m_pointVertexArray;
@@ -52,8 +53,6 @@ namespace lw
 
 		void setColor(const Color& color);
 		void setColor(F32 r, F32 g, F32 b, F32 a = 1.f);
-		void fillTriangle(const Triangle* tri);
-		void fillVertexArray(Vertex2DArray& vertexArray);
 		void drawVertexArray(Vertex2DArray& vertexArray);
 		void drawLine(const Vertex2D& start, const Vertex2D& end);
 		void drawLine(F32 x1, F32 y1, F32 x2, F32 y2);
@@ -74,6 +73,13 @@ namespace lw
 
 		void drawAllLines();
 		void drawAllPoints();
+
+		void preparePipeline(VK::Pipeline & pipeline);
+
+		void drawVertexArrayTriangleFill(Vertex2DArray & va);
+		void drawVertexArrayTriangleMesh(Vertex2DArray & va);
+		void drawVertexArrayQuadFill(Vertex2DArray & va);
+		void drawVertexArrayQuadMesh(Vertex2DArray & va);
 	};
 }
 

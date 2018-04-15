@@ -9,7 +9,7 @@
 namespace lw
 {
 	
-
+	
 	struct API Neuron
 	{
 	public:
@@ -35,6 +35,7 @@ namespace lw
 		std::vector<Neuron> neurons;
 	};
 
+	[[deprecated]]
 	class API NeuralNetwork
 	{
 	private:

@@ -24,6 +24,7 @@
 #include "VulkanFence.hpp"
 
 #include "SimpleBrush2D.hpp"
+#include "SimpleBrush3D.hpp"
 
 
 
@@ -56,6 +57,7 @@ namespace lw
 			Fence m_fence										= {};
 
 			SimpleBrush2D* m_pSimpleBrush2D = nullptr;
+			SimpleBrush3D* m_pSimpleBrush3D = nullptr;
 
 			U32 m_screenWidth = 0;
 			U32 m_screenHeight = 0;
@@ -72,6 +74,7 @@ namespace lw
 			void destroy();
 
 			SimpleBrush2D* getSimpleBrush2D();
+			SimpleBrush3D* getSimpleBrush3D();
 			void preDraw();
 			void postDraw();
 
