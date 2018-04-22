@@ -56,14 +56,35 @@ namespace lw
 			}
 		}
 
-		inline f32* operator[](size_t rowIndex)
+
+		f32* operator[](size_t rowIndex)
 		{
 			return m_elements[rowIndex];
 		}
 
-		inline const f32* operator[](size_t rowIndex) const
+		const f32* operator[](size_t rowIndex) const
 		{
 			return m_elements[rowIndex];
+		}
+
+		constexpr static bool isSquare()
+		{
+			return R == C;
+		}
+
+		bool isSymmetric()
+		{
+			if constexpr (!isSquare())return false;
+
+			for (size_t i = 0; i < R; i++)
+			{
+				for (size_t j = 0; j < C; j++)
+				{
+					if (i == j)continue;
+					if (m_elements[i][j] != m_elements[j][i])return false;
+				}
+			}
+			return true;
 		}
 
 		Matrix<R, C>& operator*=(f32 scalar)
@@ -216,7 +237,7 @@ namespace lw
 		}
 		return r;
 	}
-}
+};
 
 
 #include "Matrix2x2.hpp"

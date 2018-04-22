@@ -2,7 +2,6 @@
 
 #include "Standard.hpp"
 #include "DynamicArray.hpp"
-#include "String.hpp"
 #include "Root.hpp"
 #include "Exceptions.hpp"
 #include "FileManager.hpp"
@@ -20,8 +19,6 @@
 #include "Circle.hpp"
 #include "Triangle.hpp"
 #include "NeuralNetwork.hpp"
-#include "SimulationTime.hpp"
-#include "Object.hpp"
 #include "MersenneTwister.hpp"
 #include "Random.hpp"
 #include "PerlinNoise.hpp"

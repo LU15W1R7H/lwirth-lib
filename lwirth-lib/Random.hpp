@@ -40,11 +40,11 @@ namespace lw
 		//@return random F32 in range [0.f -> max]
 		f32 nextF32(f32 max);
 		//@return random F64 in range [0.0 -> 1.0]
-		d64 nextD64();
+		f64 nextD64();
 		//@return random F32 in range [min -> max]
-		d64 nextD64(d64 min, d64 max);
+		f64 nextD64(f64 min, f64 max);
 		//@return random F32 in range [0.0 -> max]
-		d64 nextD64(d64 max);
+		f64 nextD64(f64 max);
 		//@return random bool
 		bool nextBool();
 		//@return random char(letters & digits)
@@ -75,17 +75,20 @@ namespace lw
 		//@return random F32(angle) in radians in range [0 -> 2PI]
 		f32 nextAngle();
 
-		//@return random lw::Vec2
-		Vec2 nextVector2(f32 minX, f32 maxX, f32 minY, f32 maxY);
-		//@return random lw::Vec2
-		Vec2 nextVector2(f32 maxX, f32 maxY);
-		Vec2 nextVector2();
-		//@return random lw::Vec2
-		Vec2 nextVector2(const Vec2& maxVec);
 		//@return random lw::Color
 		Color nextColor();
 		Vertex2D nextVertex();
 		Triangle nextTriangle();
+
+		//#TODO refactor
+		Vec2 nextVector2(f32 minX, f32 maxX, f32 minY, f32 maxY);
+
+		Vec2 nextVector2(f32 maxX, f32 maxY);
+
+		Vec2 nextVector2();
+
+		Vec2 nextVector2(const Vec2& maxVec);
+
 
 	private:
 		mt19937 m_mt;

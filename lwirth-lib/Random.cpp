@@ -70,17 +70,17 @@ namespace lw
 		return nextF32(0.f, max);
 	}
 
-	d64 Random::nextD64()
+	f64 Random::nextD64()
 	{
 		return nextD64(0.0, 1.0);
 	}
 
-	d64 Random::nextD64(d64 min, d64 max)
+	f64 Random::nextD64(f64 min, f64 max)
 	{
-		return mapRandom<d64>(min, max);
+		return mapRandom<f64>(min, max);
 	}
 
-	d64 Random::nextD64(d64 max)
+	f64 Random::nextD64(f64 max)
 	{
 		return nextD64(0.0, max);
 	}

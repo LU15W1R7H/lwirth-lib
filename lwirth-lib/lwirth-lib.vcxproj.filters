@@ -10,9 +10,6 @@
     <ClCompile Include="PoolAllocator.cpp">
       <Filter>memory</Filter>
     </ClCompile>
-    <ClCompile Include="Chrono.cpp">
-      <Filter>general</Filter>
-    </ClCompile>
     <ClCompile Include="Exceptions.cpp">
       <Filter>general</Filter>
     </ClCompile>
@@ -30,12 +27,6 @@
     </ClCompile>
     <ClCompile Include="Random.cpp">
       <Filter>random</Filter>
-    </ClCompile>
-    <ClCompile Include="SimulationTime.cpp">
-      <Filter>physics</Filter>
-    </ClCompile>
-    <ClCompile Include="Object.cpp">
-      <Filter>physics</Filter>
     </ClCompile>
     <ClCompile Include="Utils.cpp">
       <Filter>utils</Filter>
@@ -107,9 +98,6 @@
     <ClCompile Include="SimpleBrush3D.cpp">
       <Filter>graphics\core</Filter>
     </ClCompile>
-    <ClCompile Include="String.cpp">
-      <Filter>datatypes</Filter>
-    </ClCompile>
     <ClCompile Include="Root.cpp">
       <Filter>general</Filter>
     </ClCompile>
@@ -146,6 +134,12 @@
     <ClCompile Include="NeuralNetwork.cpp">
       <Filter>AI\neural network</Filter>
     </ClCompile>
+    <ClCompile Include="VectorField2D.cpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysicalUnit.cpp">
+      <Filter>physics\units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.hpp" />
@@ -161,9 +155,6 @@
     </ClInclude>
     <ClInclude Include="Array.hpp">
       <Filter>datatypes</Filter>
-    </ClInclude>
-    <ClInclude Include="Chrono.hpp">
-      <Filter>general</Filter>
     </ClInclude>
     <ClInclude Include="Exceptions.hpp">
       <Filter>general</Filter>
@@ -185,12 +176,6 @@
     </ClInclude>
     <ClInclude Include="MersenneTwister.hpp">
       <Filter>random</Filter>
-    </ClInclude>
-    <ClInclude Include="SimulationTime.hpp">
-      <Filter>physics</Filter>
-    </ClInclude>
-    <ClInclude Include="Object.hpp">
-      <Filter>physics</Filter>
     </ClInclude>
     <ClInclude Include="Utils.hpp">
       <Filter>utils</Filter>
@@ -262,9 +247,6 @@
     <ClInclude Include="SimpleBrush3D.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
-    <ClInclude Include="String.hpp">
-      <Filter>datatypes</Filter>
-    </ClInclude>
     <ClInclude Include="DynamicArray.hpp">
       <Filter>datatypes</Filter>
     </ClInclude>
@@ -325,6 +307,12 @@
     <ClInclude Include="NeuralNetwork.hpp">
       <Filter>AI\neural network</Filter>
     </ClInclude>
+    <ClInclude Include="VectorField2D.hpp">
+      <Filter>math\mathematical objects\linear algebra</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysicalUnit.hpp">
+      <Filter>physics\units</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="math">
@@ -380,6 +368,9 @@
     </Filter>
     <Filter Include="AI\neural network">
       <UniqueIdentifier>{75dfdc48-b55e-4289-bc27-7091f8f75ffe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="physics\units">
+      <UniqueIdentifier>{d2343edb-f04c-442d-896b-7a12fda5d96d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

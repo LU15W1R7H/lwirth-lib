@@ -168,7 +168,6 @@
   <ItemGroup>
     <ClCompile Include="Allocations.cpp" />
     <ClCompile Include="Application.cpp" />
-    <ClCompile Include="Chrono.cpp" />
     <ClCompile Include="Circle.cpp" />
     <ClCompile Include="Color.cpp" />
     <ClCompile Include="Exceptions.cpp" />
@@ -178,8 +177,8 @@
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="NeuralNetwork.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
+    <ClCompile Include="PhysicalUnit.cpp" />
     <ClCompile Include="Plane.cpp" />
     <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="Random.cpp" />
@@ -189,7 +188,6 @@
     <ClCompile Include="SIMD.cpp" />
     <ClCompile Include="SimpleBrush2D.cpp" />
     <ClCompile Include="SimpleBrush3D.cpp" />
-    <ClCompile Include="SimulationTime.cpp" />
     <ClCompile Include="StackAllocator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -197,9 +195,9 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="String.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Utils.cpp" />
+    <ClCompile Include="VectorField2D.cpp" />
     <ClCompile Include="Vertices.cpp" />
     <ClCompile Include="Visualizer.cpp" />
     <ClCompile Include="VulkanBuffer.cpp" />
@@ -226,7 +224,6 @@
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Array.hpp" />
     <ClInclude Include="DynamicArray.hpp" />
-    <ClInclude Include="Chrono.hpp" />
     <ClInclude Include="Circle.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Exceptions.hpp" />
@@ -241,8 +238,8 @@
     <ClInclude Include="Matrix4x4.hpp" />
     <ClInclude Include="MersenneTwister.hpp" />
     <ClInclude Include="NeuralNetwork.hpp" />
-    <ClInclude Include="Object.hpp" />
     <ClInclude Include="PerlinNoise.hpp" />
+    <ClInclude Include="PhysicalUnit.hpp" />
     <ClInclude Include="Plane.hpp" />
     <ClInclude Include="PoolAllocator.hpp" />
     <ClInclude Include="Random.hpp" />
@@ -252,17 +249,16 @@
     <ClInclude Include="SIMD.hpp" />
     <ClInclude Include="SimpleBrush2D.hpp" />
     <ClInclude Include="SimpleBrush3D.hpp" />
-    <ClInclude Include="SimulationTime.hpp" />
     <ClInclude Include="StackAllocator.hpp" />
     <ClInclude Include="Standard.hpp" />
     <ClInclude Include="stdafx.hpp" />
-    <ClInclude Include="String.hpp" />
     <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
     <ClInclude Include="Vector4.hpp" />
+    <ClInclude Include="VectorField2D.hpp" />
     <ClInclude Include="Vertices.hpp" />
     <ClInclude Include="Visualizer.hpp" />
     <ClInclude Include="VulkanBuffer.hpp" />
