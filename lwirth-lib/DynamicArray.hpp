@@ -156,45 +156,47 @@ namespace lw
 			return &m_pData[m_size - 1];
 		}
 
-		DynamicArray& reserve(size_t memNeeded)
+		void reserve(size_t memNeeded)
 		{
 			growIfNeeded(memNeeded);
-			return *this;
 		}
 
-		DynamicArray& resize(size_t newSize)
+		void resize(size_t newSize)
 		{
 			growIfNeeded(newSize);
 			m_size = newSize;
-			return *this;
 		}
 
-		DynamicArray& push(const T& element) //#TODO parameter pack
+		void push(const T& element) //#TODO parameter pack
 		{
 			growIfNeeded(m_size + 1);
 			m_pData[m_size] = element;
 			m_size++;
-
-			return *this;
 		}
 
-		DynamicArray& push(const T&& element)
+		void push(const T&& element)
 		{
-			return push(element);
+			push(element);
 		}
 
-		//#TODO emplace
+		template<class ...Args>
+		void emplace(Args... args)
+		{
+			growIfNeeded(m_size + 1);
+			m_pData[m_size] = T(args...);
+			m_size++;
+		}
 
-		DynamicArray& pop()
+		//#TODO check emplace
+
+		void pop()
 		{
 			m_size--;
-			return *this;
 		}
-		DynamicArray& clear()
+
+		void clear()
 		{
 			m_size = 0;
-
-			return *this;
 		}
 
 	private:

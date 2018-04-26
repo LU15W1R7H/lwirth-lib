@@ -53,17 +53,17 @@ namespace lw
 		return arg1 % arg2;
 	}
 
-	constexpr inline f32 pow(f32 base, f32 exponent)
+	inline f32 pow(f32 base, f32 exponent)
 	{
 		return std::pow(base, exponent);
 	}
 
-	constexpr inline f32 root(f32 value, f32 power)
+	inline f32 root(f32 value, f32 power)
 	{
 		return lw::pow(value, 1.f / power);
 	}
 
-	constexpr inline f32 sqrt(f32 value)
+	inline f32 sqrt(f32 value)
 	{
 		return std::sqrt(value);
 	}
