@@ -77,7 +77,7 @@ namespace lw
 			}
 
 
-			lw::DynamicArray<VkWriteDescriptorSet> descriptorWrites;
+			lw::List<VkWriteDescriptorSet> descriptorWrites;
 			for (auto& bufferDescriptor : m_bufferDescriptors)
 			{
 				VkWriteDescriptorSet write;
@@ -178,7 +178,7 @@ namespace lw
 				}
 			}
 
-			lw::DynamicArray<VkDescriptorPoolSize> poolSizes;
+			lw::List<VkDescriptorPoolSize> poolSizes;
 			if (uniformBufferCount > 0)
 			{
 				VkDescriptorPoolSize dps;

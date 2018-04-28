@@ -64,7 +64,7 @@ namespace lw
 
 			u32 m_imageIndex = 0;
 
-			lw::DynamicArray<Buffer> m_bufferDestroyQueue = {};
+			lw::List<Buffer> m_bufferDestroyQueue = {};
 		public:
 			Vulkan() = default;
 			~Vulkan() = default;

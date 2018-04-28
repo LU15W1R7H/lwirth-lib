@@ -7,7 +7,7 @@
 
 #include "VulkanQueues.hpp"
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 
 namespace lw
 {
@@ -20,7 +20,7 @@ namespace lw
 		class API Device
 		{
 		private:
-			static lw::DynamicArray<const char*> s_extensions;
+			static lw::List<const char*> s_extensions;
 
 			VkDevice			m_device			= VK_NULL_HANDLE;
 			Queue				m_graphicsQueue		= {};

@@ -12,7 +12,7 @@ namespace lw
 {
 	namespace VK
 	{
-		const lw::DynamicArray<std::string> PhysicalDevice::s_extensions =
+		const lw::List<std::string> PhysicalDevice::s_extensions =
 		{
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
@@ -163,10 +163,10 @@ namespace lw
 			}
 		}
 
-		lw::DynamicArray<u32> SelectedQueueFamilies::getIndices() const
+		lw::List<u32> SelectedQueueFamilies::getIndices() const
 		{
 			if (!complete())throw NotInitializedException();
-			lw::DynamicArray<u32> r =
+			lw::List<u32> r =
 			{
 				m_pGraphics->getIndex(),
 				m_pPresent->getIndex()

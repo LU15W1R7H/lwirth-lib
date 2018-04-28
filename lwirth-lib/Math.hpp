@@ -3,7 +3,7 @@
 #include "Standard.hpp"
 
 #include <cmath>
-#include <utility>
+#include "Utils.hpp"
 
 namespace lw
 {
@@ -68,9 +68,15 @@ namespace lw
 		return std::sqrt(value);
 	}
 
-	template<typename T>
+	template<class T>
 	constexpr T lerp(const T& start, const T& dest, f32 beta)
 	{
 		return static_cast<T>((1.f - beta) * start + beta * dest);
+	}
+
+	template<class T, class U>
+	constexpr decltype(auto) nextMultiple(T&& multipleOf, U&& value)
+	{
+		return LW_FORWARD(value + multipleOf - 1) - ((value + multipleOf - 1) % multipleOf);
 	}
 }

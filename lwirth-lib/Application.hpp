@@ -9,7 +9,7 @@ namespace lw
 	class Application
 	{
 	private:
-		StackAllocator m_singleFrameAllocator;
+		StackAllocator<> m_singleFrameAllocator;
 
 
 	public:

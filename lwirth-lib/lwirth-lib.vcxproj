@@ -188,7 +188,6 @@
     <ClCompile Include="SIMD.cpp" />
     <ClCompile Include="SimpleBrush2D.cpp" />
     <ClCompile Include="SimpleBrush3D.cpp" />
-    <ClCompile Include="StackAllocator.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -223,7 +222,7 @@
     <ClInclude Include="Allocations.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Array.hpp" />
-    <ClInclude Include="DynamicArray.hpp" />
+    <ClInclude Include="List.hpp" />
     <ClInclude Include="Circle.hpp" />
     <ClInclude Include="Color.hpp" />
     <ClInclude Include="Exceptions.hpp" />

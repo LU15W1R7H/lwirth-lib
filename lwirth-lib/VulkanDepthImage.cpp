@@ -6,7 +6,7 @@
 #include "VulkanHelper.hpp"
 #include "VulkanDevice.hpp"
 #include "VulkanPhysicalDevices.hpp"
-#include "DynamicArray.hpp"
+#include "List.hpp"
 
 namespace lw
 {
@@ -65,7 +65,7 @@ namespace lw
 
 		VkFormat DepthImage::findDepthFormat(PhysicalDevice * physicalDevice)
 		{
-			lw::DynamicArray<VkFormat> formats = { VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT };
+			lw::List<VkFormat> formats = { VK_FORMAT_D32_SFLOAT, VK_FORMAT_D32_SFLOAT_S8_UINT, VK_FORMAT_D24_UNORM_S8_UINT };
 
 			return findSupportedFormat(physicalDevice, &formats, VK_IMAGE_TILING_OPTIMAL, VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT);
 		}

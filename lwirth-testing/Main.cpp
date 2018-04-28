@@ -2,13 +2,15 @@
 
 #include "GFX.hpp"
 #include "PhysicalUnit.hpp"
+#include "StackAllocator.hpp"
 
 using namespace lw;
 
 int main()
 {
-	DynamicArray<Vec2> da;
-	da.emplace(4.f, 1.f, 3.f);
+
+	vk();
+
 
 	std::cin.get();
 }

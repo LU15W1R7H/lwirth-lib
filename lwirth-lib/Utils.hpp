@@ -3,15 +3,15 @@
 #include "Standard.hpp"
 
 #include <math.h>
-#include <string>
+#include <utility>
 
 #define precCast(x) static_cast<f64>(x)
+#define LW_FORWARD(var) std::forward<decltype(var)>(var)
 
 namespace lw
 {
 	
 
-	API std::string readTextFile(const std::string& filePath);
 
 	//template functions
 
@@ -42,5 +42,6 @@ namespace lw
 
 		return result;
 	}
+
 
 }

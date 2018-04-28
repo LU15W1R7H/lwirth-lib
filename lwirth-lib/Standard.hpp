@@ -38,11 +38,17 @@ using i64	= int64_t;
 using f32	= float;
 using f64	= double;
 using f128	= long double;
-using byte	= char;
+using byte	= unsigned char;
+
 
 
 namespace lw
 {
+	inline void debugBreak()
+	{
+		__debugbreak();
+	}
+	
 	
 }
 

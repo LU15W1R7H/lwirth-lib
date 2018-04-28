@@ -12,7 +12,7 @@ namespace lw
 {
 	namespace VK
 	{
-		lw::DynamicArray<const char*> Device::s_extensions =
+		lw::List<const char*> Device::s_extensions =
 		{
 			VK_KHR_SWAPCHAIN_EXTENSION_NAME
 		};
@@ -34,14 +34,14 @@ namespace lw
 			m_pPhysical = physicalDevices->getBest();
 
 
-			lw::DynamicArray<u32> temp = m_pPhysical->queueFamiles()->getIndices();
+			lw::List<u32> temp = m_pPhysical->queueFamiles()->getIndices();
 			std::set<u32> familyIndices;
 			for (unsigned int i : temp)
 			{
 				familyIndices.insert(i);
 			}
 
-			lw::DynamicArray<VkDeviceQueueCreateInfo> queueInfos;
+			lw::List<VkDeviceQueueCreateInfo> queueInfos;
 			float queuePriority = 1.f;
 			for (u32 index : familyIndices)
 			{

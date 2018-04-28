@@ -43,6 +43,15 @@ void vk()
 		//cellSystem.update();
 		//cellSystem.render(brush);
 
+		for (f32 i = -1.f; i < 1.f; i += 0.01f)
+		{
+			for (f32 j = -1.f; j < 1.f; j += 0.01f)
+			{
+				brush->setColor(rand.nextColor());
+				brush->drawLine(0, 0, i, j);
+			}
+		}
+
 		window.postDraw();
 
 	}

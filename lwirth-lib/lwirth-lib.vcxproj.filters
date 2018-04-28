@@ -19,9 +19,6 @@
     <ClCompile Include="Logger.cpp">
       <Filter>general</Filter>
     </ClCompile>
-    <ClCompile Include="StackAllocator.cpp">
-      <Filter>memory</Filter>
-    </ClCompile>
     <ClCompile Include="Application.cpp">
       <Filter>general</Filter>
     </ClCompile>
@@ -153,9 +150,6 @@
     <ClInclude Include="PoolAllocator.hpp">
       <Filter>memory</Filter>
     </ClInclude>
-    <ClInclude Include="Array.hpp">
-      <Filter>datatypes</Filter>
-    </ClInclude>
     <ClInclude Include="Exceptions.hpp">
       <Filter>general</Filter>
     </ClInclude>
@@ -247,9 +241,6 @@
     <ClInclude Include="SimpleBrush3D.hpp">
       <Filter>graphics\core</Filter>
     </ClInclude>
-    <ClInclude Include="DynamicArray.hpp">
-      <Filter>datatypes</Filter>
-    </ClInclude>
     <ClInclude Include="Root.hpp">
       <Filter>general</Filter>
     </ClInclude>
@@ -312,6 +303,12 @@
     </ClInclude>
     <ClInclude Include="PhysicalUnit.hpp">
       <Filter>physics\units</Filter>
+    </ClInclude>
+    <ClInclude Include="Array.hpp">
+      <Filter>memory</Filter>
+    </ClInclude>
+    <ClInclude Include="List.hpp">
+      <Filter>memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

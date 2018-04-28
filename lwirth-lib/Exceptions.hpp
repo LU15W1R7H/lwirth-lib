@@ -42,6 +42,8 @@ namespace lw
 		virtual const char* what() const throw() = 0;
 	};
 
+	MAKE_EXC(AllocatorOutOfMemoryException, "Allocator has run out of memory");
+
 	MAKE_EXC(AlreadyInitializedException, "Object was already initialized");
 	MAKE_EXC(AlreadyCreatedException, "Object was already created.");
 	MAKE_EXC(AlreadyAllocatedException, "Object was already allocated.");

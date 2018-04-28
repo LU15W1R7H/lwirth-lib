@@ -68,15 +68,15 @@ namespace lw
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
 
-		m_vertexShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshadervert.spv");
-		m_fragmentShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshaderfrag.spv");
+		m_vertexShader.create(&m_pVK->m_device, "D:/Dev/C++/Projects/lwirth-lib/res/shaders/2Dshadervert.spv");
+		m_fragmentShader.create(&m_pVK->m_device, "D:/Dev/C++/Projects/lwirth-lib/res/shaders/2Dshaderfrag.spv");
 
 
 		SimpleBrush2D::createPipeline();
 
 		//prepare index buffers
 		{
-			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
+			lw::List<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
@@ -88,7 +88,7 @@ namespace lw
 		}
 
 		{
-			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
+			lw::List<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);

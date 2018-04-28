@@ -2,7 +2,7 @@
 
 #include "Standard.hpp"
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 #include "Color.hpp"
 #include "Vector.hpp"
 #include "VulkanBuffer.hpp"
@@ -42,7 +42,7 @@ namespace lw
 	private:
 		bool m_needsUpdate = false;
 
-		lw::DynamicArray<Vertex2D> m_vertices;
+		lw::List<Vertex2D> m_vertices;
 		VK::GPUBuffer m_buffer;
 		VK::StagingBuffer m_stagingBuffer;
 
@@ -72,7 +72,7 @@ namespace lw
 	private:
 		bool m_needsUpdate = false;
 
-		lw::DynamicArray<Vertex3D> m_vertices;
+		lw::List<Vertex3D> m_vertices;
 		VK::GPUBuffer m_buffer;
 		VK::StagingBuffer m_stagingBuffer;
 

@@ -65,7 +65,7 @@ namespace lw
 			dependency.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_READ_BIT | VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
 			dependency.dependencyFlags = 0;
 
-			lw::DynamicArray<VkAttachmentDescription> attachments = { colorAttachment, depthAttachment };
+			lw::List<VkAttachmentDescription> attachments = { colorAttachment, depthAttachment };
 			
 			VkRenderPassCreateInfo rpci;
 			rpci.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;

@@ -1,9 +1,8 @@
 #pragma once
 
-class PoolAllocator
-{
-public:
-	PoolAllocator();
-	~PoolAllocator();
-};
+#include "Standard.hpp"
 
+namespace lw
+{
+	
+}

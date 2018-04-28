@@ -5,7 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 #include <set>
 
 namespace lw
@@ -18,7 +18,7 @@ namespace lw
 		class QueueFamilyIndices;
 
 		API extern bool isFormatSupported(const PhysicalDevice* physicalDevice, VkFormat format, VkImageTiling tiling, VkFormatFeatureFlags features);
-		API extern VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::DynamicArray<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+		API extern VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::List<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
 		API extern bool hasStencilComponent(VkFormat format);
 		API extern u32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, u32 typeFilter, VkMemoryPropertyFlags properties);
 	}

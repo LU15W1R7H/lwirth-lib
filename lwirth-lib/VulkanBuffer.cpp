@@ -63,7 +63,7 @@ namespace lw
 				{
 					throw VulkanException("Queue family indices are not complete");
 				}
-				lw::DynamicArray<u32> familyIndices = queueFamilies->getIndices();
+				lw::List<u32> familyIndices = queueFamilies->getIndices();
 				bci.queueFamilyIndexCount = familyIndices.size();
 				bci.pQueueFamilyIndices = familyIndices.raw();
 			}

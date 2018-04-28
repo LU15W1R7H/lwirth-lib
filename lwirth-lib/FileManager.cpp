@@ -3,23 +3,40 @@
 
 namespace lw
 {
-	lw::DynamicArray<byte> readBinFile(const std::string& filePath)
+	lw::List<byte> readBinFile(const std::string& filePath)
 	{
+		std::basic_ifstream<byte, std::char_traits<byte>> stream(filePath, std::ios::ate | std::ios::binary);
+
+		if (!stream.is_open())
+			throw std::runtime_error("failed to open file");
+
+		u32 fileSize = static_cast<u32>(stream.tellg());
+		lw::List<byte> buffer(fileSize);
+		stream.seekg(0);
+		stream.read(buffer.raw(), fileSize);
+		stream.close();
+		return buffer;
+	}
+	std::string readTextFile(const std::string & filePath)
+	{
+		
+		std::string text;
+		std::ifstream file(filePath);
+
+		if (file.is_open())
 		{
-			std::ifstream file(filePath, std::ios::ate | std::ios::binary);
-
-			if (!file.is_open())
+			std::string line;
+			while (std::getline(file, line))
 			{
-				throw std::runtime_error("failed to open file");
+				text += line + "\n";
 			}
-
-			u32 fileSize = static_cast<u32>(file.tellg());
-			lw::DynamicArray<char> buffer(fileSize);
-			file.seekg(0);
-			file.read(buffer.raw(), fileSize);
-
 			file.close();
-			return buffer;
 		}
+		else
+		{
+			throw std::runtime_error("failed to open file: " + filePath);
+		}
+
+		return text;
 	}
 }

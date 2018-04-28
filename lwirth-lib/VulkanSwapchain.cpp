@@ -174,7 +174,7 @@ namespace lw
 
 			for (u32 i = 0; i < m_imageCount; i++)
 			{
-				lw::DynamicArray<VkImageView> attachments = { m_imageViews[i], pDepthImage->view() };
+				lw::List<VkImageView> attachments = { m_imageViews[i], pDepthImage->view() };
 
 				VkFramebufferCreateInfo fci;
 				fci.sType = VK_STRUCTURE_TYPE_FRAMEBUFFER_CREATE_INFO;

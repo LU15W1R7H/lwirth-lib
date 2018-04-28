@@ -5,7 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 #include <vector>
 
 namespace lw
@@ -42,7 +42,7 @@ namespace lw
 			VkDescriptorSetLayout m_layout = VK_NULL_HANDLE;
 			Device* m_device = nullptr;
 
-			DynamicArray<VkDescriptorSetLayoutBinding> m_bindings = {};
+			List<VkDescriptorSetLayoutBinding> m_bindings = {};
 		public:
 			DescriptorSetLayout() = default;
 			~DescriptorSetLayout() = default;

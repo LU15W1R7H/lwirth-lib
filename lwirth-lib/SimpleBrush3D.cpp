@@ -76,7 +76,7 @@ namespace lw
 
 		//prepare index buffers
 		{
-			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
+			lw::List<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
@@ -88,7 +88,7 @@ namespace lw
 		}
 
 		{
-			lw::DynamicArray<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
+			lw::List<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_device, dataSize);

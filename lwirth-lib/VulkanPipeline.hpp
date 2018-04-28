@@ -5,7 +5,7 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 
 namespace lw
 {
@@ -26,20 +26,20 @@ namespace lw
 			bool m_init = false;
 
 			VkPipelineInputAssemblyStateCreateInfo	m_piasci			= {};
-			DynamicArray<VkViewport>				m_viewports			= {};
-			DynamicArray<VkRect2D>					m_scissors			= {};
+			List<VkViewport>				m_viewports			= {};
+			List<VkRect2D>					m_scissors			= {};
 			VkPipelineRasterizationStateCreateInfo	m_prsci				= {};
 			VkPipelineMultisampleStateCreateInfo	m_pmsci				= {};
 			VkPipelineColorBlendAttachmentState		m_cbas				= {};
 			VkPipelineColorBlendStateCreateInfo		m_pcbsci			= {};
-			DynamicArray<VkDynamicState>			m_dynamicStates		= {};
+			List<VkDynamicState>			m_dynamicStates		= {};
 			VkPipelineDepthStencilStateCreateInfo	m_pdssci			= {};
 
 
-			DynamicArray<VkPushConstantRange>				m_pushConstantRanges			= {};
-			DynamicArray<VkVertexInputBindingDescription>	m_vertexBindingDescriptions		= {};
-			DynamicArray<VkVertexInputAttributeDescription>	m_vertexAttributeDescriptions	= {};
-			DynamicArray<VkDescriptorSetLayout>				m_descriptorSetLayouts			= {};
+			List<VkPushConstantRange>				m_pushConstantRanges			= {};
+			List<VkVertexInputBindingDescription>	m_vertexBindingDescriptions		= {};
+			List<VkVertexInputAttributeDescription>	m_vertexAttributeDescriptions	= {};
+			List<VkDescriptorSetLayout>				m_descriptorSetLayouts			= {};
 
 			const Device* m_pDevice = nullptr;
 

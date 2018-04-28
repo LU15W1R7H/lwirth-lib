@@ -5,7 +5,7 @@
 #include "MersenneTwister.hpp"
 #include "Utils.hpp"
 
-#include "DynamicArray.hpp"
+#include "List.hpp"
 #include <string>
 #include "Vector.hpp"
 #include "Color.hpp"
@@ -61,7 +61,7 @@ namespace lw
 		size_t nextIndex(size_t max);
 
 		template<typename T>
-		const T& nextElement(const lw::DynamicArray<T>& elements)
+		const T& nextElement(const lw::List<T>& elements)
 		{
 			return elements.at(nextIndex(elements.size()));
 		}

@@ -4,7 +4,7 @@
 #include "Color.hpp"
 
 #include <iostream>
-#include "DynamicArray.hpp"
+#include "List.hpp"
 
 namespace lw
 {
@@ -112,7 +112,7 @@ namespace lw
 
 			VkClearValue clearValue = { 0.f, 0.f, 0.f, 1.f };
 			VkClearValue depthClearValue = { 1.f, 0 };
-			lw::DynamicArray<VkClearValue> clearValues = { clearValue, depthClearValue };
+			lw::List<VkClearValue> clearValues = { clearValue, depthClearValue };
 
 			rpbi.clearValueCount = clearValues.size();
 			rpbi.pClearValues = clearValues.raw();

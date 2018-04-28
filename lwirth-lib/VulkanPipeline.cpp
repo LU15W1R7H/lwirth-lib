@@ -137,7 +137,7 @@ namespace lw
 			pvisci.vertexAttributeDescriptionCount = m_vertexAttributeDescriptions.size();
 			pvisci.pVertexAttributeDescriptions = m_vertexAttributeDescriptions.raw();
 
-			lw::DynamicArray<VkPipelineShaderStageCreateInfo> shaderStages =
+			lw::List<VkPipelineShaderStageCreateInfo> shaderStages =
 			{
 				pVertexShader->getStageInfo(), pFragmentShader->getStageInfo()
 			};

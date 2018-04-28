@@ -6,7 +6,7 @@
 #include <glfw3.h>
 
 #include <string>
-#include "DynamicArray.hpp"
+#include "List.hpp"
 
 namespace lw
 {
@@ -17,7 +17,7 @@ namespace lw
 		private:
 			VkInstance m_instance = VK_NULL_HANDLE;
 
-			static lw::DynamicArray<const char*> s_layers;
+			static lw::List<const char*> s_layers;
 
 		public:
 			Instance() = default;
@@ -31,7 +31,7 @@ namespace lw
 			VkInstance* ptr();
 
 		private:
-			static bool layersAvailable(lw::DynamicArray<const char*>& layers);
+			static bool layersAvailable(lw::List<const char*>& layers);
 		};
 
 	}

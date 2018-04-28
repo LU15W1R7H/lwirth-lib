@@ -7,7 +7,7 @@ namespace lw
 {
 	namespace VK
 	{
-		lw::DynamicArray<const char*> Instance::s_layers =
+		lw::List<const char*> Instance::s_layers =
 		{
 			"VK_LAYER_LUNARG_standard_validation",
 			"VK_LAYER_LUNARG_assistant_layer",
@@ -77,11 +77,11 @@ namespace lw
 			return &m_instance;
 		}
 
-		bool Instance::layersAvailable(lw::DynamicArray<const char*>& layers)
+		bool Instance::layersAvailable(lw::List<const char*>& layers)
 		{
 			u32 layerCount;
 			vkEnumerateInstanceLayerProperties(&layerCount, nullptr);
-			lw::DynamicArray<VkLayerProperties> availableLayers(layerCount);
+			lw::List<VkLayerProperties> availableLayers(layerCount);
 			vkEnumerateInstanceLayerProperties(&layerCount, availableLayers.raw());
 
 			for (auto layerName : layers)

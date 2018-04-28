@@ -5,9 +5,8 @@ void lw::Application::loop()
 {
 	while (true)
 	{
-		m_singleFrameAllocator.clear();
+		m_singleFrameAllocator.freeAllObjects();
 
-		//only use this frame
-		//void* p = m_singleFrameAllocator.alloc(nBytes);
+		
 	}
 }
