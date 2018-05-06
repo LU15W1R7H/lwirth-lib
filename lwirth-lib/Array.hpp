@@ -7,45 +7,45 @@
 
 namespace lw
 {
-	template<typename T, u32 LENGTH>
+	template<class T, size_t SIZE>
 	class Array
 	{
 	private:
-		T m_pdata[LENGTH];
+		T m_pData[SIZE];
 
 	public:
-		Array()
+		constexpr Array()
+			: m_pData{}
 		{
-
 		}
 
-		Array(std::initializer_list<T> const& il)
+		constexpr Array(const std::initializer_list<T>& il)
 		{
-			static_assert(il.end() - il.begin() == LENGTH, "Wrong length");
+			static_assert(il.end() - il.begin() == SIZE, "Wrong length");
 			size_t i = 0;
 			for (auto iter = 0; iter != il.end(); iter++)
 			{
-				m_pdata = *iter;
+				m_pData[i] = *iter;
 				i++;
 			}
 		}
 
-		Array(Array<T, LENGTH> const& other)
+		Array(Array<T, SIZE> const& other)
 		{
-			std::copy(other.m_pdata, other.m_pdata + LENGTH, m_pdata);
+			std::copy(other.m_pData, other.m_pData + SIZE, m_pData);
 		}
 
-		Array(Array<T, LENGTH>&& other)
+		Array(Array<T, SIZE>&& other)
 		{
-			for (size_t i = 0; i < LENGTH; i++)
+			for (size_t i = 0; i < SIZE; i++)
 			{
-				m_pdata[i] = std::move(other.m_pdata[i]);
+				m_pData[i] = std::move(other.m_pData[i]);
 			}
 		}
 
-		Array& operator=(Array<T, LENGTH> const& other)
+		Array& operator=(Array<T, SIZE> const& other)
 		{
-			std::copy(other.m_pdata, other.m_pdata + LENGTH, m_pdata);
+			std::copy(other.m_pData, other.m_pData + LENGTH, m_pData);
 			return *this;
 		}
 
@@ -53,7 +53,7 @@ namespace lw
 		{
 			for (size_t i = 0; i < LENGTH; i++)
 			{
-				m_pdata[i] = std::move(other.m_pdata[i]);
+				m_pData[i] = std::move(other.m_pData[i]);
 			}
 			return *this;
 		}
@@ -65,12 +65,12 @@ namespace lw
 
 		T& operator[](u32 index)
 		{
-			return m_pdata[index];
+			return m_pData[index];
 		}
 
 		T const& operator[](u32 index) const
 		{
-			return m_pdata[index];
+			return m_pData[index];
 		}
 
 		constexpr u32 size() const
@@ -80,7 +80,7 @@ namespace lw
 
 		T* raw() const
 		{
-			return m_pdata;
+			return m_pData;
 		}
 	};
 

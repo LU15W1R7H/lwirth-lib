@@ -7,18 +7,18 @@
 
 namespace lw
 {
-	template<size_t R, size_t C>
-	class Matrix
+	template<size_t R, size_t C, class T>
+	class matrix_t
 	{
+		static_assert(R > 0 && C > 0, "RowCount and ColumnCount must be greater than 0.");
+
 	private:
-		f32 m_elements[R][C]; //first index = row, second index = column
+		T m_elements[R][C]; //first index = row, second index = column
 	
 	public:
-		static const Matrix<R, C> zero;
-		static const Matrix<R, C> identity;
 
 		//creates identity matrix
-		Matrix()
+		matrix_t()
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -29,7 +29,7 @@ namespace lw
 			}
 		}
 
-		Matrix(f32 values[R][C])
+		matrix_t(f32 values[R][C])
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -41,11 +41,11 @@ namespace lw
 		}
 
 		template <typename ...Args, typename std::enable_if<sizeof...(Args) == R * C, int>::type = 0>
-		constexpr Matrix(const Args&... args) : m_elements{ args... }
+		matrix_t(const Args&... args) : m_elements{ args... }
 		{
 		}
 
-		Matrix(const Matrix<R, C>& m)
+		matrix_t(const matrix_t<R, C, T>& m)
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -67,14 +67,39 @@ namespace lw
 			return m_elements[rowIndex];
 		}
 
-		constexpr static bool isSquare()
+		static matrix_t<R, C, T>&& identity()
+		{
+			matrix_t<R, C, T> r;
+			for (size_t i = 0; i < R; i++)
+			{
+				for (size_t j = 0; j < C; j++)
+				{
+					if constexpr(i == j)
+						r.m_elements[i][j] = 1;
+					else
+						r.m_elements[i][j] = 0;
+				}
+			}
+		}
+
+		static size_t getRowAmount()
+		{
+			return R;
+		}
+
+		static size_t getColumnAmount()
+		{
+			return C;
+		}
+
+		static bool isSquare()
 		{
 			return R == C;
 		}
 
 		bool isSymmetric()
 		{
-			if constexpr (!isSquare())return false;
+			if (!isSquare())return false;
 
 			for (size_t i = 0; i < R; i++)
 			{
@@ -87,7 +112,7 @@ namespace lw
 			return true;
 		}
 
-		Matrix<R, C>& operator*=(f32 scalar)
+		matrix_t<R, C, T>& operator*=(f32 scalar)
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -99,7 +124,7 @@ namespace lw
 			return *this;
 		}
 
-		Matrix<R, C>& operator+=(const Matrix<R, C>& other)
+		matrix_t<R, C, T>& operator+=(const matrix_t<R, C, T>& other)
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -111,7 +136,7 @@ namespace lw
 			return *this;
 		}
 
-		Matrix<R, C>& operator-=(const Matrix<R, C>& other)
+		matrix_t<R, C, T>& operator-=(const matrix_t<R, C, T>& other)
 		{
 			for (size_t i = 0; i < R; i++)
 			{
@@ -125,10 +150,10 @@ namespace lw
 
 	};
 
-	template<size_t R1, size_t C1, size_t R2, size_t C2>
-	inline bool operator==(const Matrix<R1, C1>& m1, const Matrix<R2, C2>& m2)
+	template<size_t R1, size_t C1, class T1, size_t R2, size_t C2, class T2>
+	bool operator==(matrix_t<R1, C1, T1>&& m1, matrix_t<R2, C2, T2>&& m2)
 	{
-		if (R1 != R2 || C1 != C2)
+		if (T1 != T2 || R1 != R2 || C1 != C2)
 		{
 			return false;
 		}
@@ -142,48 +167,48 @@ namespace lw
 		return true;
 	}
 
-	template<size_t R1, size_t C1, size_t R2, size_t C2>
-	inline bool operator!=(const Matrix<R1, C1>& m1, const Matrix<R2, C2>& m2)
+	template<size_t R1, size_t C1, class T1, size_t R2, size_t C2, class T2>
+	bool operator!=(matrix_t<R1, C1, T1>&& m1, matrix_t<R2, C2, T2>&& m2)
 	{
-		return !(m1 == m2);
+		return !(LW_FORWARD(m1) == LW_FORWARD(m2));
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<R, C> operator*(const Matrix<R, C>& m, f32 scalar)
+	template<size_t R, size_t C, class T>
+	decltype(auto) operator*(matrix_t<R, C, T>&& m, f32 scalar)
 	{
-		Matrix<R, C> r = m1;
+		auto r = LW_FORWARD(m);
 		r *= scalar;
-		return r;
+		return LW_FORWARD(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<R, C> operator*(f32 scalar, const Matrix<R, C>& m)
+	template<size_t R, size_t C, class T>
+	decltype(auto) operator*(f32 scalar, matrix_t<R, C, T>&& m)
 	{
-		Matrix<R, C> r = m1;
+		auto r = LW_FORWARD(m);
 		r *= scalar;
-		return r;
+		return LW_FORWARD(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<R, C> operator+(const Matrix<R, C>& m1, const Matrix<R, C>& m2)
+	template<size_t R, size_t C, class T>
+	decltype(auto) operator+(matrix_t<R, C, T>&& m1, matrix_t<R, C, T>&& m2)
 	{
-		Matrix<R, C> r = m1;
-		r += m2;
-		return r;
+		auto r = LW_FORWARD(m1);
+		r += LW_FORWARD(m2);
+		return LW_FORWARD(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<R, C> operator-(const Matrix<R, C>& m1, const Matrix<R, C>& m2)
+	template<size_t R, size_t C, class T>
+	decltype(auto) operator-(matrix_t<R, C, T>&& m1, matrix_t<R, C, T>&& m2)
 	{
-		Matrix<R, C> r = m1;
-		r -= m2;
-		return r;
+		auto r = LW_FORWARD(m1);
+		r -= LW_FORWARD(m2);
+		return LW_FORWARD(r);
 	}
 
-	template<size_t R1, size_t C1R2, size_t C2>
-	inline Matrix<R1, C2> operator*(const Matrix<R1, C1R2>& m1, const Matrix<C1R2, C2>& m2)
+	template<size_t R1, class T1, size_t C1R2, size_t C2, class T2>
+	decltype(auto) operator*(matrix_t<R1, C1R2, T1>&& m1, matrix_t<C1R2, C2, T2>&& m2)
 	{
-		Matrix<R1, C2> r;
+		matrix_t<R1, C2, decltype(T1*T2)> r;
 		for (size_t i = 0; i < R1; i++)
 		{
 			for (size_t j = 0; j < C2; j++)
@@ -196,24 +221,24 @@ namespace lw
 				r[i][j] = v;
 			}
 		}
-		return r;
+		return std::move(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<R, C> pow(const Matrix<R, C>& m, size_t exponent)
+	template<size_t R, size_t C, class T>
+	decltype(auto) pow(matrix_t<R, C, T>&& m, size_t exponent)
 	{
-		auto r = Matrix<R, C>::identity;
+		auto r = matrix_t<R, C, T>::identity;
 		for (size_t i = 0; i < exponent; i++)
 		{
 			r = m * m;
 		}
-		return r;
+		return std::move(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Vector<C> operator*(const Matrix<R, C>& m, const Vector<R>& v)
+	template<size_t R, size_t C, class MT, class VT>
+	decltype(auto) operator*(matrix_t<R, C, MT>&& m, vector_t<R, VT>&& v)
 	{
-		Vector<C> r;
+		vector_t<C, decltype(MT*VT)> r;
 		for (size_t i = 0; i < R; i++)
 		{
 			for (size_t j = 0; j < C; j++)
@@ -221,13 +246,13 @@ namespace lw
 				r[i] += m[i][j] * v[j];
 			}
 		}
-		return r;
+		return std::move(r);
 	}
 
-	template<size_t R, size_t C>
-	inline Matrix<C, R> transpose(const Matrix<R, C>& m)
+	template<size_t R, size_t C, class T>
+	decltype(auto) transpose(matrix_t<R, C, T>&& m)
 	{
-		Matrix<C, R> r;
+		matrix_t<C, R, T> r;
 		for (size_t i = 0; i < R; i++)
 		{
 			for (size_t j = 0; j < C; j++)
@@ -235,10 +260,6 @@ namespace lw
 				r[j][i] = m[i][j];
 			}
 		}
-		return r;
+		return std::move(r);
 	}
 };
-
-
-#include "Matrix2x2.hpp"
-#include "Matrix4x4.hpp"

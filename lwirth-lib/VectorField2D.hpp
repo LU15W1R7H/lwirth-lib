@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Standard.hpp"
-#include "Vector2.hpp"
+#include "Math.hpp"
 
 namespace lw
 {

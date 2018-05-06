@@ -12,6 +12,7 @@ namespace lw
 {
 	namespace VK
 	{
+
 		class PhysicalDevice;
 		class Device;
 		class CommandPool;

@@ -15,23 +15,18 @@ namespace lw
 			//"VK_LAYER_LUNARG_api_dump" //prints every object creation
 		};
 
-		Instance::~Instance()
-		{
-			if (m_instance != VK_NULL_HANDLE)throw NotDestroyedException();
-		}
-
-		void Instance::create(std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch)
+		void Instance::create(const std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch, u32 vulkanVer)
 		{
 			if (m_instance != VK_NULL_HANDLE)throw AlreadyCreatedException();
 
 			VkApplicationInfo ai;
-			ai.sType =VK_STRUCTURE_TYPE_APPLICATION_INFO;
+			ai.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 			ai.pNext = nullptr;
 			ai.pApplicationName = appName.c_str();
 			ai.applicationVersion = VK_MAKE_VERSION(ver_major, ver_minor, ver_patch);
-			ai.pEngineName = "lwirth-engine";
-			ai.engineVersion = VK_MAKE_VERSION(LWIRTH_VERSION_MAJOR, LWIRTH_VERSION_MINOR, LWIRTH_VERSION_PATCH);
-			ai.apiVersion = VK_API_VERSION_1_1;
+			ai.pEngineName = LW_NAME;
+			ai.engineVersion = LW_MAKE_VERSION(LW_VER_MAJOR, LW_VER_MINOR, LW_VER_PATCH);
+			ai.apiVersion = vulkanVer;
 
 			//layers
 			if (!layersAvailable(s_layers))throw VulkanException("Layers are not available");

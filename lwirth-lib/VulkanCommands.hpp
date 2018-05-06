@@ -15,6 +15,8 @@ namespace lw
 		class Semaphore;
 		class Fence;
 		class Queue;
+		class Buffer;
+		class Pipeline;
 
 		class API CommandPool
 		{
@@ -49,6 +51,8 @@ namespace lw
 			void allocate(const Device* pDevice, const CommandPool* pPool);
 			void free();
 
+			bool exists() const;
+
 			VkCommandBuffer raw() const;
 			VkCommandBuffer* ptr();
 
@@ -58,6 +62,19 @@ namespace lw
 
 			void beginSingleTime();
 			void endAndExecuteAndFree(const Queue* pQueue);
+
+
+			void cmdBindPipeline(VkPipelineBindPoint bindPoint, const Pipeline& pipeline) const;
+			void cmdSetViewport(const VkViewport& viewport) const;
+			void cmdSetViewport(const VkViewport* pViewports, u32 count, u32 firstViewport) const;
+			void cmdSetScissor(const VkRect2D& scissor) const;
+			void cmdSetScissor(const VkRect2D* pScissors, u32 count, u32 firstScissor) const;
+			void cmdBindVertexBuffer(const Buffer& buffer) const;
+			void cmdBindVertexBuffer(const Buffer* pBuffer, u32 firstBinding, u32 bindingCount, const VkDeviceSize* pOffsets = nullptr) const;
+			void cmdBindIndexBuffer(const Buffer& buffer, VkIndexType indexType, VkDeviceSize offset = 0) const const;
+			void cmdDraw(u32 vertexCount, u32 firstVertex = 0, u32 instanceCount = 1, u32 firstInstance = 0) const;
+			void cmdDrawIndexed(u32 indexCount, u32 firstIndex = 0, u32 vertexOffset = 0, u32 instanceCount = 0, u32 firstInstance = 0) const;
+			void cmdCopyBuffer(const Buffer& src, const Buffer& dst, const VkBufferCopy* pRegions, u32 regionCount) const;
 
 			//void cmdBeginRenderPass(const VkRenderPassBeginInfo& rpbi, VkSubpassContents sc);
 			//void cmdBindDescriptorSets(const DescriptorSet*)

@@ -16,19 +16,21 @@ public:
 
 
 	lw::Vertex2DArray va;
-	lw::Vec2 vels[4];
-	lw::Vec2 accs[4];
+	lw::Vec2 vels[3];
+	lw::Vec2 accs[3];
 	int run = 0;
 
 	Boi()
-		: va(4, lw::Quads)
+		: va(3, lw::Triangles)
 	{
 		for (size_t i = 0; i < va.size(); i++)
 		{
 			va[i] = rand.nextVertex();
 			vels[i] = rand.nextVector2();
 			vels[i].setMag(maxVel);
+			
 		}
+		run = rand.nextU32();
 	}
 
 	void update1()
@@ -42,9 +44,9 @@ public:
 		va[2].pos.x = std::sin(run * 0.0001f + 3.f);
 		va[2].pos.y = std::cos(run * 0.0001f + 3.f);
 		va[2].color = lw::Color(ABSSIN(run * 0.0002 + 1), ABSSIN(run * 0.0001 + 3), ABSSIN(run * 0.0003 + 2));
-		va[3].pos.x = std::sin(run * 0.0001f + 4.f);
+		/*va[3].pos.x = std::sin(run * 0.0001f + 4.f);
 		va[3].pos.y = std::cos(run * 0.0001f + 4.f);
-		va[3].color = lw::Color(ABSSIN(run * 0.0005 + 5), ABSSIN(run * 0.0006 + 6), ABSSIN(run * 0.0002 + 9));
+		va[3].color = lw::Color(ABSSIN(run * 0.0005 + 5), ABSSIN(run * 0.0006 + 6), ABSSIN(run * 0.0002 + 9));*/
 		run += 50;
 	}
 

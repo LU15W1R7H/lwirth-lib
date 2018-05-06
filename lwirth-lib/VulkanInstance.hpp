@@ -21,10 +21,11 @@ namespace lw
 
 		public:
 			Instance() = default;
-			~Instance();
-
-			void create(std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch);
-			void create(std::string&& appName, u32 ver_major, u32 ver_minor, u32 ver_patch) { create(appName, ver_major, ver_minor, ver_patch); }
+			~Instance() = default;
+			DISABLE_COP_MOV(Instance);
+			
+			void create(const std::string& appName, u32 ver_major, u32 ver_minor, u32 ver_patch, u32 vulkanVer);
+			void create(std::string&& appName, u32 ver_major, u32 ver_minor, u32 ver_patch, u32 vulkanVer) { create(appName, ver_major, ver_minor, ver_patch, vulkanVer); }
 			void destroy();
 
 			VkInstance raw() const;

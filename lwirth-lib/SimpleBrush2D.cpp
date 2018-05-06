@@ -106,6 +106,9 @@ namespace lw
 	{
 		Triangle::s_deinit();
 		
+		m_triangleMeshIndexBuffer.destroy();
+		m_quadFillIndexBuffer.destroy();
+
 
 		SimpleBrush2D::destroyPipeline();
 
@@ -158,7 +161,7 @@ namespace lw
 
 	void SimpleBrush2D::prepare(const VK::CommandBuffer* cmd)
 	{
-		m_pCmdBuffer = cmd;
+		m_pCmd = cmd;
 
 		m_lineVertexArray.clear();
 		m_pointVertexArray.clear();
@@ -173,7 +176,7 @@ namespace lw
 		drawAllPoints();
 
 
-		m_pCmdBuffer = nullptr;
+		m_pCmd = nullptr;
 		
 		m_ready = false;
 	}
@@ -191,61 +194,30 @@ namespace lw
 	{
 		if (m_lineVertexArray.isEmpty())return;
 
-		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipelineLine.raw());
-
-		VkViewport viewport;
-		viewport.x = 0.f;
-		viewport.y = 0.f;
-		viewport.width = static_cast<f32>(m_screenWidth);
-		viewport.height = static_cast<f32>(m_screenHeight);
-		viewport.minDepth = 0.f;
-		viewport.maxDepth = 1.f;
-
-		VkRect2D scissor;
-		scissor.offset = { 0, 0 };
-		scissor.extent = { m_screenWidth, m_screenHeight };
-
-		vkCmdSetViewport(m_pCmdBuffer->raw(), 0, 1, &viewport);
-		vkCmdSetScissor(m_pCmdBuffer->raw(), 0, 1, &scissor);
+		preparePipeline(m_pipelineLine);
 
 		m_lineVertexArray.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
 
 		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, m_lineVertexArray.m_buffer.ptr(), offsets);
-		vkCmdDraw(m_pCmdBuffer->raw(), m_lineVertexArray.size(), 1, 0, 0);
+		m_pCmd->cmdBindVertexBuffer(m_lineVertexArray.m_buffer);
+		m_pCmd->cmdDraw(m_lineVertexArray.size());
 	}
 
 	void SimpleBrush2D::drawAllPoints()
 	{
 		if (m_pointVertexArray.isEmpty())return;
 
-		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, m_pipelinePoint.raw());
-
-		VkViewport viewport;
-		viewport.x = 0.f;
-		viewport.y = 0.f;
-		viewport.width = static_cast<f32>(m_screenWidth);
-		viewport.height = static_cast<f32>(m_screenHeight);
-		viewport.minDepth = 0.f;
-		viewport.maxDepth = 1.f;
-
-		VkRect2D scissor;
-		scissor.offset = { 0, 0 };
-		scissor.extent = { m_screenWidth, m_screenHeight };
-
-		vkCmdSetViewport(m_pCmdBuffer->raw(), 0, 1, &viewport);
-		vkCmdSetScissor(m_pCmdBuffer->raw(), 0, 1, &scissor);
+		preparePipeline(m_pipelinePoint);
 
 		m_pointVertexArray.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
 
-		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, m_pointVertexArray.m_buffer.ptr(), offsets);
-		vkCmdDraw(m_pCmdBuffer->raw(), m_pointVertexArray.size(), 1, 0, 0);
+		m_pCmd->cmdBindVertexBuffer(m_pointVertexArray.m_buffer);
+		m_pCmd->cmdDraw(m_pointVertexArray.size());
 	}
 
 	void SimpleBrush2D::preparePipeline(VK::Pipeline & pipeline)
 	{
-		vkCmdBindPipeline(m_pCmdBuffer->raw(), VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline.raw());
+		m_pCmd->cmdBindPipeline(VK_PIPELINE_BIND_POINT_GRAPHICS, pipeline);
 
 		VkViewport viewport;
 		viewport.x = 0.f;
@@ -259,8 +231,8 @@ namespace lw
 		scissor.offset = { 0, 0 };
 		scissor.extent = { m_screenWidth, m_screenHeight };
 
-		vkCmdSetViewport(m_pCmdBuffer->raw(), 0, 1, &viewport);
-		vkCmdSetScissor(m_pCmdBuffer->raw(), 0, 1, &scissor);
+		m_pCmd->cmdSetViewport(viewport);
+		m_pCmd->cmdSetScissor(scissor);
 	}
 
 	void SimpleBrush2D::drawVertexArrayTriangleFill(Vertex2DArray & va)
@@ -272,9 +244,8 @@ namespace lw
 
 		va.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
 
-		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, va.m_buffer.ptr(), offsets);
-		vkCmdDraw(m_pCmdBuffer->raw(), va.size(), 1, 0, 0);
+		m_pCmd->cmdBindVertexBuffer(va.m_buffer);
+		m_pCmd->cmdDraw(va.size());
 	}
 
 
@@ -287,10 +258,9 @@ namespace lw
 
 		va.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
 
-		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, va.m_buffer.ptr(), offsets);
-		vkCmdBindIndexBuffer(m_pCmdBuffer->raw(), m_triangleMeshIndexBuffer.raw(), 0, VK_INDEX_TYPE_UINT16);
-		vkCmdDrawIndexed(m_pCmdBuffer->raw(), 6, 1, 0, 0, 0);
+		m_pCmd->cmdBindVertexBuffer(va.m_buffer);
+		m_pCmd->cmdBindIndexBuffer(m_triangleMeshIndexBuffer, VK_INDEX_TYPE_UINT16);
+		m_pCmd->cmdDrawIndexed(6);
 	}
 
 	void SimpleBrush2D::drawVertexArrayQuadFill(Vertex2DArray & va)
@@ -302,13 +272,12 @@ namespace lw
 
 		va.updateBuffer(&m_pVK->m_device, &m_pVK->m_commandPool);
 
-		VkDeviceSize offsets[] = { 0 };
-		vkCmdBindVertexBuffers(m_pCmdBuffer->raw(), 0, 1, va.m_buffer.ptr(), offsets);
-		vkCmdBindIndexBuffer(m_pCmdBuffer->raw(), m_quadFillIndexBuffer.raw(), 0, VK_INDEX_TYPE_UINT16);
+		m_pCmd->cmdBindVertexBuffer(va.m_buffer);
+		m_pCmd->cmdBindIndexBuffer(m_quadFillIndexBuffer, VK_INDEX_TYPE_UINT16);
 		for (size_t i = 0; i < va.size(); i+=4)
 		{
 			//#TODO optimize
-			vkCmdDrawIndexed(m_pCmdBuffer->raw(), 6, 1, 0, i, 0);
+			m_pCmd->cmdDrawIndexed(6, 0, i);
 		}
 		
 	}

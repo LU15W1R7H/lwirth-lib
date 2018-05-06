@@ -36,6 +36,12 @@ namespace lw
 			return &m_buffer;
 		}
 
+		const VkBuffer * Buffer::ptr() const
+		{
+			if (!exists())throw NotAllocatedException();
+			return &m_buffer;
+		}
+
 		bool Buffer::exists() const
 		{
 			return m_buffer != VK_NULL_HANDLE;

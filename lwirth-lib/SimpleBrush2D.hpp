@@ -38,7 +38,7 @@ namespace lw
 		bool m_ready = false;
 
 		VK::Vulkan* m_pVK = nullptr;
-		const VK::CommandBuffer* m_pCmdBuffer = nullptr;
+		const VK::CommandBuffer* m_pCmd = nullptr;
 
 		Color m_mainColor;
 		VK::GPUBuffer m_triangleMeshIndexBuffer;

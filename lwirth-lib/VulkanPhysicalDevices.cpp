@@ -89,6 +89,7 @@ namespace lw
 				if (!checkExtensionSupport())m_rating = 0;
 				if (m_surfaceFormats.isEmpty() || m_presentModes.isEmpty())m_rating = 0;
 				if (!m_features.samplerAnisotropy)m_rating = 0;
+				if (!m_features.fillModeNonSolid)m_rating = 0;
 			}
 		}
 

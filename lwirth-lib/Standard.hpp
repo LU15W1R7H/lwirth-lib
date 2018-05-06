@@ -1,9 +1,9 @@
 #pragma once
 
-#define LWIRTH_NAME "lwirth-lib"
-#define LWIRTH_VERSION_MAJOR 0
-#define LWIRTH_VERSION_MINOR 0
-#define LWIRTH_VERSION_PATCH 0
+#define LW_NAME "lwirth-lib"
+#define LW_VER_MAJOR 0
+#define LW_VER_MINOR 0
+#define LW_VER_PATCH 0
 
 
 #ifdef COMPILE_LWIRTH
@@ -12,6 +12,21 @@
 #define API __declspec(dllimport)
 #endif
 
+#define DISABLE_COPYING(T)\
+	T(const T&) = delete; \
+	T& operator=(const T&) = delete;
+
+#define DISABLE_MOVING(T)\
+	T(T&&) = delete; \
+	T& operator=(T&&) = delete;
+
+#define DISABLE_COP_MOV(T)\
+	DISABLE_COPYING(T); \
+	DISABLE_MOVING(T);
+
+#define LW_MAKE_VERSION(major, minor, patch) \
+	(((major) << 22) | ((minor) << 12) | (patch))
+
 #ifdef _DEBUG
 
  //#TODO inform of error (#expr, __FILE__, __LINE__)
@@ -19,7 +34,7 @@
 	if(expr) {} \
 	else \
 	{ \
-		__debugBreak; \
+		__debugbreak(); \
 	}
 #else
 #define ASSERT(expr)

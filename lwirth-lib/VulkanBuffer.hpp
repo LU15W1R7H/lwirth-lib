@@ -32,6 +32,7 @@ namespace lw
 			VkDeviceMemory memory() const;
 			VkDeviceSize size() const;
 			VkBuffer* ptr();
+			const VkBuffer* ptr() const;
 
 			bool exists() const;
 

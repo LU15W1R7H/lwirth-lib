@@ -8,25 +8,25 @@
 namespace lw
 {
 	template<>
-	class Matrix<4, 4>
+	class matrix_t<4, 4>
 	{
 	private:
 		f32 m_elements[4][4]; //first index = row, second index = column
 
 	public:
-		static const Matrix<4, 4> zero;
-		static const Matrix<4, 4> identity;
+		static const matrix_t<4, 4> zero;
+		static const matrix_t<4, 4> identity;
 
-		static Matrix<4, 4> createTranslation(const Vec3& translation)
+		static matrix_t<4, 4> createTranslation(const Vec3& translation)
 		{
-			Matrix<4, 4> r;
+			matrix_t<4, 4> r;
 			r[1][3] = translation.x;
 			r[2][3] = translation.y;
 			r[3][3] = translation.z;
 			return r;
 		}
 
-		static Matrix<4, 4> createRotation(f32 radians, const Vec3& rotationAxis)
+		static matrix_t<4, 4> createRotation(f32 radians, const Vec3& rotationAxis)
 		{
 			if (radians == 0)
 			{
@@ -40,7 +40,7 @@ namespace lw
 			f32 cos = std::cos(radians);
 			f32 sin = std::sin(radians);
 
-			Matrix<4, 4> r;
+			matrix_t<4, 4> r;
 			r[0][0] = cos + x * x * (1 - cos);
 			r[0][1] = x * y * (1 - cos) - z * sin;
 			r[0][2] = x * z * (1 - cos) + y * sin;
@@ -56,20 +56,20 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createScale(const Vec3& scale)
+		static matrix_t<4, 4> createScale(const Vec3& scale)
 		{
-			Matrix<4, 4> r;
+			matrix_t<4, 4> r;
 			r[0][0] = scale.x;
 			r[1][1] = scale.y;
 			r[2][2] = scale.z;
 			return r;
 		}
 
-		static Matrix<4, 4> createPerspective(f32 fieldOfView, f32 aspectRatio, f32 nearClipPlane, f32 farClipPlane)
+		static matrix_t<4, 4> createPerspective(f32 fieldOfView, f32 aspectRatio, f32 nearClipPlane, f32 farClipPlane)
 		{
 			f32 tanFoV = std::tan(fieldOfView / 2.f);
 
-			Matrix<4, 4> r;
+			matrix_t<4, 4> r;
 			r[0][0] = 1.0f / tanFoV / aspectRatio;
 			r[1][1] = -1.0f / tanFoV;
 			r[2][2] = -(farClipPlane + nearClipPlane) / (farClipPlane - nearClipPlane);
@@ -81,13 +81,13 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createView(const Vec3& cameraPos, const Vec3& lookingAt, const Vec3& upDirection)
+		static matrix_t<4, 4> createView(const Vec3& cameraPos, const Vec3& lookingAt, const Vec3& upDirection)
 		{
 			Vec3 direction = norm(lookingAt - cameraPos);
 			Vec3 right = norm(cross(direction, upDirection));
 			Vec3 down = cross(right, direction);
 
-			Matrix<4, 4> r;
+			matrix_t<4, 4> r;
 			r[0][0] = right.x;
 			r[0][1] = right.y;
 			r[0][2] = right.z;
@@ -107,17 +107,17 @@ namespace lw
 			return r;
 		}
 
-		static Matrix<4, 4> createTransform(const Vec3& pos, const Vec3& scale, const Vec3& rotationVector, f32 radians)
+		static matrix_t<4, 4> createTransform(const Vec3& pos, const Vec3& scale, const Vec3& rotationVector, f32 radians)
 		{
-			Matrix<4, 4> matTranslation = createTranslation(pos);
-			Matrix<4, 4> matScale = createScale(scale);
-			Matrix<4, 4> matRotation = createRotation(radians, rotationVector);
+			matrix_t<4, 4> matTranslation = createTranslation(pos);
+			matrix_t<4, 4> matScale = createScale(scale);
+			matrix_t<4, 4> matRotation = createRotation(radians, rotationVector);
 
 			return matTranslation * matRotation * matScale;
 		}
 
 		//creates identity matrix
-		Matrix()
+		matrix_t()
 		{
 			for (auto& row : m_elements)
 			{
@@ -128,7 +128,7 @@ namespace lw
 			}
 		}
 
-		Matrix(f32 values[4][4])
+		matrix_t(f32 values[4][4])
 		{
 			for (size_t i = 0; i < 4; i++)
 			{
@@ -140,11 +140,11 @@ namespace lw
 		}
 
 		template <typename ...Args, typename std::enable_if<sizeof...(Args) == 4 * 4, int>::type = 0>
-		constexpr Matrix(const Args&... args) : m_elements{ args... }
+		constexpr matrix_t(const Args&... args) : m_elements{ args... }
 		{
 		}
 
-		Matrix(const Matrix<4, 4>& m)
+		matrix_t(const matrix_t<4, 4>& m)
 		{
 			for (size_t i = 0; i < 4; i++)
 			{
@@ -165,7 +165,7 @@ namespace lw
 			return m_elements[rowIndex];
 		}
 
-		Matrix<4, 4>& operator*=(f32 scalar)
+		matrix_t<4, 4>& operator*=(f32 scalar)
 		{
 			for (auto& row : m_elements)
 			{
@@ -177,7 +177,7 @@ namespace lw
 			return *this;
 		}
 
-		Matrix<4, 4>& operator+=(const Matrix<4, 4>& other)
+		matrix_t<4, 4>& operator+=(const matrix_t<4, 4>& other)
 		{
 			for (size_t i = 0; i < 4; i++)
 			{
@@ -189,7 +189,7 @@ namespace lw
 			return *this;
 		}
 
-		Matrix<4, 4>& operator-=(const Matrix<4, 4>& other)
+		matrix_t<4, 4>& operator-=(const matrix_t<4, 4>& other)
 		{
 			for (size_t i = 0; i < 4; i++)
 			{
@@ -203,7 +203,7 @@ namespace lw
 
 	};
 
-	inline bool operator==(const Matrix<4, 4>& m1, const Matrix<4, 4>& m2)
+	inline bool operator==(const matrix_t<4, 4>& m1, const matrix_t<4, 4>& m2)
 	{
 		for (size_t i = 0; i < 4; i++)
 		{
@@ -215,46 +215,46 @@ namespace lw
 		return true;
 	}
 
-	inline bool operator!=(const Matrix<4, 4>& m1, const Matrix<4, 4>& m2)
+	inline bool operator!=(const matrix_t<4, 4>& m1, const matrix_t<4, 4>& m2)
 	{
 		return !(m1 == m2);
 	}
 
 	
-	inline Matrix<4, 4> operator*(const Matrix<4, 4>& m, f32 scalar)
+	inline matrix_t<4, 4> operator*(const matrix_t<4, 4>& m, f32 scalar)
 	{
-		Matrix<4, 4> r = m;
+		matrix_t<4, 4> r = m;
 		r *= scalar;
 		return r;
 	}
 
 	
-	inline Matrix<4, 4> operator*(f32 scalar, const Matrix<4, 4>& m)
+	inline matrix_t<4, 4> operator*(f32 scalar, const matrix_t<4, 4>& m)
 	{
-		Matrix<4, 4> r = m;
+		matrix_t<4, 4> r = m;
 		r *= scalar;
 		return r;
 	}
 
 	
-	inline Matrix<4, 4> operator+(const Matrix<4, 4>& m1, const Matrix<4, 4>& m2)
+	inline matrix_t<4, 4> operator+(const matrix_t<4, 4>& m1, const matrix_t<4, 4>& m2)
 	{
-		Matrix<4, 4> r = m1;
+		matrix_t<4, 4> r = m1;
 		r += m2;
 		return r;
 	}
 
 	
-	inline Matrix<4, 4> operator-(const Matrix<4, 4>& m1, const Matrix<4, 4>& m2)
+	inline matrix_t<4, 4> operator-(const matrix_t<4, 4>& m1, const matrix_t<4, 4>& m2)
 	{
-		Matrix<4, 4> r = m1;
+		matrix_t<4, 4> r = m1;
 		r -= m2;
 		return r;
 	}
 
-	inline Matrix<4, 4> operator*(const Matrix<4, 4>& m1, const Matrix<4, 4>& m2)
+	inline matrix_t<4, 4> operator*(const matrix_t<4, 4>& m1, const matrix_t<4, 4>& m2)
 	{
-		Matrix<4, 4> r;
+		matrix_t<4, 4> r;
 		for (size_t i = 0; i < 4; i++)
 		{
 			for (size_t j = 0; j < 4; j++)
@@ -271,9 +271,9 @@ namespace lw
 	}
 
 	
-	inline Matrix<4, 4> pow(const Matrix<4, 4>& m, size_t exponent)
+	inline matrix_t<4, 4> pow(const matrix_t<4, 4>& m, size_t exponent)
 	{
-		auto r = Matrix<4, 4>::identity;
+		auto r = matrix_t<4, 4>::identity;
 		for (size_t i = 0; i < exponent; i++)
 		{
 			r = m * m;
@@ -282,9 +282,9 @@ namespace lw
 	}
 
 	
-	inline Vector<4> operator*(const Matrix<4, 4>& m, const Vector<4>& v)
+	inline vector_t<4> operator*(const matrix_t<4, 4>& m, const vector_t<4>& v)
 	{
-		Vector<4> r;
+		vector_t<4> r;
 		for (size_t i = 0; i < 4; i++)
 		{
 			for (size_t j = 0; j < 4; j++)
@@ -296,9 +296,9 @@ namespace lw
 	}
 
 	
-	inline Matrix<4, 4> transpose(const Matrix<4, 4>& m)
+	inline matrix_t<4, 4> transpose(const matrix_t<4, 4>& m)
 	{
-		Matrix<4, 4> r;
+		matrix_t<4, 4> r;
 		for (size_t i = 0; i < 4; i++)
 		{
 			for (size_t j = 0; j < 4; j++)
@@ -309,7 +309,7 @@ namespace lw
 		return r;
 	}
 
-	using Matrix4 = Matrix<4, 4>;
+	using Matrix4 = matrix_t<4, 4>;
 }
 
 

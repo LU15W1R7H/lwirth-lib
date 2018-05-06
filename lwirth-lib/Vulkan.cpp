@@ -14,7 +14,7 @@ namespace lw
 
 		void Vulkan::start(const Frame* pFrame)
 		{
-			m_instance.create(LWIRTH_NAME, LWIRTH_VERSION_MAJOR, LWIRTH_VERSION_MINOR, LWIRTH_VERSION_PATCH);
+			m_instance.create(LW_NAME, LW_VER_MAJOR, LW_VER_MINOR, LW_VER_PATCH, VK_API_VERSION_1_1);
 			m_pFrame = pFrame;
 
 			m_screenWidth = m_pFrame->getWidth();
@@ -30,7 +30,6 @@ namespace lw
 			m_semaphoreImageAvailable.create(&m_device);
 			m_semaphoreRenderingDone.create(&m_device);
 			m_fence.create(&m_device);
-
 		}
 
 		void Vulkan::destroy()

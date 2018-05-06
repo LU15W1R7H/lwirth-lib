@@ -14,7 +14,7 @@ void vk()
 	lw::RenderWindow window;
 	window.create("LWIRTH-LIB", 1000, 800);
 
-	Boi boi;
+	lw::List<Boi> bois(20);
 
 	//CellSystem cellSystem(500, 500);
 
@@ -36,21 +36,25 @@ void vk()
 		
 		window.preDraw();
 
-		boi.update1();
-		brush->drawVertexArray(boi.va);
+		for (size_t i = 0; i < bois.size(); i++)
+		{
+			bois[i].update2();
+			brush->drawVertexArray(bois[i].va);
+		}
+		
 
 		//brush->drawVertexArray(va);
 		//cellSystem.update();
 		//cellSystem.render(brush);
 
-		for (f32 i = -1.f; i < 1.f; i += 0.01f)
+		/*for (f32 i = -1.f; i < 1.f; i += 0.01f)
 		{
 			for (f32 j = -1.f; j < 1.f; j += 0.01f)
 			{
 				brush->setColor(rand.nextColor());
 				brush->drawLine(0, 0, i, j);
 			}
-		}
+		}*/
 
 		window.postDraw();
 
