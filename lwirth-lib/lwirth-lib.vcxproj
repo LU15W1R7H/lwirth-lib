@@ -180,7 +180,6 @@
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PhysicalUnit.cpp" />
     <ClCompile Include="Plane.cpp" />
-    <ClCompile Include="PoolAllocator.cpp" />
     <ClCompile Include="Random.cpp" />
     <ClCompile Include="RenderWindow.cpp" />
     <ClCompile Include="Root.cpp" />
@@ -194,6 +193,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Triangle.cpp" />
     <ClCompile Include="Utils.cpp" />
     <ClCompile Include="VectorField2D.cpp" />
@@ -222,6 +222,8 @@
     <ClInclude Include="Allocations.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Array.hpp" />
+    <ClInclude Include="Geometry.hpp" />
+    <ClInclude Include="LinearAlgebra.hpp" />
     <ClInclude Include="List.hpp" />
     <ClInclude Include="Circle.hpp" />
     <ClInclude Include="Color.hpp" />
@@ -234,8 +236,6 @@
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="qmath.hpp" />
     <ClInclude Include="Matrix.hpp" />
-    <ClInclude Include="Matrix2x2.hpp" />
-    <ClInclude Include="Matrix4x4.hpp" />
     <ClInclude Include="MersenneTwister.hpp" />
     <ClInclude Include="NeuralNetwork.hpp" />
     <ClInclude Include="PerlinNoise.hpp" />
@@ -252,6 +252,7 @@
     <ClInclude Include="StackAllocator.hpp" />
     <ClInclude Include="Standard.hpp" />
     <ClInclude Include="stdafx.hpp" />
+    <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector.hpp" />
@@ -279,10 +280,14 @@
     <ClInclude Include="VulkanShader.hpp" />
     <ClInclude Include="VulkanSurface.hpp" />
     <ClInclude Include="VulkanSwapchain.hpp" />
+    <ClInclude Include="_Storage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shaders\shader.frag" />
     <None Include="..\res\shaders\shader.vert" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Info.txt" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

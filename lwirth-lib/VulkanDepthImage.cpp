@@ -24,11 +24,73 @@ namespace lw
 
 			m_pDevice = pDevice;
 
-			VkFormat depthFormat = findDepthFormat(m_pDevice->getPhysical());
+			VkFormat depthFormat = findDepthFormat(pDevice->getPhysical());
 
-			Image::s_create(m_pDevice, width, height, depthFormat, VK_IMAGE_TILING_OPTIMAL, VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, &m_image, &m_memory);
-			Image::s_createView(m_pDevice, m_image, depthFormat, VK_IMAGE_ASPECT_DEPTH_BIT, &m_view);
-			Image::s_transitionLayout(m_pDevice, pCommandPool, pDevice->getGraphicsQueue(), m_image, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+			VkImageCreateInfo ici;
+			ici.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+			ici.pNext = nullptr;
+			ici.flags = 0;
+			ici.imageType = VK_IMAGE_TYPE_2D;
+			ici.format = depthFormat;
+			ici.extent.width = width;
+			ici.extent.height = height;
+			ici.extent.depth = 1;
+			ici.mipLevels = 1;
+			ici.arrayLayers = 1;
+			ici.samples = VK_SAMPLE_COUNT_1_BIT;
+			ici.tiling = VK_IMAGE_TILING_OPTIMAL;
+			ici.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+			ici.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+			ici.queueFamilyIndexCount = 0;
+			ici.pQueueFamilyIndices = nullptr;
+			ici.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+
+			if (vkCreateImage(m_pDevice->raw(), &ici, nullptr, &m_image) != VK_SUCCESS)
+			{
+				throw VulkanException("failed to create image");
+			}
+
+			VkMemoryRequirements memReq;
+			vkGetImageMemoryRequirements(m_pDevice->raw(), m_image, &memReq);
+
+			VkMemoryAllocateInfo alloc;
+			alloc.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+			alloc.pNext = nullptr;
+			alloc.allocationSize = memReq.size;
+			alloc.memoryTypeIndex = findMemoryTypeIndex(m_pDevice->getPhysical(), memReq.memoryTypeBits, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT);
+
+			if (vkAllocateMemory(m_pDevice->raw(), &alloc, nullptr, &m_memory) != VK_NULL_HANDLE)
+			{
+				throw VulkanException("failed to allocate image memory");
+			}
+
+			vkBindImageMemory(m_pDevice->raw(), m_image, m_memory, 0);
+
+			//create image view
+			VkImageViewCreateInfo ivci;
+			ivci.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+			ivci.pNext = nullptr;
+			ivci.flags = 0;
+			ivci.image = m_image;
+			ivci.viewType = VK_IMAGE_VIEW_TYPE_2D;
+			ivci.format = depthFormat;
+			ivci.components.r = VK_COMPONENT_SWIZZLE_IDENTITY;
+			ivci.components.g = VK_COMPONENT_SWIZZLE_IDENTITY;
+			ivci.components.b = VK_COMPONENT_SWIZZLE_IDENTITY;
+			ivci.components.a = VK_COMPONENT_SWIZZLE_IDENTITY;
+			ivci.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+			ivci.subresourceRange.baseMipLevel = 0;
+			ivci.subresourceRange.levelCount = 1;
+			ivci.subresourceRange.baseArrayLayer = 0;
+			ivci.subresourceRange.layerCount = 1;
+
+			if (vkCreateImageView(m_pDevice->raw(), &ivci, nullptr, &m_view) != VK_SUCCESS)
+			{
+				throw VulkanException("failed to create image view");
+			}
+		
+			//transition layout
+			transitionImageLayout(*m_pDevice, *pCommandPool, m_image, depthFormat, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 		}
 
 		void DepthImage::destroy()

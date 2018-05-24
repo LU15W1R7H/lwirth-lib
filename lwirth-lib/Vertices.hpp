@@ -18,10 +18,13 @@ namespace lw
 	public:
 		Vertex2D();
 		~Vertex2D() = default;
+		Vertex2D(Vec2 pos, Color color, Vec2 texCoord);
 		Vertex2D(Vec2 pos, Color color);
+		Vertex2D(Vec2 pos, Vec2 texCoord);
 
 		Vec2 pos;
 		Color color;
+		Vec2 texCoord;
 	};
 
 	class API Vertex3D
@@ -29,10 +32,13 @@ namespace lw
 	public:
 		Vertex3D();
 		~Vertex3D() = default;
+		Vertex3D(Vec3 pos, Color color, Vec2 texCoord);
 		Vertex3D(Vec3 pos, Color color);
+		Vertex3D(Vec3 pos, Vec2 texCoord);
 
 		Vec3 pos;
 		Color color;
+		Vec2 texCoord;
 	};
 
 	//#TODO: Use special allocator, not dynamic allocation... especially for drawing lines with SimpleBrush2D

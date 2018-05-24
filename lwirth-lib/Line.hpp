@@ -2,8 +2,7 @@
 
 #include "Standard.hpp"
 
-#include "Math.hpp"
-#include <optional>
+#include "LinearAlgebra.hpp"
 
 namespace lw
 {

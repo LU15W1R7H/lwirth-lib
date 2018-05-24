@@ -25,7 +25,8 @@ void vk()
 	va[2] = { { 1.f, 1.f },{ 0.0f, 0.0f, 1.0f } }; //right down
 	va[3] = { { -1.f, 1.f },{ 1.0f, 1.0f, 1.0f } }; //left down
 	
-	
+	//lw::VK::Image image;
+	//image.createAndLoadFromFile(window.getVulkan()->m_mainDevice, window.getVulkan()->m_commandPool, "texture.jpg");
 
 
 	while (window.isOpen())

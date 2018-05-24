@@ -15,6 +15,7 @@ namespace lw
 		class Device;
 		class DescriptorPool;
 		class Buffer;
+		class Image;
 
 		class API DescriptorBuffer
 		{
@@ -83,7 +84,7 @@ namespace lw
 			VkDescriptorSet raw() const { return m_set; }
 
 			void addUniformBuffer(const Buffer* buffer, u32 binding);
-			//void addImageSampler(const Image* image, U32 binding);
+			void addImageSampler(const Image& image, u32 binding);
 		};
 
 		class API DescriptorPool

@@ -6,13 +6,23 @@
 namespace lw
 {
 	Vertex2D::Vertex2D()
-		: pos()
+		: pos(), color(), texCoord()
 	{
 	}
 
 
+	Vertex2D::Vertex2D(Vec2 pos, Color color, Vec2 texCoord)
+		: pos(pos), color(color), texCoord(texCoord)
+	{
+	}
+
 	Vertex2D::Vertex2D(Vec2 pos, Color color)
-		: pos(pos), color(color)
+		: pos(pos), color(color), texCoord()
+	{
+	}
+
+	Vertex2D::Vertex2D(Vec2 pos, Vec2 texCoord)
+		: pos(pos), color(), texCoord(texCoord)
 	{
 	}
 
@@ -102,12 +112,22 @@ namespace lw
 	}
 
 	Vertex3D::Vertex3D()
-		: pos()
+		: pos(), color(), texCoord()
+	{
+	}
+
+	Vertex3D::Vertex3D(Vec3 pos, Color color, Vec2 texCoord)
+		: pos(pos), color(color), texCoord(texCoord)
 	{
 	}
 
 	Vertex3D::Vertex3D(Vec3 pos, Color color)
-		: pos(pos), color(color)
+		: pos(pos), color(color), texCoord()
+	{
+	}
+
+	Vertex3D::Vertex3D(Vec3 pos, Vec2 texCoord)
+		: pos(pos), color(color), texCoord(texCoord)
 	{
 	}
 

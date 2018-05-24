@@ -15,6 +15,7 @@
 #include "VulkanSwapchain.hpp"
 #include "VulkanRenderPass.hpp"
 #include "VulkanShader.hpp"
+#include "VulkanImage.hpp"
 #include "VulkanDepthImage.hpp"
 #include "VulkanPipeline.hpp"
 #include "VulkanCommands.hpp"
@@ -44,7 +45,7 @@ namespace lw
 			Instance m_instance									= {};
 			Surface m_surface									= {};
 			PhysicalDeviceContainer m_physicalDeviceContatiner	= {};
-			Device m_device										= {};
+			Device m_mainDevice									= {};
 			RenderPass m_renderPass								= {};
 			DepthImage m_depthImage								= {};
 			Swapchain m_swapchain								= {};

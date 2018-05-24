@@ -5,6 +5,8 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
+#include <string>
+
 
 namespace lw
 {
@@ -63,6 +65,8 @@ namespace lw
 
 			void* map();
 			void unmap();
+
+			void allocateAndReadImage(const Device* pDevice, const std::string& path);
 		};
 
 		class API GPUBuffer : public Buffer

@@ -10,8 +10,6 @@ namespace lw
 {
 	namespace VK
 	{
-		
-
 		void Vulkan::start(const Frame* pFrame)
 		{
 			m_instance.create(LW_NAME, LW_VER_MAJOR, LW_VER_MINOR, LW_VER_PATCH, VK_API_VERSION_1_1);
@@ -22,19 +20,19 @@ namespace lw
 
 			m_surface.create(&m_instance, m_pFrame);
 			m_physicalDeviceContatiner.init(&m_instance, &m_surface);
-			m_device.create(&m_physicalDeviceContatiner, &m_surface);
-			m_commandPool.create(&m_device);
-			m_renderPass.create(&m_device);
-			m_depthImage.create(&m_device, &m_commandPool, m_screenWidth, m_screenHeight);
-			m_swapchain.create(&m_device, &m_surface, &m_depthImage, &m_renderPass, m_screenWidth, m_screenHeight);
-			m_semaphoreImageAvailable.create(&m_device);
-			m_semaphoreRenderingDone.create(&m_device);
-			m_fence.create(&m_device);
+			m_mainDevice.create(&m_physicalDeviceContatiner, &m_surface);
+			m_commandPool.create(&m_mainDevice);
+			m_renderPass.create(&m_mainDevice);
+			m_depthImage.create(&m_mainDevice, &m_commandPool, m_screenWidth, m_screenHeight);
+			m_swapchain.create(&m_mainDevice, &m_surface, &m_depthImage, &m_renderPass, m_screenWidth, m_screenHeight);
+			m_semaphoreImageAvailable.create(&m_mainDevice);
+			m_semaphoreRenderingDone.create(&m_mainDevice);
+			m_fence.create(&m_mainDevice);
 		}
 
 		void Vulkan::destroy()
 		{
-			m_device.waitIdle();
+			m_mainDevice.waitIdle();
 			//destroy rest
 
 			if (m_pSimpleBrush2D)m_pSimpleBrush2D->destroy();
@@ -49,7 +47,7 @@ namespace lw
 			m_depthImage.destroy();
 			m_commandPool.destroy();
 			m_renderPass.destroy();
-			m_device.destroy();
+			m_mainDevice.destroy();
 			m_surface.destroy();
 			m_instance.destroy();
 		}
@@ -86,7 +84,7 @@ namespace lw
 
 		void Vulkan::preDraw()
 		{
-			VkResult result = vkAcquireNextImageKHR(m_device.raw(), m_swapchain.raw(), std::numeric_limits<uint64_t>::max(), m_semaphoreImageAvailable.raw(), VK_NULL_HANDLE, &m_imageIndex);
+			VkResult result = vkAcquireNextImageKHR(m_mainDevice.raw(), m_swapchain.raw(), std::numeric_limits<uint64_t>::max(), m_semaphoreImageAvailable.raw(), VK_NULL_HANDLE, &m_imageIndex);
 
 			if (result == VK_ERROR_OUT_OF_DATE_KHR)
 			{
@@ -97,7 +95,7 @@ namespace lw
 				throw VulkanException("failed to acquire swapchain image");
 			}
 
-			m_drawingCommandBuffer.allocate(&m_device, &m_commandPool);
+			m_drawingCommandBuffer.allocate(&m_mainDevice, &m_commandPool);
 
 			m_drawingCommandBuffer.beginSingleTime();
 
@@ -130,7 +128,7 @@ namespace lw
 
 			m_drawingCommandBuffer.end();
 
-			m_drawingCommandBuffer.submit(m_device.getGraphicsQueue(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
+			m_drawingCommandBuffer.submit(m_mainDevice.getGraphicsQueue(), VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT,
 				&m_semaphoreImageAvailable, &m_semaphoreRenderingDone, &m_fence);
 
 
@@ -145,7 +143,7 @@ namespace lw
 			pi.pResults = nullptr;
 
 
-			VkResult result = vkQueuePresentKHR(m_device.getPresentQueue()->raw(), &pi);
+			VkResult result = vkQueuePresentKHR(m_mainDevice.getPresentQueue()->raw(), &pi);
 
 			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
 			{
@@ -166,7 +164,7 @@ namespace lw
 		{
 			if (width == 0 || height == 0) return;
 
-			VkExtent2D maxExtent = m_device.getPhysical()->surfaceCapabilities().maxImageExtent;
+			VkExtent2D maxExtent = m_mainDevice.getPhysical()->surfaceCapabilities().maxImageExtent;
 			if (width > maxExtent.width) width = maxExtent.width;
 			if (height > maxExtent.height) height = maxExtent.height;
 
@@ -183,16 +181,16 @@ namespace lw
 
 		void Vulkan::recreateSwapchain()
 		{
-			m_device.waitIdle();
+			m_mainDevice.waitIdle();
 
 			m_renderPass.destroy();
 			m_depthImage.destroy();
 
 
 			Swapchain newChain;
-			m_renderPass.create(&m_device);
-			m_depthImage.create(&m_device, &m_commandPool, m_screenWidth, m_screenHeight);
-			newChain.create(&m_device, &m_surface, &m_depthImage, &m_renderPass, m_screenWidth, m_screenHeight, &m_swapchain);
+			m_renderPass.create(&m_mainDevice);
+			m_depthImage.create(&m_mainDevice, &m_commandPool, m_screenWidth, m_screenHeight);
+			newChain.create(&m_mainDevice, &m_surface, &m_depthImage, &m_renderPass, m_screenWidth, m_screenHeight, &m_swapchain);
 			if(m_pSimpleBrush2D)m_pSimpleBrush2D->resize(m_screenWidth, m_screenHeight);
 
 

@@ -68,8 +68,8 @@ namespace lw
 		m_screenWidth = screenWidth;
 		m_screenHeight = screenHeight;
 
-		m_vertexShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshadervert.spv");
-		m_fragmentShader.create(&m_pVK->m_device, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshaderfrag.spv");
+		m_vertexShader.create(&m_pVK->m_mainDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshadervert.spv");
+		m_fragmentShader.create(&m_pVK->m_mainDevice, "D:/Dev/C++/My Projects/lwirth-lib/res/shaders/2Dshaderfrag.spv");
 
 
 		SimpleBrush3D::createPipeline();
@@ -79,11 +79,11 @@ namespace lw
 			lw::List<u16> indexArrayVec = { 0, 1, 1, 2, 2, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
-			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
+			stagingBuffer.allocate(&m_pVK->m_mainDevice, dataSize);
 			void* dataPtr = stagingBuffer.map();
 			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
 			stagingBuffer.unmap();
-			m_triangleMeshIndexBuffer.allocate(&m_pVK->m_device, &m_pVK->m_commandPool, m_pVK->m_device.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
+			m_triangleMeshIndexBuffer.allocate(&m_pVK->m_mainDevice, &m_pVK->m_commandPool, m_pVK->m_mainDevice.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			stagingBuffer.destroy();
 		}
 
@@ -91,11 +91,11 @@ namespace lw
 			lw::List<u16> indexArrayVec = { 0, 1, 2, 2, 3, 0 };
 			VK::StagingBuffer stagingBuffer;
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
-			stagingBuffer.allocate(&m_pVK->m_device, dataSize);
+			stagingBuffer.allocate(&m_pVK->m_mainDevice, dataSize);
 			void* dataPtr = stagingBuffer.map();
 			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
 			stagingBuffer.unmap();
-			m_quadFillIndexBuffer.allocate(&m_pVK->m_device, &m_pVK->m_commandPool, m_pVK->m_device.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
+			m_quadFillIndexBuffer.allocate(&m_pVK->m_mainDevice, &m_pVK->m_commandPool, m_pVK->m_mainDevice.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			stagingBuffer.destroy();
 		}
 
@@ -124,7 +124,7 @@ namespace lw
 		m_pipelinePoint.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
 		m_pipelinePoint.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
 		m_pipelinePoint.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelinePoint.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
+		m_pipelinePoint.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 
 		m_pipelineLine.init(m_screenWidth, m_screenHeight);
 		m_pipelineLine.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
@@ -134,7 +134,7 @@ namespace lw
 		m_pipelineLine.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
 		m_pipelineLine.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
 		m_pipelineLine.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelineLine.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
+		m_pipelineLine.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 
 
 		m_pipelineTriangleFill.init(m_screenWidth, m_screenHeight);
@@ -145,7 +145,7 @@ namespace lw
 		m_pipelineTriangleFill.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
 		m_pipelineTriangleFill.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
 		m_pipelineTriangleFill.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelineTriangleFill.create(&m_pVK->m_device, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
+		m_pipelineTriangleFill.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 
 	}
 

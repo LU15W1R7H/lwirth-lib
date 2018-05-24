@@ -15,6 +15,7 @@ namespace lw
 		class RenderPass;
 		class VertexShader;
 		class FragmentShader;
+		class CommandBuffer;
 
 		class API Pipeline
 		{
@@ -53,6 +54,8 @@ namespace lw
 
 			VkPipeline raw() const;
 			VkPipelineLayout getLayout() const;
+
+			void bind(const CommandBuffer& cmd, VkPipelineBindPoint bindPoint) const;
 
 			Pipeline& setTopology(VkPrimitiveTopology topology);
 			Pipeline& setPrimitiveRestartEnable(bool enable);

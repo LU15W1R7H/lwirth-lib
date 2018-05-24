@@ -43,6 +43,7 @@ namespace lw
 	};
 
 	MAKE_EXC(AllocatorOutOfMemoryException, "Allocator has run out of memory");
+	MAKE_EXC(MalformedPointerException, "Pointer is not valid in this context");
 
 	MAKE_EXC(AlreadyInitializedException, "Object was already initialized");
 	MAKE_EXC(AlreadyCreatedException, "Object was already created.");

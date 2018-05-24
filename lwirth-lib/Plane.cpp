@@ -117,7 +117,8 @@ namespace lw
 
 	bool contains(const Plane& plane, Vec3&& point)
 	{
-		return dot(plane.getNormal(), point) + plane.getD() == 0;
+		f32 result = dot(plane.getNormal(), point) + plane.getD();
+		return result < 0.01 && result > -0.01;
 	}
 
 	f32 angle(const Plane & plane, const Line & line)

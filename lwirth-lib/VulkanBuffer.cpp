@@ -8,6 +8,8 @@
 #include "VulkanCommands.hpp"
 #include "VulkanQueues.hpp"
 
+#include "Logger.hpp"
+
 namespace lw
 {
 	namespace VK
@@ -229,6 +231,8 @@ namespace lw
 			vkUnmapMemory(m_pDevice->raw(), m_memory);
 			m_mapped = false;
 		}
+
+		
 
 		void GPUBuffer::allocate(const Device* pDevice, const CommandPool* commandPool, const Queue* pQueue, const StagingBuffer* pStagingBuffer, VkBufferUsageFlags usage, VkSharingMode sharingMode)
 		{

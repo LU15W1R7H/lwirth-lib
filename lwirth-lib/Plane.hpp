@@ -2,13 +2,11 @@
 
 #include "Standard.hpp"
 
-#include "Math.hpp"
+#include "LinearAlgebra.hpp"
 #include "Line.hpp"
 
 namespace lw
 {
-	
-
 	class API Plane
 	{
 		//is of form: ax + by + cz + d = 0;

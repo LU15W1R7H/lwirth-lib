@@ -7,6 +7,7 @@
 #include "VulkanDevice.hpp"
 #include "VulkanRenderPass.hpp"
 #include "FileManager.hpp"
+#include "VulkanCommands.hpp"
 
 namespace lw
 {
@@ -221,6 +222,11 @@ namespace lw
 		{
 			if (m_pipeline == VK_NULL_HANDLE)throw NotCreatedException();
 			return m_layout;
+		}
+
+		void Pipeline::bind(const CommandBuffer& cmd, VkPipelineBindPoint bindPoint) const
+		{
+			vkCmdBindPipeline(cmd.raw(), bindPoint, m_pipeline);
 		}
 
 		Pipeline& Pipeline::setTopology(VkPrimitiveTopology topology)

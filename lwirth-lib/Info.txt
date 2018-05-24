@@ -1,0 +1,19 @@
+Matrix operations:
+
+Addition
+Subtraction
+Multiplication
+PowerOf
+Transpose
+Inverse
+Determinant
+
+Properties:
+isSquare
+isSymmetric
+hasInverse
+isOrthogonal
+isProjectional
+
+Related:
+Eigenvalues and eigenvectors

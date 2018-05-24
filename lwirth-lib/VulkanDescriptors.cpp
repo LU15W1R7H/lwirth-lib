@@ -3,6 +3,7 @@
 
 #include "VulkanDevice.hpp"
 #include "VulkanBuffer.hpp"
+#include "VulkanImage.hpp"
 
 #include "Exceptions.hpp"
 
@@ -131,7 +132,9 @@ namespace lw
 			m_bufferDescriptors.emplace_back(info, binding);
 		}
 
-		/*void DescriptorSet::addImageSampler(const Image * image, U32 binding)
+		
+
+		void DescriptorSet::addImageSampler(const Image& image, u32 binding)
 		{
 			if (m_set != VK_NULL_HANDLE)
 			{
@@ -139,12 +142,12 @@ namespace lw
 			}
 
 			VkDescriptorImageInfo info;
-			info.sampler = image.sampler();
-			info.imageView = image.view();
-			info.imageLayout = image.layout();
+			info.sampler = image.getSampler();
+			info.imageView = image.getView();
+			info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
 			m_imageDescriptors.push_back(DescriptorImage(info, binding));
-		}*/
+		}
 
 		void DescriptorPool::init(Device * device)
 		{

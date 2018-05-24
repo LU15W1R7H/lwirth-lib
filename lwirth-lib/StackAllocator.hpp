@@ -40,6 +40,14 @@ namespace lw
 			}
 		};
 
+		using value_type = T;
+		using pointer = T*;
+		using const_pointer = const T*;
+		using reference = T&;
+		using const_reference = const T&;
+		using size_type = size_t;
+		using difference_type = std::ptrdiff_t;
+		
 	private:
 		static constexpr size_t DEFAULT_STACK_SIZE = 1024;
 		T* m_data = nullptr;
@@ -98,18 +106,19 @@ namespace lw
 		template<class U, class... Args>
 		U* allocateObjects(size_t objCount = 1, Args&&... args)
 		{
-			uintptr_t allocAdd = lw::nextMultiple(alignof(U), reinterpret_cast<uintptr_t>(m_head));
-			uintptr_t newHeadAdd = allocAdd + objCount * sizeof(U);
-			if (newHeadAdd <= reinterpret_cast<uintptr_t>(m_data) + m_size)
+			T* allocPtr = (T*)lw::nextMultiple(alignof(U), (uintptr_t)m_head);
+			T* newHeadPtr = (T*)((uintptr_t)allocPtr) + objCount * sizeof(U);
+			if (newHeadPtr <= m_data + m_size)
 			{
-				m_head = reinterpret_cast<T*>(newHeadAdd);
+				U* returnPtr = reinterpret_cast<U*>(allocAdd);
+				m_head = newHeadPtr;
 				for (size_t i = 0; i < objCount; i++)
 				{
-					U* obj = reinterpret_cast<U*>(allocAdd + i * sizeof(U));
+					U* obj = allocPtr + i;
 					new(obj) U(std::forward<Args>(args)...); //only initializes (doesn't allocate)
 					addDestructor(obj);
 				}
-				return reinterpret_cast<U*>(allocAdd);
+				return returnPtr;
 			}
 			else
 			{
@@ -125,12 +134,12 @@ namespace lw
 
 		void* allocate(size_t memTypeCount, size_t alignment = alignof(T))
 		{
-			uintptr_t allocAdd = lw::nextMultiple(alignment, reinterpret_cast<uintptr_t>(m_head));
-			uintptr_t newHeadAdd = allocAdd + memTypeCount * sizeof(T);
-			if (newHeadPtr <= reinterpret_cast<uintptr_t>(m_data) + m_size)
+			T* allocPtr = lw::nextMultiple(alignment, (uintptr_t)m_head);
+			T* newHeadPtr = allocPtr + memTypeCount;
+			if (newHeadPtr <= m_data + m_size)
 			{
-				m_head = reinterpret_cast<T*>(newHeadAdd);
-				return reinterpret_cast<T*>(allocAdd);
+				m_head = newHeadPtr;
+				return allocPtr;
 			}
 			else
 			{
