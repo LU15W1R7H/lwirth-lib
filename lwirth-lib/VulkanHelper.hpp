@@ -18,10 +18,10 @@ namespace lw
 		class CommandPool;
 		class QueueFamilyIndices;
 
-		API extern bool isFormatSupported(const PhysicalDevice* physicalDevice, VkFormat format, VkImageTiling tiling, VkFormatFeatureFlags features);
-		API extern VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::List<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
-		API extern bool hasStencilComponent(VkFormat format);
-		API extern u32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, u32 typeFilter, VkMemoryPropertyFlags properties);
+		LWAPI extern bool isFormatSupported(const PhysicalDevice* physicalDevice, VkFormat format, VkImageTiling tiling, VkFormatFeatureFlags features);
+		LWAPI extern VkFormat findSupportedFormat(const PhysicalDevice* physicalDevice, lw::List<VkFormat>* candidates, VkImageTiling tiling, VkFormatFeatureFlags features);
+		LWAPI extern bool hasStencilComponent(VkFormat format);
+		LWAPI extern u32 findMemoryTypeIndex(const PhysicalDevice* physicalDevice, u32 typeFilter, VkMemoryPropertyFlags properties);
 	}
 }
 

@@ -16,7 +16,7 @@ namespace lw
 		class CommandPool;
 		class Queue;
 		
-		class API Buffer //virtual
+		class LWAPI Buffer //virtual
 		{
 		protected:
 			VkBuffer			m_buffer	= VK_NULL_HANDLE;
@@ -43,7 +43,7 @@ namespace lw
 			static void s_copy(const Device* device, const CommandPool* commandPool, const Queue* pQueue, VkBuffer src, VkBuffer dst, VkDeviceSize size);
 		};
 
-		class API CPUBuffer : public Buffer
+		class LWAPI CPUBuffer : public Buffer
 		{
 		private:
 			bool m_mapped = false;
@@ -55,7 +55,7 @@ namespace lw
 			void unmap();
 		};
 
-		class API StagingBuffer : public Buffer
+		class LWAPI StagingBuffer : public Buffer
 		{
 		private:
 			bool m_mapped = false;
@@ -69,7 +69,7 @@ namespace lw
 			void allocateAndReadImage(const Device* pDevice, const std::string& path);
 		};
 
-		class API GPUBuffer : public Buffer
+		class LWAPI GPUBuffer : public Buffer
 		{
 		private:
 

@@ -13,7 +13,7 @@ namespace lw
 	{
 		class Instance;
 
-		class API Surface
+		class LWAPI Surface
 		{
 		private:
 			VkSurfaceKHR m_surface	= VK_NULL_HANDLE;

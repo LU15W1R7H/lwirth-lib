@@ -95,16 +95,20 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMPILE_LWIRTH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LW_COMPILING;LW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib; vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -112,16 +116,20 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMPILE_LWIRTH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LW_COMPILING;LW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.hpp</PrecompiledHeaderFile>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib; vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -131,8 +139,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMPILE_LWIRTH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LW_COMPILING;LW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.hpp</PrecompiledHeaderFile>
@@ -140,9 +148,13 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib; vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -152,8 +164,8 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VK_SDK_PATH)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>COMPILE_LWIRTH;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>LW_COMPILING;LW_DLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpp17</LanguageStandard>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>stdafx.hpp</PrecompiledHeaderFile>
@@ -161,9 +173,13 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;vulkan-1.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
     </Link>
+    <Lib>
+      <AdditionalDependencies>glfw3.lib; vulkan-1.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Allocations.cpp" />

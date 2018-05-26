@@ -18,7 +18,7 @@ namespace lw
 		class RenderPass;
 
 
-		class API Swapchain
+		class LWAPI Swapchain
 		{
 		private:
 			VkSwapchainKHR	m_swapchain		= VK_NULL_HANDLE;

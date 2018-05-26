@@ -6,7 +6,7 @@
 
 namespace lw
 {
-	struct API Intersection
+	struct LWAPI Intersection
 	{
 	private:
 		bool m_viable;
@@ -20,7 +20,7 @@ namespace lw
 		Vec3 get();
 	};
 
-	class API Line
+	class LWAPI Line
 	{
 		//is of form: OX = OP + t * OD
 	public:
@@ -45,18 +45,18 @@ namespace lw
 		void setDirection(Vec3&& direction) noexcept;
 	};
 
-	API Line LineByPoints(const Vec3& p1, const Vec3& p2) noexcept;
-	API Line LineByPoints(Vec3&& p1, Vec3&& p2) noexcept;
-	API Line LineByPointAndDirection(const Vec3& point, const Vec3& direction) noexcept;
-	API Line LineByPointAndDirection(Vec3&& point, Vec3&& direction) noexcept;
+	LWAPI Line LineByPoints(const Vec3& p1, const Vec3& p2) noexcept;
+	LWAPI Line LineByPoints(Vec3&& p1, Vec3&& p2) noexcept;
+	LWAPI Line LineByPointAndDirection(const Vec3& point, const Vec3& direction) noexcept;
+	LWAPI Line LineByPointAndDirection(Vec3&& point, Vec3&& direction) noexcept;
 	
-	API bool contains(const Line& line, const Vec3& point);
-	API bool contains(const Line& line, Vec3&& point);
-	API f32 angle(const Line& l1, const Line& l2);
-	API Intersection intersect(const Line& l1, const Line& l2);
-	API Vec3 nearestPointOnLine(const Line& line, const Vec3& point);
-	API Vec3 nearestPointOnLine(const Line& line, Vec3&& point);
-	API Line::Relationship relationship(const Line& l1, const Line& l2);
+	LWAPI bool contains(const Line& line, const Vec3& point);
+	LWAPI bool contains(const Line& line, Vec3&& point);
+	LWAPI f32 angle(const Line& l1, const Line& l2);
+	LWAPI Intersection intersect(const Line& l1, const Line& l2);
+	LWAPI Vec3 nearestPointOnLine(const Line& line, const Vec3& point);
+	LWAPI Vec3 nearestPointOnLine(const Line& line, Vec3&& point);
+	LWAPI Line::Relationship relationship(const Line& l1, const Line& l2);
 
 }
 

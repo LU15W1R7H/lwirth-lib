@@ -6,11 +6,18 @@
 #define LW_VER_PATCH 0
 
 
-#ifdef COMPILE_LWIRTH
-#define API __declspec(dllexport)
+#ifdef LW_DLL
+
+#ifdef LW_COMPILING
+#define LWAPI __declspec(dllexport)
 #else
-#define API __declspec(dllimport)
-#endif
+#define LWAPI __declspec(dllimport)
+#endif //!LW_COMPILING
+
+#else //!LW_DLL
+#define LWAPI
+#endif //!else
+
 
 #define DISABLE_COPYING(T)\
 	T(const T&) = delete; \

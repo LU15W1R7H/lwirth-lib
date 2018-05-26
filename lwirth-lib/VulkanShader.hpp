@@ -13,7 +13,7 @@ namespace lw
 	{
 		class Device;
 
-		class API VertexShader
+		class LWAPI VertexShader
 		{
 		private:
 			VkShaderModule m_module = VK_NULL_HANDLE;
@@ -33,7 +33,7 @@ namespace lw
 
 		};
 
-		class API FragmentShader
+		class LWAPI FragmentShader
 		{
 		private:
 			VkShaderModule m_module = VK_NULL_HANDLE;

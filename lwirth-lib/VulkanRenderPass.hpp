@@ -11,7 +11,7 @@ namespace lw
 	{
 		class Device;
 
-		class API RenderPass
+		class LWAPI RenderPass
 		{
 		private:
 			VkRenderPass	m_renderPass	= VK_NULL_HANDLE;

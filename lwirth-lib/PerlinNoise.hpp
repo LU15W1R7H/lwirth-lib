@@ -4,7 +4,7 @@
 
 namespace lw
 {
-	class API PerlinNoise
+	class LWAPI PerlinNoise
 	{
 	private:
 		i32 m_p[512];

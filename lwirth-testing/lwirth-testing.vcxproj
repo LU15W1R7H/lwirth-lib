@@ -91,11 +91,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -105,11 +105,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -121,14 +121,14 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib32</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
@@ -140,13 +140,13 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(VULKAN_SDK)\Include;$(SolutionDir)res\libs\glfw\$(Platform)\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalLibraryDirectories>$(SolutionDir)res\libs\glfw\$(Platform)\bin;$(VULKAN_SDK)\Lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)libraries\vulkan\bin\$(Platform);$(SolutionDir)libraries\glfw\bin\$(Platform)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

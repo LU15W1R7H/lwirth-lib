@@ -5,7 +5,7 @@
 
 namespace lw
 {
-	class API VectorField2D
+	class LWAPI VectorField2D
 	{
 	private:
 		f32 m_width;

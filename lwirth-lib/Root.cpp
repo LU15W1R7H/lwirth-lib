@@ -8,7 +8,7 @@ namespace lw
 		Root::get().init();
 	}
 
-	API void terminate()
+	LWAPI void terminate()
 	{
 		Root::get().terminate();
 	}

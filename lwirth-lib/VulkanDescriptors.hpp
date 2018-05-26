@@ -17,7 +17,7 @@ namespace lw
 		class Buffer;
 		class Image;
 
-		class API DescriptorBuffer
+		class LWAPI DescriptorBuffer
 		{
 		public:
 			DescriptorBuffer(VkDescriptorBufferInfo info, u32 binding)
@@ -27,7 +27,7 @@ namespace lw
 			u32 m_binding;
 		};
 
-		class API DescriptorImage
+		class LWAPI DescriptorImage
 		{
 		public:
 			DescriptorImage(VkDescriptorImageInfo info, u32 binding)
@@ -36,7 +36,7 @@ namespace lw
 			u32 m_binding;
 		};
 
-		class API DescriptorSetLayout
+		class LWAPI DescriptorSetLayout
 		{
 			friend class DescriptorPool;
 		private:
@@ -57,7 +57,7 @@ namespace lw
 			void addBinding(u32 binding, VkDescriptorType type, u32 descriptorCount, VkShaderStageFlags stageFlags, const VkSampler* immutableSampler = nullptr);
 		};
 
-		class API DescriptorSetLayoutContainer
+		class LWAPI DescriptorSetLayoutContainer
 		{
 		public:
 			const DescriptorSetLayout * m_pLayouts;
@@ -67,7 +67,7 @@ namespace lw
 				: m_pLayouts(layout), m_setCount(setCount) {}
 		};
 
-		class API DescriptorSet
+		class LWAPI DescriptorSet
 		{
 		private:
 			VkDescriptorSet m_set = VK_NULL_HANDLE;
@@ -87,7 +87,7 @@ namespace lw
 			void addImageSampler(const Image& image, u32 binding);
 		};
 
-		class API DescriptorPool
+		class LWAPI DescriptorPool
 		{
 		private:
 			VkDescriptorPool m_pool = VK_NULL_HANDLE;

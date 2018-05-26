@@ -18,7 +18,7 @@ namespace lw
 		class Buffer;
 		class Pipeline;
 
-		class API CommandPool
+		class LWAPI CommandPool
 		{
 		private:
 			VkCommandPool	m_pool		= VK_NULL_HANDLE;
@@ -35,7 +35,7 @@ namespace lw
 			VkCommandPool* ptr();
 		};
 
-		class API CommandBuffer
+		class LWAPI CommandBuffer
 		{
 		private:
 			VkCommandBuffer		m_buffer	= VK_NULL_HANDLE;

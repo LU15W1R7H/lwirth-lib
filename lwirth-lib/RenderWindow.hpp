@@ -11,7 +11,7 @@
 
 namespace lw
 {
-	class API RenderWindow : public Frame
+	class LWAPI RenderWindow : public Frame
 	{
 	private:
 		VK::Vulkan m_vulkan;

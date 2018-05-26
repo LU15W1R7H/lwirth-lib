@@ -19,7 +19,7 @@ namespace lw
 
 		void transitionImageLayout(const Device & device, const CommandPool & cmdPool, VkImage image, VkFormat format, VkImageLayout oldLayout, VkImageLayout newLayout);
 
-		class API Image
+		class LWAPI Image
 		{
 				
 		private:

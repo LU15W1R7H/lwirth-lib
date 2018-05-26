@@ -10,7 +10,7 @@ namespace lw
 {
 	
 	
-	struct API Neuron
+	struct LWAPI Neuron
 	{
 	public:
 		enum NeuronType { input, hidden, output, bias, undefined };
@@ -23,7 +23,7 @@ namespace lw
 		f32 value = 1.0f;
 	};
 
-	struct API Layer
+	struct LWAPI Layer
 	{
 		enum LayerType { input, hidden, output, undefined };
 
@@ -36,7 +36,7 @@ namespace lw
 	};
 
 
-	class API NeuralNetwork
+	class LWAPI NeuralNetwork
 	{
 	private:
 		//avoid using neurons & weights directly

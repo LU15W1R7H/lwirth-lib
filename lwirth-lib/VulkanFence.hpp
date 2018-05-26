@@ -14,7 +14,7 @@ namespace lw
 	{
 		class Device;
 
-		class Fence
+		class LWAPI Fence
 		{
 		private:
 			VkFence	m_fence = VK_NULL_HANDLE;

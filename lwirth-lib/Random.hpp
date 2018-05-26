@@ -14,7 +14,7 @@
 
 namespace lw
 {
-	class API Random
+	class LWAPI Random
 	{
 	public:
 		Random();

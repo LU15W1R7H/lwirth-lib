@@ -7,7 +7,7 @@
 
 namespace lw
 {
-	class API Texture
+	class LWAPI Texture
 	{
 		VK::Image m_vkImage;
 

@@ -7,7 +7,7 @@
 namespace lw
 {
 	template<typename FieldType, u16 N, int M, int R, int A, int F, int U, int S, int B, int T, int C, int L>
-	class API MersenneTwisterBase
+	class LWAPI MersenneTwisterBase
 	{
 	private:
 		const u64 MASK_LOWER = (1ull << R) - 1;
@@ -84,6 +84,6 @@ namespace lw
 		}
 	};
 
-	API typedef MersenneTwisterBase<u32, 624, 397, 31, 0x9908B0DF, 1812433253, 11, 7, 0x9D2C5680, 15, 0xEFC60000, 18> mt19937;
+	LWAPI typedef MersenneTwisterBase<u32, 624, 397, 31, 0x9908B0DF, 1812433253, 11, 7, 0x9D2C5680, 15, 0xEFC60000, 18> mt19937;
 	
 }
