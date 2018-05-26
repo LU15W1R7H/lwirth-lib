@@ -19,7 +19,7 @@ namespace lw
 		class Instance;
 		class Surface;
 
-		class LWAPI SelectedQueueFamilies
+		class SelectedQueueFamilies
 		{
 			friend class PhysicalDevice;
 		private:
@@ -35,7 +35,7 @@ namespace lw
 			const QueueFamily* getPresent() const;
 		};
 
-		class LWAPI PhysicalDevice
+		class PhysicalDevice
 		{
 			friend class PhysicalDeviceContainer;
 		private:
@@ -78,7 +78,7 @@ namespace lw
 			void rateSuitability();
 		};
 
-		class LWAPI PhysicalDeviceContainer
+		class PhysicalDeviceContainer
 		{
 		private:
 			lw::List<PhysicalDevice> m_devices = {};

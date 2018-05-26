@@ -17,7 +17,7 @@ namespace lw
 		class FragmentShader;
 		class CommandBuffer;
 
-		class LWAPI Pipeline
+		class Pipeline
 		{
 		private:
 			VkPipeline			m_pipeline			= VK_NULL_HANDLE;

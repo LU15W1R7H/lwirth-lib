@@ -6,10 +6,10 @@
 
 namespace lw
 {
-	LWAPI extern void init();
-	LWAPI extern void terminate();
+	extern void init();
+	extern void terminate();
 
-	class LWAPI Root
+	class Root
 	{
 		extern friend void init();
 		extern friend void terminate();

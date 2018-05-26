@@ -11,7 +11,7 @@ namespace lw
 	{
 		class Device;
 
-		class LWAPI Semaphore
+		class Semaphore
 		{
 		private:
 			VkSemaphore	m_semaphore	= VK_NULL_HANDLE;

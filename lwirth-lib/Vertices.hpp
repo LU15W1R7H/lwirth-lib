@@ -13,7 +13,7 @@ namespace lw
 {
 	enum PrimitiveType { Points, Lines, LineStrip, Triangles, TriangleStrip, TriangleFan, Quads };
 
-	class LWAPI Vertex2D
+	class Vertex2D
 	{
 	public:
 		Vertex2D();
@@ -27,7 +27,7 @@ namespace lw
 		Vec2 texCoord;
 	};
 
-	class LWAPI Vertex3D
+	class Vertex3D
 	{
 	public:
 		Vertex3D();
@@ -42,7 +42,7 @@ namespace lw
 	};
 
 	//#TODO: Use special allocator, not dynamic allocation... especially for drawing lines with SimpleBrush2D
-	class LWAPI Vertex2DArray
+	class Vertex2DArray
 	{
 		friend class SimpleBrush2D;
 	private:
@@ -72,7 +72,7 @@ namespace lw
 		void setPrimitiveType(PrimitiveType primitive);
 	};
 
-	class LWAPI Vertex3DArray
+	class Vertex3DArray
 	{
 		friend class SimpleBrush3D;
 	private:

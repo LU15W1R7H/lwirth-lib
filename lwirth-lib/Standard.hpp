@@ -1,25 +1,11 @@
 #pragma once
 
+#include <iostream>
+
 #define LW_NAME "lwirth-lib"
 #define LW_VER_MAJOR 0
 #define LW_VER_MINOR 0
 #define LW_VER_PATCH 0
-
-
-#ifdef LW_DLL
-
-#define GLFW_DLL
-
-#ifdef LW_COMPILING
-#define LWAPI __declspec(dllexport)
-#else
-#define LWAPI __declspec(dllimport)
-#endif //!LW_COMPILING
-
-#else //!LW_DLL
-#undef GLFW_DLL
-#define LWAPI
-#endif //!else
 
 
 #define DISABLE_COPYING(T)\
@@ -39,11 +25,11 @@
 
 #ifdef _DEBUG
 
- //#TODO inform of error (#expr, __FILE__, __LINE__)
-#define ASSERT(expr) \
+#define ASSERT(expr, msg) \
 	if(expr) {} \
 	else \
 	{ \
+		std::cerr << "ASSERT: " << msg << " (file: " << __FILE__ << " line: " << __LINE__ << ")\n"; \
 		__debugbreak(); \
 	}
 #else
@@ -73,7 +59,6 @@ namespace lw
 	{
 		__debugbreak();
 	}
-	
 	
 }
 

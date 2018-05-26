@@ -13,7 +13,7 @@ namespace lw
 		class PhysicalDevice;
 		class CommandPool;
 
-		class LWAPI DepthImage
+		class DepthImage
 		{
 		private:
 			VkImage			m_image		= VK_NULL_HANDLE;

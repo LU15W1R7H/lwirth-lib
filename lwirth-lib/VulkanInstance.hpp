@@ -12,7 +12,7 @@ namespace lw
 {
 	namespace VK
 	{
-		class LWAPI Instance
+		class Instance
 		{
 		private:
 			VkInstance m_instance = VK_NULL_HANDLE;

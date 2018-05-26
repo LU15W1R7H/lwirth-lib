@@ -7,7 +7,7 @@
 
 namespace lw
 {
-	class LWAPI Shape
+	class Shape
 	{
 	public:
 		Shape(Vec2 _pos);
@@ -19,5 +19,5 @@ namespace lw
 		virtual void rotate(f32 angle, Vec2& center) = 0;
 	};
 
-	LWAPI bool intersects(Shape& s1, Shape& s2);
+	bool intersects(Shape& s1, Shape& s2);
 }

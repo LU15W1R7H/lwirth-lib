@@ -9,7 +9,7 @@
 
 namespace lw
 {
-	class LWAPI Triangle : public Shape
+	class Triangle : public Shape
 	{
 		friend class SimpleBrush2D;
 

@@ -17,7 +17,7 @@ namespace lw
 		class PhysicalDevice;
 		class Surface;
 
-		class LWAPI Device
+		class Device
 		{
 		private:
 			static lw::List<const char*> s_extensions;

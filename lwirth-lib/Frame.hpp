@@ -9,7 +9,7 @@ struct GLFWwindow;
 
 namespace lw
 {
-	class LWAPI Frame
+	class Frame
 	{
 		friend class RenderWindow;
 

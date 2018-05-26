@@ -7,7 +7,7 @@
 
 namespace lw
 {
-	class LWAPI Circle : public Shape
+	class Circle : public Shape
 	{
 	public:
 		Circle(f32 _radius, Vec2 _pos);

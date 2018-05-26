@@ -20,7 +20,7 @@ namespace lw
 		class QueueFamily;
 		class Queue;
 
-		class LWAPI QueueFamilies
+		class QueueFamilies
 		{
 		private:
 			QueueFamily* m_families = nullptr;
@@ -35,7 +35,7 @@ namespace lw
 			const QueueFamily* get(u32 index) const;
 		};
 
-		class LWAPI QueueFamily //pure virtual
+		class QueueFamily //pure virtual
 		{
 		private:
 			int m_index = -1;
@@ -51,7 +51,7 @@ namespace lw
 			Queue getQueue(const Device* pDevice, u32 index) const;
 		};
 
-		class LWAPI Queue
+		class Queue
 		{
 		private:
 			VkQueue m_queue;

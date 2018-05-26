@@ -33,7 +33,7 @@ namespace lw
 {
 	namespace VK
 	{
-		class LWAPI Vulkan
+		class Vulkan
 		{
 			friend class SimpleBrush2D;
 			friend class SimpleBrush3D;

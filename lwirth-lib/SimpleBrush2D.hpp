@@ -20,7 +20,7 @@ namespace lw
 		class Vulkan;
 	}
 
-	class LWAPI SimpleBrush2D
+	class SimpleBrush2D
 	{
 		friend class VK::Vulkan;
 	private:
