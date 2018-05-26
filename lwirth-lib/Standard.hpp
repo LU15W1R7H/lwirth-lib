@@ -8,6 +8,8 @@
 
 #ifdef LW_DLL
 
+#define GLFW_DLL
+
 #ifdef LW_COMPILING
 #define LWAPI __declspec(dllexport)
 #else
@@ -15,6 +17,7 @@
 #endif //!LW_COMPILING
 
 #else //!LW_DLL
+#undef GLFW_DLL
 #define LWAPI
 #endif //!else
 
