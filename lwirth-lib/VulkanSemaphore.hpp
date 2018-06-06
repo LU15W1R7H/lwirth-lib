@@ -26,6 +26,7 @@ namespace lw
 
 			VkSemaphore raw() const;
 			VkSemaphore* ptr();
+			const VkSemaphore* ptr() const;
 		};
 
 		

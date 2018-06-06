@@ -52,5 +52,12 @@ namespace lw
 			return &m_semaphore;
 		}
 
+		const VkSemaphore * Semaphore::ptr() const
+		{
+			if (m_semaphore == VK_NULL_HANDLE)throw NotCreatedException();
+			return &m_semaphore;
+		}
+
+
 	}
 }

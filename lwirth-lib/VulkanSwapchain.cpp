@@ -112,6 +112,33 @@ namespace lw
 			return index;
 		}
 
+		void Swapchain::present(const Queue & queue, const Semaphore & waitSemaphore, u32 imageIndex)
+		{
+			VkPresentInfoKHR pi;
+			pi.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+			pi.pNext = nullptr;
+			pi.waitSemaphoreCount = 1;
+			pi.pWaitSemaphores = waitSemaphore.ptr();
+			pi.swapchainCount = 1;
+			pi.pSwapchains = &m_swapchain;
+			pi.pImageIndices = &imageIndex;
+			pi.pResults = nullptr;
+
+			VkResult result = vkQueuePresentKHR(queue.raw(), &pi);
+			if (result == VK_ERROR_OUT_OF_DATE_KHR)
+			{
+				throw VulkanException("failed to present swapchain, because swapchain is out of date");
+			}
+			else if (result == VK_SUBOPTIMAL_KHR)
+			{
+				throw VulkanException("failed to present swapchain, because swapchain is suboptimal");
+			}
+			else if (result != VK_SUCCESS)
+			{
+				throw VulkanException("failed to present swapchain");
+			}
+		}
+
 		VkSwapchainKHR Swapchain::raw() const
 		{
 			if (m_swapchain == VK_NULL_HANDLE)throw NotCreatedException();

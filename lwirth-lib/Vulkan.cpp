@@ -110,27 +110,7 @@ namespace lw
 				&m_semaphoreImageAvailable, &m_semaphoreRenderingDone, &m_fence);
 
 
-			VkPresentInfoKHR pi;
-			pi.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
-			pi.pNext = nullptr;
-			pi.waitSemaphoreCount = 1;
-			pi.pWaitSemaphores = m_semaphoreRenderingDone.ptr();
-			pi.swapchainCount = 1;
-			pi.pSwapchains = m_swapchain.ptr();
-			pi.pImageIndices = &m_imageIndex;
-			pi.pResults = nullptr;
-
-
-			VkResult result = vkQueuePresentKHR(m_mainDevice.getPresentQueue()->raw(), &pi);
-
-			if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR)
-			{
-				throw VulkanException("presentation was out of date or suboptimal");
-			}
-			else if (result != VK_SUCCESS)
-			{
-				throw VulkanException("failed to present swapchain image");
-			}
+			m_swapchain.present(*m_mainDevice.getPresentQueue(), m_semaphoreRenderingDone, m_imageIndex);
 
 			m_fence.wait();
 			m_drawingCommandBuffer.free();

@@ -18,6 +18,7 @@ namespace lw
 		class RenderPass;
 		class Semaphore;
 		class Fence;
+		class Queue;
 
 
 		class Swapchain
@@ -40,6 +41,7 @@ namespace lw
 			void destroy();
 
 			u32 acquireNextImage(const Semaphore& semaphore, const Fence* pFence = nullptr, u64 timeout = std::numeric_limits<u64>::max());
+			void present(const Queue& queue, const Semaphore& waitSemaphore, u32 imageIndex);
 
 			VkSwapchainKHR raw() const;
 			VkSwapchainKHR* ptr();
