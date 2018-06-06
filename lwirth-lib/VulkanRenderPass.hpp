@@ -25,6 +25,8 @@ namespace lw
 			void create(Device* pDevice);
 			void destroy();
 
+
+
 			VkRenderPass raw() const;
 			VkRenderPass* ptr();
 		};

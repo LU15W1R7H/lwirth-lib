@@ -8,6 +8,8 @@
 #include "VulkanPhysicalDevices.hpp"
 #include "VulkanRenderPass.hpp"
 #include "VulkanDepthImage.hpp"
+#include "VulkanSemaphore.hpp"
+#include "VulkanFence.hpp"
 #include "Math.hpp"
 
 namespace lw
@@ -87,6 +89,27 @@ namespace lw
 			m_frameBuffers = nullptr;
 			m_extent = {};
 			m_pDevice = nullptr;
+		}
+
+		u32 Swapchain::acquireNextImage(const Semaphore & semaphore, const Fence * pFence, u64 timeout)
+		{
+			u32 index;
+			VkResult result = vkAcquireNextImageKHR(m_pDevice->raw(), m_swapchain, timeout, semaphore.raw(), pFence ? pFence->raw() : VK_NULL_HANDLE, &index);
+
+			if (result == VK_ERROR_OUT_OF_DATE_KHR)
+			{
+				throw VulkanException("failed to acquire swapchain image, because swapchain is out of date");
+			}
+			else if (result == VK_SUBOPTIMAL_KHR)
+			{
+				throw VulkanException("failed acquire swapchain image, because swapchain is suboptimal");
+			}
+			else if (result != VK_SUCCESS)
+			{
+				throw VulkanException("failed to acquire swapchain image");
+			}
+
+			return index;
 		}
 
 		VkSwapchainKHR Swapchain::raw() const

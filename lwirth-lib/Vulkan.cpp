@@ -84,16 +84,7 @@ namespace lw
 
 		void Vulkan::preDraw()
 		{
-			VkResult result = vkAcquireNextImageKHR(m_mainDevice.raw(), m_swapchain.raw(), std::numeric_limits<uint64_t>::max(), m_semaphoreImageAvailable.raw(), VK_NULL_HANDLE, &m_imageIndex);
-
-			if (result == VK_ERROR_OUT_OF_DATE_KHR)
-			{
-				throw VulkanException("out of date");
-			}
-			else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
-			{
-				throw VulkanException("failed to acquire swapchain image");
-			}
+			m_imageIndex = m_swapchain.acquireNextImage(m_semaphoreImageAvailable);
 
 			m_drawingCommandBuffer.allocate(&m_mainDevice, &m_commandPool);
 

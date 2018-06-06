@@ -16,6 +16,8 @@ namespace lw
 		class Surface;
 		class Device;
 		class RenderPass;
+		class Semaphore;
+		class Fence;
 
 
 		class Swapchain
@@ -36,6 +38,8 @@ namespace lw
 
 			void create(Device* pDevice, Surface* pSurface, DepthImage* pDepthImage, RenderPass* pRenderPass, u32 width, u32 height, Swapchain* pOldSwapchain = nullptr);
 			void destroy();
+
+			u32 acquireNextImage(const Semaphore& semaphore, const Fence* pFence = nullptr, u64 timeout = std::numeric_limits<u64>::max());
 
 			VkSwapchainKHR raw() const;
 			VkSwapchainKHR* ptr();
