@@ -6,6 +6,7 @@
 #include "VulkanHelper.hpp"
 
 #include "VulkanDepthImage.hpp"
+#include "VulkanCommands.hpp"
 
 namespace lw
 {
@@ -91,6 +92,20 @@ namespace lw
 			vkDestroyRenderPass(m_pDevice->raw(), m_renderPass, nullptr);
 			m_renderPass = VK_NULL_HANDLE;
 			m_pDevice = nullptr;
+		}
+
+		void RenderPass::begin(const CommandBuffer & cmd, VkFramebuffer framebuffer, VkRect2D renderArea, const List<VkClearValue>& clearValues, VkSubpassContents contents)
+		{
+			VkRenderPassBeginInfo rpbi;
+			rpbi.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+			rpbi.pNext = nullptr;
+			rpbi.renderPass = m_renderPass;
+			rpbi.framebuffer = framebuffer;
+			rpbi.renderArea = renderArea;
+			rpbi.clearValueCount = clearValues.size();
+			rpbi.pClearValues = clearValues.raw();
+
+			vkCmdBeginRenderPass(cmd.raw(), &rpbi, contents);
 		}
 
 		VkRenderPass RenderPass::raw() const

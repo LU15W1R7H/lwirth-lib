@@ -136,6 +136,11 @@ namespace lw
 			return m_pData;
 		}
 
+		const T* raw() const
+		{
+			return m_pData;
+		}
+
 		T& at(size_t index)
 		{
 			if (index >= m_size)throw IllegalIndexException("Illegal dynamic array index");

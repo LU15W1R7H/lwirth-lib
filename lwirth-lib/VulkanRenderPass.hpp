@@ -5,11 +5,14 @@
 #define GLFW_INCLUDE_VULKAN
 #include <glfw3.h>
 
+#include "List.hpp"
+
 namespace lw
 {
 	namespace VK
 	{
 		class Device;
+		class CommandBuffer;
 
 		class RenderPass
 		{
@@ -25,7 +28,7 @@ namespace lw
 			void create(Device* pDevice);
 			void destroy();
 
-
+			void begin(const CommandBuffer& cmd, VkFramebuffer framebuffer, VkRect2D renderArea, const List<VkClearValue>& clearValues, VkSubpassContents contents);
 
 			VkRenderPass raw() const;
 			VkRenderPass* ptr();

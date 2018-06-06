@@ -90,22 +90,9 @@ namespace lw
 
 			m_drawingCommandBuffer.beginSingleTime();
 
-			VkRenderPassBeginInfo rpbi;
-			rpbi.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-			rpbi.pNext = nullptr;
-			rpbi.renderPass = m_renderPass.raw();
-			rpbi.framebuffer = m_swapchain.getFramebuffer(m_imageIndex);
-			rpbi.renderArea.offset = { 0, 0 };
-			rpbi.renderArea.extent = { m_screenWidth, m_screenHeight };
-
-			VkClearValue clearValue = { 0.f, 0.f, 0.f, 1.f };
-			VkClearValue depthClearValue = { 1.f, 0 };
-			lw::List<VkClearValue> clearValues = { clearValue, depthClearValue };
-
-			rpbi.clearValueCount = clearValues.size();
-			rpbi.pClearValues = clearValues.raw();
-
-			vkCmdBeginRenderPass(m_drawingCommandBuffer.raw(), &rpbi, VK_SUBPASS_CONTENTS_INLINE);
+			m_renderPass.begin(m_drawingCommandBuffer, m_swapchain.getFramebuffer(m_imageIndex),
+				{ {0, 0}, {m_screenWidth, m_screenHeight } },
+				{ {0.f, 0.f, 0.f, 1.f}, {1.f, 0} }, VK_SUBPASS_CONTENTS_INLINE);
 
 
 			if(m_pSimpleBrush2D)m_pSimpleBrush2D->prepare(&m_drawingCommandBuffer);
