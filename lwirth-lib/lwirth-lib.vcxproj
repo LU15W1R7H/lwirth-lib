@@ -304,7 +304,6 @@
     <ClInclude Include="VulkanShader.hpp" />
     <ClInclude Include="VulkanSurface.hpp" />
     <ClInclude Include="VulkanSwapchain.hpp" />
-    <ClInclude Include="_Storage.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\res\shaders\shader.frag" />

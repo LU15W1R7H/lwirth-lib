@@ -8,400 +8,871 @@
 
 namespace lw
 {
-	template <size_t N, class T>
-	class vector_t
-	{
-		static_assert(N > 0, "Vector of dimension 0 is illegal");
-		static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
+    /*!
+        @brief The vector_t(general) class is a mathematical vector of any dimensions and type.
 
-	private:
-		T m_components[N];
+        vector_t is a templated class of a mathematical vector
+        of any dimensions and type. The data is allocated on the stack.
 
-	public:
-		vector_t() noexcept
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] = 0;
-			}
-		}
+        @templateparam N specifies the amount of dimensions
+        @templateparam T specifies the type of the vector components.
+    */
+    template <size_t N, class T>
+    class vector_t
+    {
+        static_assert(N > 0, "Vector of dimension 0 is illegal");
+        static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
 
-		vector_t(const vector_t<N, T>& v) noexcept
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] = v.m_components[i];
-			}
-		}
+    private:
+        T m_components[N];
 
-		vector_t(vector_t<N, T>&& v) noexcept
-		{
-			m_components = std::move(v.m_components);
-		}
+    public:
+         /*!
+         	@brief Default constructs.
+         
+         	Default Constructor which creates a zero vector.
+         */
+        vector_t() noexcept
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] = 0;
+            }
+        }
 
-		friend vector_t<N, T> VectorByPoints(vector_t<N, T>&& start, vector_t<N, T>&& end)
-		{
-			return end - start;
-		}
+        /*!
+         	@brief Copy constructs.
+         
+         	Copy Constructor which copies the data of the reference of v.
+         
+            @param v is the vector_t to copy
+         */
+        vector_t(const vector_t<N, T>& v) noexcept
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] = v.m_components[i];
+            }
+        }
 
-		friend vector_t<N, T> VectorByPoints(const vector_t<N, T>& start, const vector_t<N, T>& end)
-		{
-			return end - start;
-		}
+        /*!
+            @brief Move constructs.
 
-		static size_t getDim() noexcept
-		{
-			return N;
-		}
+            Move Constructor which moves the data of the reference of v.
 
-		f32 mag() const noexcept
-		{
-			return lw::sqrt(magSqd());
-		}
+            @param v is the vector_t to move
+        */
+        vector_t(vector_t<N, T>&& v) noexcept
+        {
+            m_components = std::move(v.m_components);
+        }
 
-		f32 magSqd() const noexcept
-		{
-			f32 r = 0;
-			for (size_t i = 0; i < N; i++)
-			{
-				r += m_components[i] * m_components[i];
-			}
-			return r;
-		}
+        /*! 
+            @brief Constructs a vector defined by two points.
 
-		void norm() noexcept
-		{
-			if (magSqd() == 1.f)return;
-			f32 f = 1.f / mag();
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] *= f;
-			}
-			return *this;
-		}
+            Constructs a vector defined by a vector as tail and another as head
 
-		void setMag(f32 newMag) noexcept
-		{
-			if (magSqd() == newMag * newMag)return;
-			f32 f = newMag / mag();
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] *= f;
-			}
-			return *this;
-		}
+            @param tail is the tail of the vector
+            @param head is the head of the vector
 
-		void limit(f32 maxMag) noexcept
-		{
-			if (magSqd() > (maxMag * maxMag))
-				setMag(maxMag);
-		}
+            @return the constructed vector
+        */
+        friend vector_t<N, T> VectorByPoints(vector_t<N, T>&& tail, vector_t<N, T>&& head) noexcept
+        {
+            return head - tail;
+        }
 
-		f32& operator[](size_t index)
-		{
-			return m_components[index];
-		}
+        /*!
+            @brief Constructs a vector defined by two points.
 
-		const f32& operator[](size_t index) const
-		{
-			return m_components[index];
-		}
+            Constructs a vector defined by a vector as tail and another as head
 
-		vector_t<N, T>& operator*=(f32 scalar) noexcept
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] *= scalar;
-			}
-			return *this;
-		}
+            @param tail is the tail of the vector
+            @param head is the head of the vector
 
-		vector_t<N, T>& operator/=(f32 scalar) noexcept
-		{
-			f32 f = 1.f / scalar;
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] *= f;
-			}
-			return *this;
-		}
+            @return the constructed vector
+        */
+        friend vector_t<N, T> VectorByPoints(const vector_t<N, T>& tail, const vector_t<N, T>& head) noexcept
+        {
+            return head - tail;
+        }
 
-		vector_t<N, T>& operator+=(vector_t<N, T>&& v)
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] += v.m_components[i];
-			}
-			return *this;
-		}
+        /*!
+            @brief Returns the amount of dimensions of the vector.
 
-		vector_t<N, T>& operator+=(const vector_t<N, T>& v)
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] += v.m_components[i];
-			}
-			return *this;
-		}
+            @return the number of dimensions
+        */
+        static size_t getDim() noexcept
+        {
+            return N;
+        }
 
-		vector_t<N, T>& operator-=(vector_t<N, T>&& v)
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] -= v.m_components[i];
-			}
-			return *this;
-		}
+        /*!
+            @brief Returns the magnitude of the vector.
 
-		vector_t<N, T>& operator-=(const vector_t<N, T>& v)
-		{
-			for (size_t i = 0; i < N; i++)
-			{
-				m_components[i] -= v.m_components[i];
-			}
-			return *this;
-		}
-	};
+            Calculates lw::sqrt(magSqd()) which is the
+            magnitude/length of the vector.
 
-	template<size_t N, class T>
-	bool operator==(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		for (size_t i = 0; i < N; i++)
-		{
-			if (v1.m_components[i] != v2.m_components[i])
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+            @performance calls lw::sqrt()
 
-	template<size_t N, class T>
-	bool operator==(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		for (size_t i = 0; i < N; i++)
-		{
-			if (v1.m_components[i] != v2.m_components[i])
-			{
-				return false;
-			}
-		}
-		return true;
-	}
+            @return the magnitude
+        */
+        f32 mag() const noexcept
+        {
+            return lw::sqrt(magSqd());
+        }
 
-	template<size_t N, class T>
-	bool operator!=(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		return !(v1 == v2);
-	}
+        /*!
+            @brief Returns the squared magnitude of the vector.
 
-	template<size_t N, class T>
-	bool operator!=(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		return !(v1 == v2);
-	}
+            Calculates the square of the magnitude of the vector,
+            by adding all squares of the compontents up.
 
-	template<size_t N, class T>
-	vector_t<N, T> operator-(vector_t<N, T>&& v)
-	{
-		return (v *= -1.f);
-	}
+            @return the squared magnitude
+        */
+        f32 magSqd() const noexcept
+        {
+            f32 r = 0;
+            for (size_t i = 0; i < N; i++)
+            {
+                r += m_components[i] * m_components[i];
+            }
+            return r;
+        }
 
-	template<size_t N, class T>
-	vector_t<N, T> operator-(const vector_t<N, T>& v)
-	{
-		auto r = v;
-		return (r *= -1.f);
-	}
+        /*!
+             @brief normalizes the vector.
 
-	template<size_t N, class T>
-	vector_t<N, T> operator+(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		return(v1 += v2);
-	}
+             Normalizes the vector by dividing
+             every component by the magnitude.
 
-	template<size_t N, class T>
-	vector_t<N, T> operator+(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		auto r = v1;
-		return (r += v2);
-	}
+             @performance calls mag() -> lw::sqrt()
+        */
+        void norm() noexcept
+        {
+            if (magSqd() == 1.f)return;
+            f32 f = 1.f / mag();
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] *= f;
+            }
+        }
 
-	template<size_t N, class T>
-	vector_t<N, T> operator-(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		return (v1 += v2);
-	}
+        /*!
+            @brief sets the magnitude of the vector to newMag
 
-	template<size_t N, class T>
-	vector_t<N, T> operator-(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		auto r = v1;
-		return (r -= v2);
-	}
+            Scales the vector to the new magnitude newMag,
+            by multipling every component by newMag and
+            dividing it by the actual magnitude.
 
-	template<size_t N, class T>
-	vector_t<N, T> operator*(vector_t<N, T>&& v, f32 scalar)
-	{
-		return (v *= scalar);
-	}
+            @param newMag is the new magnitude
 
-	template<size_t N, class T>
-	vector_t<N, T> operator*(const vector_t<N, T>& v, f32 scalar)
-	{
-		auto r = v;
-		return (r *= scalar);
-	}
+            @performance calls mag() -> lw::sqrt()
+        */
+        void setMag(f32 newMag) noexcept
+        {
+            if (magSqd() == newMag * newMag)return;
+            f32 f = newMag / mag();
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] *= f;
+            }
+        }
 
-	template<size_t N, class T>
-	vector_t<N, T> operator*(f32 scalar, vector_t<N, T>&& v)
-	{
-		return (v *= scalar);
-	}
+        /*!
+            @brief clamps the magnitude to maxMag
 
-	template<size_t N, class T>
-	vector_t<N, T> operator*(f32 scalar, const vector_t<N, T>& v)
-	{
-		auto r = v;
-		return (r *= scalar);
-	}
+            If the vector's magnitude is greater than
+            maxMag then it's set to maxMag.
 
-	template<size_t N, class T>
-	vector_t<N, T> operator/(vector_t<N, T>&& v, f32 scalar)
-	{
-		return (v /= scalar);
-	}
+            @param maxMag is the maximal magnitude
+        */
+        void clamp(f32 maxMag) noexcept
+        {
+            if (magSqd() > (maxMag * maxMag))
+                setMag(maxMag);
+        }
 
-	template<size_t N, class T>
-	vector_t<N, T> operator/(const vector_t<N, T>& v, f32 scalar)
-	{
-		auto r = v;
-		return (r /= scalar);
-	}
+        /*!
+            @brief returns a reference to the indexed component.
 
+            The operator[] returns a reference to the index'th component.
 
-	template<size_t N, class T>
-	vector_t<N, T> min(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		vector_t<N, T> r;
-		for (size_t i = 0; i < N; i++)
-		{
-			r.m_components[i] = lw::min(v1.m_components[i], v2.m_components[i]);
-		}
-		return r;
-	}
+            @param index is the index of the component
 
-	template<size_t N, class T>
-	vector_t<N, T> max(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		vector_t<N, T> r;
-		for (size_t i = 0; i < N; i++)
-		{
-			r.m_components[i] = lw::max(v1.m_components[i], v2.m_components[i]);
-		}
-		return r;
-	}
+            @return f32 lreference to component
+        */
+        f32& operator[](size_t index)
+        {
+            return m_components[index];
+        }
 
-	template<size_t N, class T>
-	bool collinear(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		f32 f = v1[0] / v2[0];
-		for (size_t i = 1; i < N; i++)
-		{
-			if (v1[i] != f * v2[i])return false;
-		}
-		return true;
-	}
+        /*!
+            @brief returns a const reference to the indexed component.
 
-	template<size_t N, class T>
-	bool collinear(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		f32 f = v1[0] / v2[0];
-		for (size_t i = 1; i < N; i++)
-		{
-			if (v1[i] != f * v2[i])return false;
-		}
-		return true;
-	}
+            The operator[] returns a const reference to the index'th component.
 
-	template<size_t N, class T>
-	vector_t<N, T> norm(vector_t<N, T>&& v)
-	{
-		v.norm();
-		return v;
-	}
+            @param index is the index of the component
 
-	template<size_t N, class T>
-	vector_t<N, T> norm(const vector_t<N, T>& v)
-	{
-		auto r = v;
-		r.norm();
-		return r;
-	}
+            @return f32 const reference to component
+        */
+        const f32& operator[](size_t index) const
+        {
+            return m_components[index];
+        }
 
-	template<size_t N, class T>
-	vector_t<N, T> setMag(vector_t<N, T>&& v, f32 mag)
-	{
-		v.setMag(mag);
-		return v;
-	}
+        /*!
+            @brief scalar-vector multiplication
 
-	template<size_t N, class T>
-	vector_t<N, T> setMag(const vector_t<N, T>& v, f32 mag)
-	{
-		auto r = v;
-		r.setMag(mag);
-		return r;
-	}
+            Performes a vector-scalar multiplcation (component-wise)
+            and assigns the new values.
 
-	template<size_t N, class T>
-	f32 dot(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
-	{
-		f32 r = 0;
-		for (size_t i = 0; i < N; i++)
-		{
-			r += v1.m_components[i] * v2.m_components[i];
-		}
-		return r;
-	}
+            @param scalar to multiply by
+            
+            @return lreference to this
+        */
+        vector_t<N, T>& operator*=(f32 scalar) noexcept
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] *= scalar;
+            }
+            return *this;
+        }
 
-	template<size_t N, class T>
-	f32 dot(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		f32 r = 0;
-		for (size_t i = 0; i < N; i++)
-		{
-			r += v1.m_components[i] * v2.m_components[i];
-		}
-		return r;
-	}
+        /*!
+            @brief vector-scalar division
 
-	template<size_t N, class T>
-	f32 angle(vector_t<N, T>&& v1,vector_t<N, T>&& v2)
-	{
-		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
-	}
+            Performs a vector-scalar division (component-wise)
+            and assigns the new values.
 
-	template<size_t N, class T>
-	f32 angle(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
-	{
-		return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
-	}
+            @param scalar to divide by
 
-	template<size_t N, class T>
-	std::ostream& operator<<(const std::ostream& os, const vector_t<N, T>& v)
-	{
-		os << "[";
-		for (size_t i = 0; i < N; i++)
-		{
-			os << v.m_components[i];
-			if (i != N - 1)
-			{
-				os << ", ";
-			}
-		}
-		os << "]";
-		return os;
-	}
+            @return lreference to this
+        */
+        vector_t<N, T>& operator/=(f32 scalar) noexcept
+        {
+            f32 f = 1.f / scalar;
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] *= f;
+            }
+            return *this;
+        }
+
+        /*!
+            @brief vector-vector addition
+
+            Performs a vector-vector addition (component-wise)
+            and assigns the new values.
+
+            @param rhs is a rreference to the right hand side.
+
+            @return lreference 
+        */
+        vector_t<N, T>& operator+=(vector_t<N, T>&& rhs)
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] += rhs.m_components[i];
+            }
+            return *this;
+        }
+
+        /*!
+            @brief vector-vector addition
+
+            Performs a vector-vector addition (component-wise)
+            and assigns the new values.
+
+            @param rhs is a lreference to the right hand side.
+
+            @return lreference to this
+        */
+        vector_t<N, T>& operator+=(const vector_t<N, T>& v)
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] += v.m_components[i];
+            }
+            return *this;
+        }
+
+        /*!
+        @brief vector-vector subtraction
+
+        Performs a vector-vector subtraction (component-wise)
+        and assigns the new values.
+
+        @param rhs is a rreference to the right hand side.
+
+        @return lreference to this
+        */
+        vector_t<N, T>& operator-=(vector_t<N, T>&& v)
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] -= v.m_components[i];
+            }
+            return *this;
+        }
+
+        /*!
+        @brief vector-vector subtraction
+
+        Performs a vector-vector subtraction (component-wise)
+        and assigns the new values.
+
+        @param rhs is a lreference to the right hand side.
+
+        @return lreference to this
+        */
+        vector_t<N, T>& operator-=(const vector_t<N, T>& v)
+        {
+            for (size_t i = 0; i < N; i++)
+            {
+                m_components[i] -= v.m_components[i];
+            }
+            return *this;
+        }
+    };
+
+    /*!
+        @brief returns whetever two vectors are the same.
+
+        Performs an equals comparison on v1 and v2.
+
+        @param v1 is the rreference to the first vector
+        @param v2 is the rreference to the second vector
+
+        @return bool indicating equalness
+    */
+    template<size_t N, class T>
+    bool operator==(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        for (size_t i = 0; i < N; i++)
+        {
+            if (v1.m_components[i] != v2.m_components[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*!
+        @brief returns whetever two vectors are the same.
+
+        Performs an equals comparison on v1 and v2.
+
+        @param v1 is the lreference to the first vector
+        @param v2 is the lreference to the second vector
+
+        @return bool indicating equalness
+    */
+    template<size_t N, class T>
+    bool operator==(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        for (size_t i = 0; i < N; i++)
+        {
+            if (v1.m_components[i] != v2.m_components[i])
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /*!
+        @brief returns whetever two vectors are not the same.
+
+        Performs a non-equals comparison on v1 and v2.
+
+        @param v1 is the rreference to the first vector
+        @param v2 is the rreference to the second vector
+
+        @return bool indicating non-equalness
+    */
+    template<size_t N, class T>
+    bool operator!=(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        return !(v1 == v2);
+    }
+
+    /*!
+        @brief returns whetever two vectors are not the same.
+
+        Performs a non-equals comparison on v1 and v2.
+
+        @param v1 is the lreference to the first vector
+        @param v2 is the lreference to the second vector
+
+        @return bool indicating non-equalness
+    */
+    template<size_t N, class T>
+    bool operator!=(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        return !(v1 == v2);
+    }
+
+    /*!
+        @brief negates the vector
+
+        Performs a negation of v, which is 
+        the same as a multiplication with -1.
+
+        @param v is the vector rreference
+
+        @return the negated vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator-(vector_t<N, T>&& v)
+    {
+        return (v *= -1.f);
+    }
+
+    /*!
+    @brief negates the vector
+
+    Performs a negation of v, which is
+    the same as a multiplication with -1.
+
+    @param v is the vector lreference
+
+    @return the negated vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator-(const vector_t<N, T>& v)
+    {
+        auto r = v;
+        return (r *= -1.f);
+    }
+
+    /*!
+        @brief returns the sum of two vectors.
+
+        Performs an addition of two vectors.
+
+        @param v1 is the rreference of the first vector
+        @param v2 is the rreference of the second vector
+
+        @return the sum
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator+(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        return(v1 += v2);
+    }
+
+    /*!
+        @brief returns the sum of two vectors.
+
+        Performs an addition of two vectors.
+
+        @param v1 is the lreference of the first vector
+        @param v2 is the lreference of the second vector
+
+        @return the sum
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator+(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        auto r = v1;
+        return (r += v2);
+    }
+    
+    /*!
+        @brief Returns the difference of two vectors.
+
+        Performs a subtraction of two vectors.
+
+        @param v1 is the rreference of the first vector
+        @param v2 is the rreference of the second vector
+
+        @return the difference
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator-(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        return (v1 += v2);
+    }
+
+    /*!
+        @brief Returns the difference of two vectors.
+
+        Performs a subtraction of two vectors.
+
+        @param v1 is the lreference of the first vector
+        @param v2 is the lreference of the second vector
+
+        @return the difference
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator-(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        auto r = v1;
+        return (r -= v2);
+    }
+
+    /*!
+        @brief Returns the vector-scalar product.
+
+        Performs a vector-scalar multiplication,
+        which scales the vector by the given amount.
+
+        @param v is the rreference of the vector
+        @param scalar is the scalar
+
+        @return the product
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator*(vector_t<N, T>&& v, f32 scalar)
+    {
+        return (v *= scalar);
+    }
+
+    /*!
+        @brief Returns the vector-scalar product.
+
+        Performs a vector-scalar multiplication,
+        which scales the vector by the given amount.
+
+        @param v is the lreference of the vector
+        @param scalar is the scalar
+
+        @return the product
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator*(const vector_t<N, T>& v, f32 scalar)
+    {
+        auto r = v;
+        return (r *= scalar);
+    }
+
+    /*!
+        @brief Returns the vector-scalar product.
+
+        Performs a scalar-vector multiplication,
+        which scales the vector by the given amount.
+
+        @param scalar is the scalar
+        @param v is the rreference of the vector
+
+        @return the product
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator*(f32 scalar, vector_t<N, T>&& v)
+    {
+        return (v *= scalar);
+    }
+
+    /*!
+        @brief Returns the vector-scalar product.
+
+        Performs a scalar-vector multiplication,
+        which scales the vector by the given amount.
+
+        @param scalar is the scalar
+        @param v is the lreference of the vector
+
+        @return the product
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator*(f32 scalar, const vector_t<N, T>& v)
+    {
+        auto r = v;
+        return (r *= scalar);
+    }
+
+    /*!
+        @brief Returns the vector-scalar quotient.
+
+        Performs a vector-scalar division,
+        which invertly scales the vector by the given amount.
+
+        @param v is the rreference of the vector
+        @param scalar is the scalar
+
+        @return the quotient
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator/(vector_t<N, T>&& v, f32 scalar)
+    {
+        return (v /= scalar);
+    }
+
+    /*!
+        @brief Returns the vector-scalar quotient.
+
+        Performs a vector-scalar division,
+        which invertly scales the vector by the given amount.
+
+        @param v is the lreference of the vector
+        @param scalar is the scalar
+
+        @return the quotient
+    */
+    template<size_t N, class T>
+    vector_t<N, T> operator/(const vector_t<N, T>& v, f32 scalar)
+    {
+        auto r = v;
+        return (r /= scalar);
+    }
+
+    /*!
+        @brief Returns a vector with minimal components.
+
+        Creates a vector with the smaller components of
+        both vectors.
+
+        @param v1 is the lreference of the first vector
+        @param v2 is the lreference of the second vector
+
+        @return the minimal vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> min(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        vector_t<N, T> r;
+        for (size_t i = 0; i < N; i++)
+        {
+            r.m_components[i] = lw::min(v1.m_components[i], v2.m_components[i]);
+        }
+        return r;
+    }
+
+    /*!
+        @brief Returns a vector with maximal components.
+
+        Creates a vector with the bigger components of
+        both vectors.
+
+        @param v1 is the lreference of the first vector
+        @param v2 is the lreference of the second vector
+
+        @return the maximal vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> max(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        vector_t<N, T> r;
+        for (size_t i = 0; i < N; i++)
+        {
+            r.m_components[i] = lw::max(v1.m_components[i], v2.m_components[i]);
+        }
+        return r;
+    }
+
+    /*!
+        @brief Returns whetever two vectors are collinear.
+
+        Performs a collinear/parallel check of v1 and v2.
+
+        @param v1 is the rreference to the first vector
+        @param v2 is the rreference to the second vector
+
+        @return a bool indicating the collinearity
+    */
+    template<size_t N, class T>
+    bool collinear(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        f32 f = v1[0] / v2[0];
+        for (size_t i = 1; i < N; i++)
+        {
+            if (v1[i] != f * v2[i])return false;
+        }
+        return true;
+    }
+
+    /*!
+        @brief Returns whetever two vectors are collinear.
+
+        Performs a collinear/parallel check of v1 and v2.
+
+        @param v1 is the lreference to the first vector
+        @param v2 is the lreference to the second vector
+
+        @return a bool indicating the collinearity
+    */
+    template<size_t N, class T>
+    bool collinear(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        f32 f = v1[0] / v2[0];
+        for (size_t i = 1; i < N; i++)
+        {
+            if (v1[i] != f * v2[i])return false;
+        }
+        return true;
+    }
+
+    /*!
+        @brief Returns normalized vector.
+
+        Performs a normalization on v.
+
+        @param v is the rreference to the vector
+
+        @performance calls mag() -> lw::sqrt()
+
+        @return the normalized vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> norm(vector_t<N, T>&& v)
+    {
+        v.norm();
+        return v;
+    }
+
+    /*!
+        @brief Returns normalized vector.
+
+        Performs a normalization on v.
+
+        @param v is the lreference to the vector
+
+        @performance calls mag() -> lw::sqrt()
+
+        @return the normalized vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> norm(const vector_t<N, T>& v)
+    {
+        auto r = v;
+        r.norm();
+        return r;
+    }
+
+    /*!
+        @brief Returns the scaled vector with indicated magnitude.
+
+        Performs a scaling of v to set the magnitude to mag.
+
+        @param v is the rreference to the vector
+        @param mag is the new magnitude
+
+        @performance calls mag() -> lw::sqrt()
+
+        @return scaled vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> setMag(vector_t<N, T>&& v, f32 mag)
+    {
+        v.setMag(mag);
+        return v;
+    }
+
+    /*!
+        @brief Returns the scaled vector with indicated magnitude.
+
+        Performs a scaling of v to set the magnitude to mag.
+
+        @param v is the lreference to the vector
+        @param mag is the new magnitude
+
+        @performance calls mag() -> lw::sqrt()
+
+        @return scaled vector
+    */
+    template<size_t N, class T>
+    vector_t<N, T> setMag(const vector_t<N, T>& v, f32 mag)
+    {
+        auto r = v;
+        r.setMag(mag);
+        return r;
+    }
+
+    /*!
+        @brief Returns the dot product of two vectors.
+
+        Calculates the dot/scalar product of v1 and v2.
+
+        @param v1 is the rreference of the first vector
+        @param v2 is the rreference of the second vector
+
+        @return the product(scalar)
+    */
+    template<size_t N, class T>
+    f32 dot(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        f32 r = 0;
+        for (size_t i = 0; i < N; i++)
+        {
+            r += v1.m_components[i] * v2.m_components[i];
+        }
+        return r;
+    }
+
+    /*!
+        @brief Returns the dot product of two vectors.
+
+        Calculates the dot/scalar product of v1 and v2.
+
+        @param v1 is the lreference of the first vector
+        @param v2 is the lreference of the second vector
+
+        @return the product(scalar)
+    */
+    template<size_t N, class T>
+    f32 dot(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        f32 r = 0;
+        for (size_t i = 0; i < N; i++)
+        {
+            r += v1.m_components[i] * v2.m_components[i];
+        }
+        return r;
+    }
+
+    /*!
+        @brief Returns the angle between two vectors
+
+        Calculates the angle between v1 and v2.
+
+        @param v1 is the rreference to the first vector
+        @param v2 is the rreference to the second vector
+
+        @performance calls mag() -> lw::sqrt two times
+
+        @return the angle
+    */
+    template<size_t N, class T>
+    f32 angle(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    {
+        return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
+    }
+
+    /*!
+        @brief Returns the angle between two vectors
+
+        Calculates the angle between v1 and v2.
+
+        @param v1 is the rreference to the first vector
+        @param v2 is the rreference to the second vector
+
+        @performance calls mag() -> lw::sqrt two times
+
+        @return the angle
+    */
+    template<size_t N, class T>
+    f32 angle(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    {
+        return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
+    }
+
+    template<size_t N, class T>
+    std::ostream& operator<<(const std::ostream& os, const vector_t<N, T>& v)
+    {
+        os << "[";
+        for (size_t i = 0; i < N; i++)
+        {
+            os << v.m_components[i];
+            if (i != N - 1)
+            {
+                os << ", ";
+            }
+        }
+        os << "]";
+        return os;
+    }
 
 }
