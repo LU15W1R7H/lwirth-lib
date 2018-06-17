@@ -299,14 +299,14 @@ namespace lw
         }
 
         /*!
-        @brief vector-vector subtraction
+            @brief vector-vector subtraction
 
-        Performs a vector-vector subtraction (component-wise)
-        and assigns the new values.
+            Performs a vector-vector subtraction (component-wise)
+            and assigns the new values.
 
-        @param rhs is a rreference to the right hand side.
+            @param rhs is a rreference to the right hand side.
 
-        @return lreference to this
+            @return lreference to this
         */
         vector_t<N, T>& operator-=(vector_t<N, T>&& v)
         {
@@ -318,14 +318,14 @@ namespace lw
         }
 
         /*!
-        @brief vector-vector subtraction
+            @brief vector-vector subtraction
 
-        Performs a vector-vector subtraction (component-wise)
-        and assigns the new values.
+            Performs a vector-vector subtraction (component-wise)
+            and assigns the new values.
 
-        @param rhs is a lreference to the right hand side.
+            @param rhs is a lreference to the right hand side.
 
-        @return lreference to this
+            @return lreference to this
         */
         vector_t<N, T>& operator-=(const vector_t<N, T>& v)
         {
@@ -334,6 +334,34 @@ namespace lw
                 m_components[i] -= v.m_components[i];
             }
             return *this;
+        }
+
+        /*!
+            @brief Returns a string formatting the components of the vector
+
+            Stringifies the components of the vector and
+            formats it accordingly.
+
+            @return the string
+        */
+        std::string stringify() const noexcept
+        {
+            std::string s;
+
+            s.append("[");
+            for (size_t i = 0; i < N; i++)
+            {
+                s.append(std::to_string(m_components[i]));
+                if (i != N - 1)
+                {
+                    s.append(", ");
+                }
+                else
+                {
+                    s.append("]");
+                }
+            }
+            return s;
         }
     };
 
@@ -859,20 +887,23 @@ namespace lw
         return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
     }
 
+    /*!
+        @brief inserts a stringified vector into ostream
+
+        Stringifies a vector and inserts it into
+        the given ostream and returns it.
+
+        @param os is the lreference to the ostream
+        @param v is the vector
+
+        @return the modified ostream
+    */
     template<size_t N, class T>
-    std::ostream& operator<<(const std::ostream& os, const vector_t<N, T>& v)
+    std::ostream& operator<<(std::ostream& os, const vector_t<N, T>& v)
     {
-        os << "[";
-        for (size_t i = 0; i < N; i++)
-        {
-            os << v.m_components[i];
-            if (i != N - 1)
-            {
-                os << ", ";
-            }
-        }
-        os << "]";
-        return os;
+        return os << v.stringify();
     }
+
+
 
 }
