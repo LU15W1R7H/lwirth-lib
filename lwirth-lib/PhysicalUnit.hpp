@@ -15,9 +15,9 @@
 namespace lw
 {
 	/**
-	 * L = LengthDim; M = MassDim; T = TimeDim; I = ElectricCurrentDim; Θ = TemperaturDim; N = ChemicalAmountDim; J = LuminousIntensity; A = AngleDim
+	 * L = LengthDim; M = MassDim; T = TimeDim; I = ElectricCurrentDim; Θ = TemperaturDim; DIM = ChemicalAmountDim; J = LuminousIntensity; A = AngleDim
 	 */
-	template<class L, class M, class T, class I, class Θ, class N, class J, class A>
+	template<class L, class M, class T, class I, class Θ, class DIM, class J, class A>
 	class Unit
 	{
 	private:
@@ -47,8 +47,8 @@ namespace lw
 
 
 
-#define DEFINE_UNIT(L, M, T, I, Θ, N, J, A, name)\
-	using name = Unit<std::ratio<L>, std::ratio<M>, std::ratio<T>, std::ratio<I>, std::ratio<Θ>, std::ratio<N>, std::ratio<J>, std::ratio<A>>;
+#define DEFINE_UNIT(L, M, T, I, Θ, DIM, J, A, name)\
+	using name = Unit<std::ratio<L>, std::ratio<M>, std::ratio<T>, std::ratio<I>, std::ratio<Θ>, std::ratio<DIM>, std::ratio<J>, std::ratio<A>>;
 
 #define DEFINE_UNIT_LITERAL_FACTOR(UnitType, litIdentifier, factor)\
 	constexpr UnitType operator"" _##litIdentifier(f128 value) { return UnitType(static_cast<f32>(value * factor)); } \
@@ -120,7 +120,7 @@ namespace lw
 	DEFINE_UNIT(1, 0, -5, 0, 0, 0, 0, 0, Crackle);
 	DEFINE_UNIT(1, 0, -6, 0, 0, 0, 0, 0, Pop);
 	DEFINE_UNIT(1, 1, -2, 0, 0, 0, 0, 0, Force);
-	DEFINE_UNIT_LITERAL(Force, N, 0);
+	DEFINE_UNIT_LITERAL(Force, DIM, 0);
 	DEFINE_UNIT_LITERAL(Force, kN, 3);
 	DEFINE_UNIT_LITERAL(Force, MN, 6);
 	DEFINE_UNIT_LITERAL(Force, GN, 9);

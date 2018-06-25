@@ -56,7 +56,7 @@ namespace lw
 
 	Plane PlaneByNormalAndD(const Vec3& normal, f32 d)
 	{
-		Vec3 point(0, 0, -d / normal.z);
+		Vec3 point(0.f, 0.f, -d / normal.z);
 		return PlaneByPointAndNormal(point, normal);
 	}
 

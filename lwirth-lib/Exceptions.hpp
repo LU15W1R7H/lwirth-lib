@@ -4,18 +4,18 @@
 
 #include <string>
 
-#define MAKE_EXC(N, M)						\
-class N : public lw::Exception				\
+#define MAKE_EXC(DIM, M)						\
+class DIM : public lw::Exception				\
 {											\
 private:									\
 	std::string msg = M; 					\
 public:										\
-	N()										\
+	DIM()										\
 	{										\
 											\
 	}										\
 											\
-	N(const char* m)						\
+	DIM(const char* m)						\
 	{										\
 		msg.append(": ");					\
 		msg.append(m);						\

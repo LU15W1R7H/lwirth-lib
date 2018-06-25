@@ -262,19 +262,10 @@
     <ClInclude Include="Triangle.hpp">
       <Filter>graphics\core\drawables</Filter>
     </ClInclude>
-    <ClInclude Include="Vector4.hpp">
-      <Filter>math\mathematical objects\linear algebra</Filter>
-    </ClInclude>
     <ClInclude Include="Matrix.hpp">
       <Filter>math\mathematical objects\linear algebra</Filter>
     </ClInclude>
     <ClInclude Include="Vector.hpp">
-      <Filter>math\mathematical objects\linear algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector2.hpp">
-      <Filter>math\mathematical objects\linear algebra</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.hpp">
       <Filter>math\mathematical objects\linear algebra</Filter>
     </ClInclude>
     <ClInclude Include="Line.hpp">
@@ -315,6 +306,9 @@
     </ClInclude>
     <ClInclude Include="Texture.hpp">
       <Filter>graphics\core\types</Filter>
+    </ClInclude>
+    <ClInclude Include="Meta.hpp">
+      <Filter>general</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

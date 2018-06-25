@@ -258,6 +258,7 @@
     <ClInclude Include="Logger.hpp" />
     <ClInclude Include="lwirth.hpp" />
     <ClInclude Include="Math.hpp" />
+    <ClInclude Include="Meta.hpp" />
     <ClInclude Include="qmath.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MersenneTwister.hpp" />
@@ -280,9 +281,6 @@
     <ClInclude Include="Triangle.hpp" />
     <ClInclude Include="Utils.hpp" />
     <ClInclude Include="Vector.hpp" />
-    <ClInclude Include="Vector2.hpp" />
-    <ClInclude Include="Vector3.hpp" />
-    <ClInclude Include="Vector4.hpp" />
     <ClInclude Include="VectorField2D.hpp" />
     <ClInclude Include="Vertices.hpp" />
     <ClInclude Include="Visualizer.hpp" />

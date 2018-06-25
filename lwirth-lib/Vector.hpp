@@ -3,41 +3,258 @@
 #include "Standard.hpp"
 
 #include "qmath.hpp"
-
+#include "Meta.hpp"
 #include <iostream>
+#include <array> //#TODO use own custom array
+
+#define ARITHMETIC_CHECK(T) static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
 
 namespace lw
 {
+
+    //declerations & usings
+    template<class T, size_t N>
+    class components_t;
+
+    template<class COMPONENTS>
+    class vector_t;
+
+    template<size_t DIM>
+    using Vec = vector_t<components_t<f32, DIM>>;
+
+    using Vec2 = Vec<2>;
+    using Vec3 = Vec<3>;
+    using Vec4 = Vec<4>;
+
+
+    //definitons
+
+    template<class T, size_t N>
+    class components_t
+    {
+        ARITHMETIC_CHECK(T);
+    public:
+        constexpr static size_t getDim() noexcept
+        {
+            return N;
+        }
+
+        components_t()
+            : arr {}
+        {
+        }
+
+        components_t(const components_t<T, N>& c)
+        {
+            arr = c.arr;
+        }
+
+        components_t<T, N>& operator=(const components_t<T, N>& c)
+        {
+            arr = c.arr;
+            return *this;
+        }
+
+        components_t(components_t<T, N>&& c)
+        {
+            arr = std::move(c.arr);
+        }
+
+        components_t<T, N>& operator=(components_t<T, N>&& c)
+        {
+            arr = std::move(arr);
+            return *this;
+        }
+
+        template<class ... Args, class SFINAE = std::enable_if_t<sizeof...(Args) == N>>
+        components_t(Args&& ... args)
+            : arr{ std::forward<T>(static_cast<T>(args))... }
+        {
+        }
+
+        union
+        {
+            std::array<T, N> arr;
+        };
+    };
+
+    template<class T>
+    class components_t<T, 2>
+    {
+        ARITHMETIC_CHECK(T);
+    public:
+        constexpr static size_t getDim() noexcept
+        {
+            return 2;
+        }
+
+        components_t()
+            : arr{}
+        {
+        }
+
+        components_t(const components_t<T, 2>& c)
+        {
+            arr = c.arr;
+        }
+
+        components_t<T, 2>& operator=(const components_t<T, 2>& c)
+        {
+            arr = c.arr;
+            return *this;
+        }
+
+        components_t(components_t<T, 2>&& c)
+        {
+            arr = std::move(c.arr);
+        }
+
+        components_t<T, 2>& operator=(components_t<T, 2>&& c)
+        {
+            arr = std::move(arr);
+            return *this;
+        }
+
+        template<class ... Args, class SFINAE = std::enable_if_t<sizeof...(Args) == 2>>
+        components_t(Args&& ... args)
+            : arr{ std::forward<T>(static_cast<T>(args))... }
+        {
+        }
+
+        union
+        {
+            std::array<T, 2> arr;
+#pragma pack(sizeof(T))
+            struct { T x, y; };
+        };
+    };
+
+    template<class T>
+    class components_t<T, 3>
+    {
+        ARITHMETIC_CHECK(T);
+    public:
+        constexpr static size_t getDim() noexcept
+        {
+            return 3;
+        }
+
+        components_t()
+            : arr{}
+        {
+        }
+
+        components_t(const components_t<T, 3>& c)
+        {
+            arr = c.arr;
+        }
+
+        components_t<T, 3>& operator=(const components_t<T, 3>& c)
+        {
+            arr = c.arr;
+            return *this;
+        }
+
+        components_t(components_t<T, 3>&& c)
+        {
+            arr = std::move(c.arr);
+        }
+
+        components_t<T, 3>& operator=(components_t<T, 3>&& c)
+        {
+            arr = std::move(arr);
+            return *this;
+        }
+
+        template<class ... Args, class SFINAE = std::enable_if_t<sizeof...(Args) == 3>>
+        components_t(Args&& ... args)
+            : arr{ std::forward<T>(static_cast<T>(args))... }
+        {
+        }
+
+        union
+        {
+            std::array<T, 3> arr;
+#pragma pack(sizeof(T))
+            struct { T x, y, z; };
+        };
+    };
+
+    template<class T>
+    class components_t<T, 4>
+    {
+        ARITHMETIC_CHECK(T);
+    public:
+        constexpr static size_t getDim() noexcept
+        {
+            return 4;
+        }
+
+        components_t()
+            : arr{}
+        {
+        }
+
+        components_t(const components_t<T, 4>& c)
+        {
+            arr = c.arr;
+        }
+
+        components_t<T, 4>& operator=(const components_t<T, 4>& c)
+        {
+            arr = c.arr;
+            return *this;
+        }
+
+        components_t(components_t<T, 4>&& c)
+        {
+            arr = std::move(c.arr);
+        }
+
+        components_t<T, 4>& operator=(components_t<T, 4>&& c)
+        {
+            arr = std::move(arr);
+            return *this;
+        }
+
+        template<class ... Args, class SFINAE = std::enable_if_t<sizeof...(Args) == 4>>
+        components_t(Args&& ... args)
+            : arr { std::forward<T>(static_cast<T>(args))... }
+        {
+        }
+
+        union
+        {
+            std::array<T, 4> arr;
+#pragma pack(sizeof(T))
+            struct { T x, y, z, w; };
+        };
+    };
+
+
     /*!
         @brief The vector_t(general) class is a mathematical vector of any dimensions and type.
 
         vector_t is a templated class of a mathematical vector
         of any dimensions and type. The data is allocated on the stack.
 
-        @templateparam N specifies the amount of dimensions
-        @templateparam T specifies the type of the vector components.
+        @templateparam COMPONENTS specifies the class for storing the components data as union.
     */
-    template <size_t N, class T>
-    class vector_t
+    template <class COMPONENTS>
+    class vector_t : public COMPONENTS
     {
-        static_assert(N > 0, "Vector of dimension 0 is illegal");
-        static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
-
     private:
-        T m_components[N];
-
+        //no additional members
+        //components are inherited by "COMPONENTS"
     public:
          /*!
          	@brief Default constructs.
          
          	Default Constructor which creates a zero vector.
          */
-        vector_t() noexcept
+        vector_t()
+            : COMPONENTS()
         {
-            for (size_t i = 0; i < N; i++)
-            {
-                m_components[i] = 0;
-            }
         }
 
         /*!
@@ -47,13 +264,17 @@ namespace lw
          
             @param v is the vector_t to copy
          */
-        vector_t(const vector_t<N, T>& v) noexcept
+        vector_t(const vector_t<COMPONENTS>& v)
+            : COMPONENTS(v)
         {
-            for (size_t i = 0; i < N; i++)
-            {
-                m_components[i] = v.m_components[i];
-            }
         }
+
+        vector_t<COMPONENTS>& operator=(const vector_t<COMPONENTS>& v)
+        {
+            COMPONENTS::operator=(v);
+            return *this;
+        }
+
 
         /*!
             @brief Move constructs.
@@ -62,9 +283,21 @@ namespace lw
 
             @param v is the vector_t to move
         */
-        vector_t(vector_t<N, T>&& v) noexcept
+        vector_t(vector_t<COMPONENTS>&& v)
+            : COMPONENTS(v)
         {
-            m_components = std::move(v.m_components);
+        }
+
+        vector_t<COMPONENTS>& operator=(vector_t<COMPONENTS>&& v)
+        {
+            COMPONENTS::operator=(v);
+            return *this;
+        }
+
+        template<class ... Args, class SFINAE = std::enable_if_t<sizeof...(Args) == COMPONENTS::getDim()>>
+        vector_t(Args&& ... args)
+            : COMPONENTS(std::forward<Args>(args)...)
+        {
         }
 
         /*! 
@@ -77,7 +310,7 @@ namespace lw
 
             @return the constructed vector
         */
-        friend vector_t<N, T> VectorByPoints(vector_t<N, T>&& tail, vector_t<N, T>&& head) noexcept
+        friend vector_t<COMPONENTS> VectorByPoints(vector_t<COMPONENTS>&& tail, vector_t<COMPONENTS>&& head) noexcept
         {
             return head - tail;
         }
@@ -92,19 +325,9 @@ namespace lw
 
             @return the constructed vector
         */
-        friend vector_t<N, T> VectorByPoints(const vector_t<N, T>& tail, const vector_t<N, T>& head) noexcept
+        friend vector_t<COMPONENTS> VectorByPoints(const vector_t<COMPONENTS>& tail, const vector_t<COMPONENTS>& head) noexcept
         {
             return head - tail;
-        }
-
-        /*!
-            @brief Returns the amount of dimensions of the vector.
-
-            @return the number of dimensions
-        */
-        static size_t getDim() noexcept
-        {
-            return N;
         }
 
         /*!
@@ -133,9 +356,9 @@ namespace lw
         f32 magSqd() const noexcept
         {
             f32 r = 0;
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                r += m_components[i] * m_components[i];
+                //r += arr[i] * arr[i];
             }
             return r;
         }
@@ -152,9 +375,9 @@ namespace lw
         {
             if (magSqd() == 1.f)return;
             f32 f = 1.f / mag();
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] *= f;
+                COMPONENTS::arr[i] *= f;
             }
         }
 
@@ -173,9 +396,9 @@ namespace lw
         {
             if (magSqd() == newMag * newMag)return;
             f32 f = newMag / mag();
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] *= f;
+                arr[i] *= f;
             }
         }
 
@@ -204,7 +427,7 @@ namespace lw
         */
         f32& operator[](size_t index)
         {
-            return m_components[index];
+            return arr[index];
         }
 
         /*!
@@ -218,7 +441,7 @@ namespace lw
         */
         const f32& operator[](size_t index) const
         {
-            return m_components[index];
+            return COMPONENTS::arr[index];
         }
 
         /*!
@@ -231,11 +454,11 @@ namespace lw
             
             @return lreference to this
         */
-        vector_t<N, T>& operator*=(f32 scalar) noexcept
+        vector_t<COMPONENTS>& operator*=(f32 scalar) noexcept
         {
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] *= scalar;
+                COMPONENTS::arr[i] *= scalar;
             }
             return *this;
         }
@@ -250,12 +473,12 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<N, T>& operator/=(f32 scalar) noexcept
+        vector_t<COMPONENTS>& operator/=(f32 scalar) noexcept
         {
             f32 f = 1.f / scalar;
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] *= f;
+                COMPONENTS::arr[i] *= f;
             }
             return *this;
         }
@@ -270,11 +493,11 @@ namespace lw
 
             @return lreference 
         */
-        vector_t<N, T>& operator+=(vector_t<N, T>&& rhs)
+        vector_t<COMPONENTS>& operator+=(vector_t<COMPONENTS>&& rhs)
         {
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] += rhs.m_components[i];
+                COMPONENTS::arr[i] += rhs.COMPONENTS::arr[i];
             }
             return *this;
         }
@@ -289,11 +512,11 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<N, T>& operator+=(const vector_t<N, T>& v)
+        vector_t<COMPONENTS>& operator+=(const vector_t<COMPONENTS>& v)
         {
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] += v.m_components[i];
+                COMPONENTS::arr[i] += v.COMPONENTS::arr[i];
             }
             return *this;
         }
@@ -308,11 +531,11 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<N, T>& operator-=(vector_t<N, T>&& v)
+        vector_t<COMPONENTS>& operator-=(vector_t<COMPONENTS>&& v)
         {
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] -= v.m_components[i];
+                arr[i] -= v.arr[i];
             }
             return *this;
         }
@@ -327,11 +550,11 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<N, T>& operator-=(const vector_t<N, T>& v)
+        vector_t<COMPONENTS>& operator-=(const vector_t<COMPONENTS>& v)
         {
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                m_components[i] -= v.m_components[i];
+                //arr[i] -= v.arr[i];
             }
             return *this;
         }
@@ -349,10 +572,10 @@ namespace lw
             std::string s;
 
             s.append("[");
-            for (size_t i = 0; i < N; i++)
+            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                s.append(std::to_string(m_components[i]));
-                if (i != N - 1)
+                s.append(std::to_string(COMPONENTS::arr[i]));
+                if (i != COMPONENTS::getDim() - 1)
                 {
                     s.append(", ");
                 }
@@ -375,12 +598,12 @@ namespace lw
 
         @return bool indicating equalness
     */
-    template<size_t N, class T>
-    bool operator==(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    bool operator==(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            if (v1.m_components[i] != v2.m_components[i])
+            if (v1.arr[i] != v2.arr[i])
             {
                 return false;
             }
@@ -398,12 +621,12 @@ namespace lw
 
         @return bool indicating equalness
     */
-    template<size_t N, class T>
-    bool operator==(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    bool operator==(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            if (v1.m_components[i] != v2.m_components[i])
+            if (v1.arr[i] != v2.arr[i])
             {
                 return false;
             }
@@ -421,8 +644,8 @@ namespace lw
 
         @return bool indicating non-equalness
     */
-    template<size_t N, class T>
-    bool operator!=(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    bool operator!=(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         return !(v1 == v2);
     }
@@ -437,8 +660,8 @@ namespace lw
 
         @return bool indicating non-equalness
     */
-    template<size_t N, class T>
-    bool operator!=(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    bool operator!=(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         return !(v1 == v2);
     }
@@ -453,8 +676,8 @@ namespace lw
 
         @return the negated vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator-(vector_t<N, T>&& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator-(vector_t<COMPONENTS>&& v)
     {
         return (v *= -1.f);
     }
@@ -469,8 +692,8 @@ namespace lw
 
     @return the negated vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator-(const vector_t<N, T>& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator-(const vector_t<COMPONENTS>& v)
     {
         auto r = v;
         return (r *= -1.f);
@@ -486,8 +709,8 @@ namespace lw
 
         @return the sum
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator+(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator+(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         return(v1 += v2);
     }
@@ -502,8 +725,8 @@ namespace lw
 
         @return the sum
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator+(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator+(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         auto r = v1;
         return (r += v2);
@@ -519,8 +742,8 @@ namespace lw
 
         @return the difference
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator-(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator-(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         return (v1 += v2);
     }
@@ -535,8 +758,8 @@ namespace lw
 
         @return the difference
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator-(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator-(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         auto r = v1;
         return (r -= v2);
@@ -553,8 +776,8 @@ namespace lw
 
         @return the product
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator*(vector_t<N, T>&& v, f32 scalar)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator*(vector_t<COMPONENTS>&& v, f32 scalar)
     {
         return (v *= scalar);
     }
@@ -570,8 +793,8 @@ namespace lw
 
         @return the product
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator*(const vector_t<N, T>& v, f32 scalar)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator*(const vector_t<COMPONENTS>& v, f32 scalar)
     {
         auto r = v;
         return (r *= scalar);
@@ -588,8 +811,8 @@ namespace lw
 
         @return the product
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator*(f32 scalar, vector_t<N, T>&& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator*(f32 scalar, vector_t<COMPONENTS>&& v)
     {
         return (v *= scalar);
     }
@@ -605,8 +828,8 @@ namespace lw
 
         @return the product
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator*(f32 scalar, const vector_t<N, T>& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator*(f32 scalar, const vector_t<COMPONENTS>& v)
     {
         auto r = v;
         return (r *= scalar);
@@ -623,8 +846,8 @@ namespace lw
 
         @return the quotient
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator/(vector_t<N, T>&& v, f32 scalar)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator/(vector_t<COMPONENTS>&& v, f32 scalar)
     {
         return (v /= scalar);
     }
@@ -640,8 +863,8 @@ namespace lw
 
         @return the quotient
     */
-    template<size_t N, class T>
-    vector_t<N, T> operator/(const vector_t<N, T>& v, f32 scalar)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> operator/(const vector_t<COMPONENTS>& v, f32 scalar)
     {
         auto r = v;
         return (r /= scalar);
@@ -658,13 +881,13 @@ namespace lw
 
         @return the minimal vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> min(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> min(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
-        vector_t<N, T> r;
-        for (size_t i = 0; i < N; i++)
+        vector_t<COMPONENTS> r;
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            r.m_components[i] = lw::min(v1.m_components[i], v2.m_components[i]);
+            r.arr[i] = lw::min(v1.arr[i], v2.arr[i]);
         }
         return r;
     }
@@ -680,13 +903,13 @@ namespace lw
 
         @return the maximal vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> max(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> max(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
-        vector_t<N, T> r;
-        for (size_t i = 0; i < N; i++)
+        vector_t<COMPONENTS> r;
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            r.m_components[i] = lw::max(v1.m_components[i], v2.m_components[i]);
+            r.arr[i] = lw::max(v1.arr[i], v2.arr[i]);
         }
         return r;
     }
@@ -701,11 +924,11 @@ namespace lw
 
         @return a bool indicating the collinearity
     */
-    template<size_t N, class T>
-    bool collinear(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    bool collinear(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         f32 f = v1[0] / v2[0];
-        for (size_t i = 1; i < N; i++)
+        for (size_t i = 1; i < COMPONENTS::getDim(); i++)
         {
             if (v1[i] != f * v2[i])return false;
         }
@@ -722,11 +945,11 @@ namespace lw
 
         @return a bool indicating the collinearity
     */
-    template<size_t N, class T>
-    bool collinear(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    bool collinear(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         f32 f = v1[0] / v2[0];
-        for (size_t i = 1; i < N; i++)
+        for (size_t i = 1; i < COMPONENTS::getDim(); i++)
         {
             if (v1[i] != f * v2[i])return false;
         }
@@ -744,8 +967,8 @@ namespace lw
 
         @return the normalized vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> norm(vector_t<N, T>&& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> norm(vector_t<COMPONENTS>&& v)
     {
         v.norm();
         return v;
@@ -762,8 +985,8 @@ namespace lw
 
         @return the normalized vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> norm(const vector_t<N, T>& v)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> norm(const vector_t<COMPONENTS>& v)
     {
         auto r = v;
         r.norm();
@@ -782,8 +1005,8 @@ namespace lw
 
         @return scaled vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> setMag(vector_t<N, T>&& v, f32 mag)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> setMag(vector_t<COMPONENTS>&& v, f32 mag)
     {
         v.setMag(mag);
         return v;
@@ -801,8 +1024,8 @@ namespace lw
 
         @return scaled vector
     */
-    template<size_t N, class T>
-    vector_t<N, T> setMag(const vector_t<N, T>& v, f32 mag)
+    template<class COMPONENTS>
+    vector_t<COMPONENTS> setMag(const vector_t<COMPONENTS>& v, f32 mag)
     {
         auto r = v;
         r.setMag(mag);
@@ -819,13 +1042,13 @@ namespace lw
 
         @return the product(scalar)
     */
-    template<size_t N, class T>
-    f32 dot(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    f32 dot(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         f32 r = 0;
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            r += v1.m_components[i] * v2.m_components[i];
+            r += v1.arr[i] * v2.arr[i];
         }
         return r;
     }
@@ -840,13 +1063,13 @@ namespace lw
 
         @return the product(scalar)
     */
-    template<size_t N, class T>
-    f32 dot(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    f32 dot(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         f32 r = 0;
-        for (size_t i = 0; i < N; i++)
+        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
         {
-            r += v1.m_components[i] * v2.m_components[i];
+            r += v1.arr[i] * v2.arr[i];
         }
         return r;
     }
@@ -863,8 +1086,8 @@ namespace lw
 
         @return the angle
     */
-    template<size_t N, class T>
-    f32 angle(vector_t<N, T>&& v1, vector_t<N, T>&& v2)
+    template<class COMPONENTS>
+    f32 angle(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
     {
         return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
     }
@@ -881,8 +1104,8 @@ namespace lw
 
         @return the angle
     */
-    template<size_t N, class T>
-    f32 angle(const vector_t<N, T>& v1, const vector_t<N, T>& v2)
+    template<class COMPONENTS>
+    f32 angle(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
     {
         return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
     }
@@ -898,12 +1121,35 @@ namespace lw
 
         @return the modified ostream
     */
-    template<size_t N, class T>
-    std::ostream& operator<<(std::ostream& os, const vector_t<N, T>& v)
+    template<class COMPONENTS>
+    std::ostream& operator<<(std::ostream& os, const vector_t<COMPONENTS>& v)
     {
         return os << v.stringify();
     }
 
+    template<class T>
+    vector_t<components_t<T, 3>> cross(vector_t<components_t<T, 3>>&& v1, vector_t<components_t<T, 3>>&& v2)
+    {
+        return vector_t<components_t<T, 3>>
+        (
+            v1.y * v2.z - v1.z * v2.y,
+            v1.z * v2.x - v1.x * v2.z,
+            v1.x * v2.y - v1.y * v2.x
+        );
+    }
 
+    template<class T>
+    vector_t<components_t<T, 3>> cross(const vector_t<components_t<T, 3>>& v1, const vector_t<components_t<T, 3>>& v2)
+    {
+        return vector_t<components_t<T, 3>>
+            (
+                v1.y * v2.z - v1.z * v2.y,
+                v1.z * v2.x - v1.x * v2.z,
+                v1.x * v2.y - v1.y * v2.x
+            );
+    }
+
+    
+    
 
 }

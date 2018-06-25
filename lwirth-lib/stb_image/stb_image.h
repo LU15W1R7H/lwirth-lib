@@ -131,20 +131,20 @@ RECENT REVISION HISTORY:
 // The return value from an image loader is an 'unsigned char *' which points
 // to the pixel data, or NULL on an allocation failure or if the image is
 // corrupt or invalid. The pixel data consists of *y scanlines of *x pixels,
-// with each pixel consisting of N interleaved 8-bit components; the first
+// with each pixel consisting of DIM interleaved 8-bit components; the first
 // pixel pointed to is top-left-most in the image. There is no padding between
 // image scanlines or between pixels, regardless of format. The number of
-// components N is 'desired_channels' if desired_channels is non-zero, or
+// components DIM is 'desired_channels' if desired_channels is non-zero, or
 // *channels_in_file otherwise. If desired_channels is non-zero,
 // *channels_in_file has the number of components that _would_ have been
 // output otherwise. E.g. if you set desired_channels to 4, you will always
 // get RGBA output, but you can check *channels_in_file to see if it's trivially
 // opaque because e.g. there were only 3 channels in the source image.
 //
-// An output image with N components has the following components interleaved
+// An output image with DIM components has the following components interleaved
 // in this order in each pixel:
 //
-//     N=#comp     components
+//     DIM=#comp     components
 //       1           grey
 //       2           grey, alpha
 //       3           red, green, blue
@@ -5027,7 +5027,7 @@ static int stbi__bitcount(unsigned int a)
    return a & 0xff;
 }
 
-// extract an arbitrarily-aligned N-bit value (N=bits)
+// extract an arbitrarily-aligned DIM-bit value (DIM=bits)
 // from v, and then make it 8-bits long and fractionally
 // extend it to full full range.
 static int stbi__shiftsigned(int v, int shift, int bits)

@@ -6,7 +6,7 @@
 
 namespace lw
 {
-	template<typename FieldType, u16 N, int M, int R, int A, int F, int U, int S, int B, int T, int C, int L>
+	template<typename FieldType, u16 DIM, int M, int R, int A, int F, int U, int S, int B, int T, int C, int L>
 	class MersenneTwisterBase
 	{
 	private:
@@ -14,13 +14,13 @@ namespace lw
 		const u64 MASK_UPPER = (1ull << R);
 
 		u16 m_index;
-		FieldType m_mt[N];
+		FieldType m_mt[DIM];
 
 		void twist()
 		{
-			for (u16 i = 0; i < N; i++)
+			for (u16 i = 0; i < DIM; i++)
 			{
-				u32 x = (m_mt[i] & MASK_UPPER) + (m_mt[(i + 1) % N] & MASK_LOWER);
+				u32 x = (m_mt[i] & MASK_UPPER) + (m_mt[(i + 1) % DIM] & MASK_LOWER);
 
 				u32 xA = x >> 1;
 
@@ -29,7 +29,7 @@ namespace lw
 					xA ^= A;
 				}
 
-				m_mt[i] = m_mt[(i + M) % N] ^ xA;
+				m_mt[i] = m_mt[(i + M) % DIM] ^ xA;
 			}
 
 			m_index = 0;
@@ -50,14 +50,14 @@ namespace lw
 		void setSeed(FieldType seed)
 		{
 			m_mt[0] = seed;
-			for (u32 i = 1; i < N; i++)
+			for (u32 i = 1; i < DIM; i++)
 			{
 				m_mt[i] = (F * (m_mt[i - 1] ^ (m_mt[i - 1] >> 30)) + i);
 			}
 
 			m_mt[28] ^= 0xBBEBBEBB;
 
-			m_index = N;
+			m_index = DIM;
 
 			for (u32 i = 0; i < 9000000; i++)
 			{
@@ -67,7 +67,7 @@ namespace lw
 
 		FieldType next()
 		{
-			if (m_index >= N)
+			if (m_index >= DIM)
 			{
 				twist();
 			}
