@@ -28,12 +28,13 @@ namespace lw
 
 
     //definitons
-
     template<class T, size_t N>
     class components_t
     {
         ARITHMETIC_CHECK(T);
     public:
+        using type = T;
+
         constexpr static size_t getDim() noexcept
         {
             return N;
@@ -83,6 +84,8 @@ namespace lw
     {
         ARITHMETIC_CHECK(T);
     public:
+        using type = T;
+
         constexpr static size_t getDim() noexcept
         {
             return 2;
@@ -134,6 +137,8 @@ namespace lw
     {
         ARITHMETIC_CHECK(T);
     public:
+        using type = T;
+
         constexpr static size_t getDim() noexcept
         {
             return 3;
@@ -185,6 +190,8 @@ namespace lw
     {
         ARITHMETIC_CHECK(T);
     public:
+        using type = T;
+
         constexpr static size_t getDim() noexcept
         {
             return 4;
@@ -247,6 +254,8 @@ namespace lw
         //no additional members
         //components are inherited by "COMPONENTS"
     public:
+        using SELF = vector_t<COMPONENTS>;
+
          /*!
          	@brief Default constructs.
          
@@ -264,12 +273,12 @@ namespace lw
          
             @param v is the vector_t to copy
          */
-        vector_t(const vector_t<COMPONENTS>& v)
+        vector_t(const SELF& v)
             : COMPONENTS(v)
         {
         }
 
-        vector_t<COMPONENTS>& operator=(const vector_t<COMPONENTS>& v)
+        SELF& operator=(const SELF& v)
         {
             COMPONENTS::operator=(v);
             return *this;
@@ -283,12 +292,12 @@ namespace lw
 
             @param v is the vector_t to move
         */
-        vector_t(vector_t<COMPONENTS>&& v)
+        vector_t(SELF&& v)
             : COMPONENTS(v)
         {
         }
 
-        vector_t<COMPONENTS>& operator=(vector_t<COMPONENTS>&& v)
+        SELF& operator=(SELF&& v)
         {
             COMPONENTS::operator=(v);
             return *this;
@@ -310,7 +319,7 @@ namespace lw
 
             @return the constructed vector
         */
-        friend vector_t<COMPONENTS> VectorByPoints(vector_t<COMPONENTS>&& tail, vector_t<COMPONENTS>&& head) noexcept
+        friend SELF VectorByPoints(SELF&& tail, SELF&& head) noexcept
         {
             return head - tail;
         }
@@ -325,7 +334,7 @@ namespace lw
 
             @return the constructed vector
         */
-        friend vector_t<COMPONENTS> VectorByPoints(const vector_t<COMPONENTS>& tail, const vector_t<COMPONENTS>& head) noexcept
+        friend SELF VectorByPoints(const SELF& tail, const SELF& head) noexcept
         {
             return head - tail;
         }
@@ -340,7 +349,7 @@ namespace lw
 
             @return the magnitude
         */
-        f32 mag() const noexcept
+        COMPONENTS::type mag() const noexcept
         {
             return lw::sqrt(magSqd());
         }
@@ -353,7 +362,7 @@ namespace lw
 
             @return the squared magnitude
         */
-        f32 magSqd() const noexcept
+        COMPONENTS::type magSqd() const noexcept
         {
             f32 r = 0;
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
@@ -454,7 +463,7 @@ namespace lw
             
             @return lreference to this
         */
-        vector_t<COMPONENTS>& operator*=(f32 scalar) noexcept
+        SELF& operator*=(f32 scalar) noexcept
         {
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
@@ -473,7 +482,7 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<COMPONENTS>& operator/=(f32 scalar) noexcept
+        SELF& operator/=(f32 scalar) noexcept
         {
             f32 f = 1.f / scalar;
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
@@ -493,7 +502,7 @@ namespace lw
 
             @return lreference 
         */
-        vector_t<COMPONENTS>& operator+=(vector_t<COMPONENTS>&& rhs)
+        SELF& operator+=(SELF&& rhs)
         {
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
@@ -512,7 +521,7 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<COMPONENTS>& operator+=(const vector_t<COMPONENTS>& v)
+        SELF& operator+=(const SELF& v)
         {
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
@@ -531,7 +540,7 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<COMPONENTS>& operator-=(vector_t<COMPONENTS>&& v)
+        SELF& operator-=(SELF&& v)
         {
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
@@ -550,7 +559,7 @@ namespace lw
 
             @return lreference to this
         */
-        vector_t<COMPONENTS>& operator-=(const vector_t<COMPONENTS>& v)
+        SELF& operator-=(const SELF& v)
         {
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
