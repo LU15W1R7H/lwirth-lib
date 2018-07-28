@@ -11,7 +11,7 @@ namespace lw
     class elements_t
     {
     public:
-        using Type = T;
+        using type = T;
 
         std::array<std::array<T, C>, R> elems;
 
@@ -75,7 +75,7 @@ namespace lw
             return ELEMENTS::getRows() == ELEMENTS::getColumns();
         }
 
-        ELEMENTS::Type det() const
+        typename ELEMENTS::type det() const
         {
             //return determinant
         }
@@ -88,13 +88,30 @@ namespace lw
     template<class T, size_t R, size_t C>
     class matrix_t : public matrix_base<elements_t<T, R, C>>
     {
-
+        
     };
 
     //square matrix
     template<class T, size_t S>
-    class matrix_t<T, S, S> : public matrix_base<elements_t<T, S, S>
+    class matrix_t<T, S, S> : public matrix_base<elements_t<T, S, S>>
     {
 
+    };
+
+    template<typename T1, typename T2, size_t R1, size_t C1R2, size_t C2>
+    matrix_t<typename decltype(T1 * T2), R1, C2> matMul(matrix_t<T1, R1, C1R2>& m1, matrix_t<T2, C1R2, C2>& m2)
+    {
+        //matrix_t<typename decltype(T1 * T2), R1, C2> r;
+        //for (size_t i = 0; i < R1; i++)
+        //{
+        //    for (size_t j = 0; j < C2; j++)
+        //    {
+        //        for (size_t k = 0; k < C1R2; k++)
+        //        {
+        //            r[i][j] += m1[i][k] * m2[k][j];
+        //        }
+        //    }
+        //}
+        //return r;
     }
 };

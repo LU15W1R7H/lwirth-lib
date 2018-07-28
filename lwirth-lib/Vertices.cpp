@@ -32,6 +32,11 @@ namespace lw
 		resize(size);
 	}
 
+	Vertex2DArray::Vertex2DArray(const std::initializer_list<Vertex2D>& initList)
+	{
+		m_vertices = initList;
+	}
+
 	Vertex2DArray::Vertex2DArray()
 	{
 		m_primitive = Lines;

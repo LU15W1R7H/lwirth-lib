@@ -105,9 +105,11 @@ namespace lw
 
 			create(il.size(), nullptr);
 			m_size = il.size();
-			for (size_t i = 0; i < il.size(); i++)
+			size_t i = 0;
+			for (auto iter = il.begin(); iter != il.end(); iter++)
 			{
-				new(std::addressof(m_pData[i])) T(il[i]);
+				new(std::addressof(m_pData[i])) T(*iter);
+				i++;
 			}
 		}
 

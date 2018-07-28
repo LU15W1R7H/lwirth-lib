@@ -349,7 +349,7 @@ namespace lw
 
             @return the magnitude
         */
-        COMPONENTS::type mag() const noexcept
+        typename COMPONENTS::type mag() const noexcept
         {
             return lw::sqrt(magSqd());
         }
@@ -362,7 +362,7 @@ namespace lw
 
             @return the squared magnitude
         */
-        COMPONENTS::type magSqd() const noexcept
+        typename COMPONENTS::type magSqd() const noexcept
         {
             f32 r = 0;
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
@@ -407,7 +407,7 @@ namespace lw
             f32 f = newMag / mag();
             for (size_t i = 0; i < COMPONENTS::getDim(); i++)
             {
-                arr[i] *= f;
+                COMPONENTS::arr[i] *= f;
             }
         }
 

@@ -10,8 +10,8 @@ namespace lw
 		lw::List<const char*> Instance::s_layers =
 		{
 			"VK_LAYER_LUNARG_standard_validation",
-			"VK_LAYER_LUNARG_assistant_layer",
-			"VK_LAYER_LUNARG_monitor"
+			//"VK_LAYER_LUNARG_assistant_layer",
+			//"VK_LAYER_LUNARG_monitor"
 			//"VK_LAYER_LUNARG_api_dump" //prints every object creation
 		};
 

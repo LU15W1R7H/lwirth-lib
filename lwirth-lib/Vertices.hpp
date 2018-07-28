@@ -58,6 +58,7 @@ namespace lw
 	public:
 		Vertex2DArray();
 		Vertex2DArray(u32 size, PrimitiveType primitive);
+		Vertex2DArray(const std::initializer_list<Vertex2D>& initList);
 		~Vertex2DArray() = default;
 
 		u32 size() const;
