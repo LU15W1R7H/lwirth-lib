@@ -16,11 +16,11 @@ namespace lw
     template<class T, size_t N>
     class components_t;
 
-    template<class COMPONENTS>
+    template<class T, size_t N>
     class vector_t;
 
-    template<size_t DIM>
-    using Vec = vector_t<components_t<f32, DIM>>;
+    template<size_t N>
+    using Vec = vector_t<f32, N>;
 
     using Vec2 = Vec<2>;
     using Vec3 = Vec<3>;
@@ -247,14 +247,15 @@ namespace lw
 
         @templateparam COMPONENTS specifies the class for storing the components data as union.
     */
-    template <class COMPONENTS>
-    class vector_t : public COMPONENTS
+    template <class T, size_t N>
+    class vector_t : public components_t<T, N>
     {
     private:
         //no additional members
         //components are inherited by "COMPONENTS"
     public:
-        using SELF = vector_t<COMPONENTS>;
+        using SELF = vector_t<T, N>;
+		using COMPONENTS = components_t<T, N>;
 
          /*!
          	@brief Default constructs.
@@ -349,7 +350,7 @@ namespace lw
 
             @return the magnitude
         */
-        typename COMPONENTS::type mag() const noexcept
+        typename T mag() const noexcept
         {
             return lw::sqrt(magSqd());
         }
@@ -362,12 +363,12 @@ namespace lw
 
             @return the squared magnitude
         */
-        typename COMPONENTS::type magSqd() const noexcept
+        typename T magSqd() const noexcept
         {
             f32 r = 0;
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
-                //r += arr[i] * arr[i];
+                r += COMPONENTS::arr[i] * COMPONENTS::arr[i];
             }
             return r;
         }
@@ -384,7 +385,7 @@ namespace lw
         {
             if (magSqd() == 1.f)return;
             f32 f = 1.f / mag();
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N ; i++)
             {
                 COMPONENTS::arr[i] *= f;
             }
@@ -405,7 +406,7 @@ namespace lw
         {
             if (magSqd() == newMag * newMag)return;
             f32 f = newMag / mag();
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 COMPONENTS::arr[i] *= f;
             }
@@ -465,7 +466,7 @@ namespace lw
         */
         SELF& operator*=(f32 scalar) noexcept
         {
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 COMPONENTS::arr[i] *= scalar;
             }
@@ -485,7 +486,7 @@ namespace lw
         SELF& operator/=(f32 scalar) noexcept
         {
             f32 f = 1.f / scalar;
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 COMPONENTS::arr[i] *= f;
             }
@@ -504,7 +505,7 @@ namespace lw
         */
         SELF& operator+=(SELF&& rhs)
         {
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 COMPONENTS::arr[i] += rhs.COMPONENTS::arr[i];
             }
@@ -523,7 +524,7 @@ namespace lw
         */
         SELF& operator+=(const SELF& v)
         {
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 COMPONENTS::arr[i] += v.COMPONENTS::arr[i];
             }
@@ -542,7 +543,7 @@ namespace lw
         */
         SELF& operator-=(SELF&& v)
         {
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 arr[i] -= v.arr[i];
             }
@@ -561,9 +562,9 @@ namespace lw
         */
         SELF& operator-=(const SELF& v)
         {
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
-                //arr[i] -= v.arr[i];
+				COMPONENTS::arr[i] -= v.arr[i];
             }
             return *this;
         }
@@ -581,7 +582,7 @@ namespace lw
             std::string s;
 
             s.append("[");
-            for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+            for (size_t i = 0; i < N; i++)
             {
                 s.append(std::to_string(COMPONENTS::arr[i]));
                 if (i != COMPONENTS::getDim() - 1)
@@ -607,10 +608,10 @@ namespace lw
 
         @return bool indicating equalness
     */
-    template<class COMPONENTS>
-    bool operator==(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+    template<class T, size_t N>
+    bool operator==(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 0; i < N; i++)
         {
             if (v1.arr[i] != v2.arr[i])
             {
@@ -630,10 +631,10 @@ namespace lw
 
         @return bool indicating equalness
     */
-    template<class COMPONENTS>
-    bool operator==(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    bool operator==(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 0; i < N; i++)
         {
             if (v1.arr[i] != v2.arr[i])
             {
@@ -653,8 +654,8 @@ namespace lw
 
         @return bool indicating non-equalness
     */
-    template<class COMPONENTS>
-    bool operator!=(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    bool operator!=(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         return !(v1 == v2);
     }
@@ -669,8 +670,8 @@ namespace lw
 
         @return bool indicating non-equalness
     */
-    template<class COMPONENTS>
-    bool operator!=(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    bool operator!=(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         return !(v1 == v2);
     }
@@ -685,8 +686,8 @@ namespace lw
 
         @return the negated vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator-(vector_t<COMPONENTS>&& v)
+	template<class T, size_t N>
+    vector_t<T, N> operator-(vector_t<T, N>&& v)
     {
         return (v *= -1.f);
     }
@@ -701,8 +702,8 @@ namespace lw
 
     @return the negated vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator-(const vector_t<COMPONENTS>& v)
+	template<class T, size_t N>
+    vector_t<T, N> operator-(const vector_t<T, N>& v)
     {
         auto r = v;
         return (r *= -1.f);
@@ -718,8 +719,8 @@ namespace lw
 
         @return the sum
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator+(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    vector_t<T, N> operator+(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         return(v1 += v2);
     }
@@ -734,8 +735,8 @@ namespace lw
 
         @return the sum
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator+(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    vector_t<T, N> operator+(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         auto r = v1;
         return (r += v2);
@@ -751,8 +752,8 @@ namespace lw
 
         @return the difference
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator-(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    vector_t<T, N> operator-(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         return (v1 += v2);
     }
@@ -767,8 +768,8 @@ namespace lw
 
         @return the difference
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator-(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    vector_t<T, N> operator-(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         auto r = v1;
         return (r -= v2);
@@ -785,8 +786,8 @@ namespace lw
 
         @return the product
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator*(vector_t<COMPONENTS>&& v, f32 scalar)
+	template<class T, size_t N>
+    vector_t<T, N> operator*(vector_t<T, N>&& v, f32 scalar)
     {
         return (v *= scalar);
     }
@@ -802,8 +803,8 @@ namespace lw
 
         @return the product
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator*(const vector_t<COMPONENTS>& v, f32 scalar)
+	template<class T, size_t N>
+    vector_t<T, N> operator*(const vector_t<T, N>& v, f32 scalar)
     {
         auto r = v;
         return (r *= scalar);
@@ -820,8 +821,8 @@ namespace lw
 
         @return the product
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator*(f32 scalar, vector_t<COMPONENTS>&& v)
+	template<class T, size_t N>
+    vector_t<T, N> operator*(f32 scalar, vector_t<T, N>&& v)
     {
         return (v *= scalar);
     }
@@ -837,8 +838,8 @@ namespace lw
 
         @return the product
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator*(f32 scalar, const vector_t<COMPONENTS>& v)
+	template<class T, size_t N>
+    vector_t<T, N> operator*(f32 scalar, const vector_t<T, N>& v)
     {
         auto r = v;
         return (r *= scalar);
@@ -855,8 +856,8 @@ namespace lw
 
         @return the quotient
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator/(vector_t<COMPONENTS>&& v, f32 scalar)
+	template<class T, size_t N>
+    vector_t<T, N> operator/(vector_t<T, N>&& v, f32 scalar)
     {
         return (v /= scalar);
     }
@@ -872,8 +873,8 @@ namespace lw
 
         @return the quotient
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> operator/(const vector_t<COMPONENTS>& v, f32 scalar)
+	template<class T, size_t N>
+    vector_t<T, N> operator/(const vector_t<T, N>& v, f32 scalar)
     {
         auto r = v;
         return (r /= scalar);
@@ -890,11 +891,11 @@ namespace lw
 
         @return the minimal vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> min(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    vector_t<T, N> min(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
-        vector_t<COMPONENTS> r;
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        vector_t<T, N> r;
+        for (size_t i = 0; i < N; i++)
         {
             r.arr[i] = lw::min(v1.arr[i], v2.arr[i]);
         }
@@ -912,11 +913,11 @@ namespace lw
 
         @return the maximal vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> max(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    vector_t<T, N> max(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
-        vector_t<COMPONENTS> r;
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        vector_t<T, N> r;
+        for (size_t i = 0; i < N; i++)
         {
             r.arr[i] = lw::max(v1.arr[i], v2.arr[i]);
         }
@@ -933,11 +934,11 @@ namespace lw
 
         @return a bool indicating the collinearity
     */
-    template<class COMPONENTS>
-    bool collinear(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    bool collinear(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         f32 f = v1[0] / v2[0];
-        for (size_t i = 1; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 1; i < N; i++)
         {
             if (v1[i] != f * v2[i])return false;
         }
@@ -954,11 +955,11 @@ namespace lw
 
         @return a bool indicating the collinearity
     */
-    template<class COMPONENTS>
-    bool collinear(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    bool collinear(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         f32 f = v1[0] / v2[0];
-        for (size_t i = 1; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 1; i < N; i++)
         {
             if (v1[i] != f * v2[i])return false;
         }
@@ -976,8 +977,8 @@ namespace lw
 
         @return the normalized vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> norm(vector_t<COMPONENTS>&& v)
+	template<class T, size_t N>
+    vector_t<T, N> norm(vector_t<T, N>&& v)
     {
         v.norm();
         return v;
@@ -994,8 +995,8 @@ namespace lw
 
         @return the normalized vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> norm(const vector_t<COMPONENTS>& v)
+	template<class T, size_t N>
+    vector_t<T, N> norm(const vector_t<T, N>& v)
     {
         auto r = v;
         r.norm();
@@ -1014,8 +1015,8 @@ namespace lw
 
         @return scaled vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> setMag(vector_t<COMPONENTS>&& v, f32 mag)
+	template<class T, size_t N>
+    vector_t<T, N> setMag(vector_t<T, N>&& v, f32 mag)
     {
         v.setMag(mag);
         return v;
@@ -1033,8 +1034,8 @@ namespace lw
 
         @return scaled vector
     */
-    template<class COMPONENTS>
-    vector_t<COMPONENTS> setMag(const vector_t<COMPONENTS>& v, f32 mag)
+	template<class T, size_t N>
+    vector_t<T, N> setMag(const vector_t<T, N>& v, f32 mag)
     {
         auto r = v;
         r.setMag(mag);
@@ -1051,11 +1052,11 @@ namespace lw
 
         @return the product(scalar)
     */
-    template<class COMPONENTS>
-    f32 dot(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    f32 dot(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         f32 r = 0;
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 0; i < N; i++)
         {
             r += v1.arr[i] * v2.arr[i];
         }
@@ -1072,11 +1073,11 @@ namespace lw
 
         @return the product(scalar)
     */
-    template<class COMPONENTS>
-    f32 dot(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    f32 dot(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         f32 r = 0;
-        for (size_t i = 0; i < COMPONENTS::getDim(); i++)
+        for (size_t i = 0; i < N; i++)
         {
             r += v1.arr[i] * v2.arr[i];
         }
@@ -1095,8 +1096,8 @@ namespace lw
 
         @return the angle
     */
-    template<class COMPONENTS>
-    f32 angle(vector_t<COMPONENTS>&& v1, vector_t<COMPONENTS>&& v2)
+	template<class T, size_t N>
+    f32 angle(vector_t<T, N>&& v1, vector_t<T, N>&& v2)
     {
         return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
     }
@@ -1113,8 +1114,8 @@ namespace lw
 
         @return the angle
     */
-    template<class COMPONENTS>
-    f32 angle(const vector_t<COMPONENTS>& v1, const vector_t<COMPONENTS>& v2)
+	template<class T, size_t N>
+    f32 angle(const vector_t<T, N>& v1, const vector_t<T, N>& v2)
     {
         return std::acos(dot(v1, v2) / (v1.mag() * v2.mag()));
     }
@@ -1130,16 +1131,16 @@ namespace lw
 
         @return the modified ostream
     */
-    template<class COMPONENTS>
-    std::ostream& operator<<(std::ostream& os, const vector_t<COMPONENTS>& v)
+	template<class T, size_t N>
+    std::ostream& operator<<(std::ostream& os, const vector_t<T, N>& v)
     {
         return os << v.stringify();
     }
 
-    template<class T>
-    vector_t<components_t<T, 3>> cross(vector_t<components_t<T, 3>>&& v1, vector_t<components_t<T, 3>>&& v2)
+	template<class T>
+    vector_t<T, 3> cross(vector_t<T, 3>&& v1, vector_t<T, 3>&& v2)
     {
-        return vector_t<components_t<T, 3>>
+        return vector_t<T, 3>
         (
             v1.y * v2.z - v1.z * v2.y,
             v1.z * v2.x - v1.x * v2.z,
@@ -1148,9 +1149,9 @@ namespace lw
     }
 
     template<class T>
-    vector_t<components_t<T, 3>> cross(const vector_t<components_t<T, 3>>& v1, const vector_t<components_t<T, 3>>& v2)
+    vector_t<T, 3> cross(const vector_t<T, 3>& v1, const vector_t<T, 3>& v2)
     {
-        return vector_t<components_t<T, 3>>
+        return vector_t<T, 3>
             (
                 v1.y * v2.z - v1.z * v2.y,
                 v1.z * v2.x - v1.x * v2.z,

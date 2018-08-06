@@ -8,34 +8,49 @@
 namespace lw
 {
 	template<class T, size_t R, size_t C>
+	class elements_t;
+
+	template<class T, size_t R, size_t C>
+	class matrix_base;
+
+	template<class T, size_t R, size_t C>
+	class matrix_t;
+
+	template<class T, size_t S>
+	class matrix_t<T, S, S>;
+
+	template<class T, size_t R, size_t C>
     class elements_t
     {
     public:
-        using type = T;
+        using Type = T;
 
         std::array<std::array<T, C>, R> elems;
 
-        constexpr static size_t getRows()
+        constexpr static size_t rows()
         {
             return R;
         }
 
-        constexpr static size_t getColumns()
+        constexpr static size_t cols()
         {
             return C;
         }
 
-        constexpr static size_t getSize()
+        constexpr static size_t size()
         {
             return R * C;
         }
     };
 
-    template<class ELEMENTS>
-    class matrix_base : public ELEMENTS
+	//never return matrix_base
+    template<class T, size_t R, size_t C>
+    class matrix_base : public elements_t<T, R, C>
     {
     public:
-        using SELF = matrix_base<ELEMENTS>;
+        using SELF = matrix_base<T, R, C>;
+		using DERIVED = matrix_t<T, R, C>;
+		using ELEMENTS = elements_t<T, R, C>;
 
         matrix_base()
             : ELEMENTS()
@@ -58,7 +73,7 @@ namespace lw
         {
         }
 
-        SELF& operator=(SELF&& m)
+		decltype(DERIVED)& operator=(SELF&& m)
         {
             ELEMENTS::operator=(m);
             return *this;
@@ -75,43 +90,59 @@ namespace lw
             return ELEMENTS::getRows() == ELEMENTS::getColumns();
         }
 
-        typename ELEMENTS::type det() const
-        {
-            //return determinant
-        }
+		
 
-        
+		
 
     };
 
+	template<class T, size_t R, size_t C>
+	matrix_t<T, R, C> operator+(const matrix_t<T, R, C>& m1, const matrix_t<T, R, C>& m2)
+	{
+		matrix_t<T, R, C> r;
+		for (size_t i = 0; i < N; i++)
+		{
+			for (size_t j = 0; j < C; j++)
+			{
+				r.elems[i][j] = m1.elems[i][j] + m2.elems[i][j];
+			}
+		}
+		return r;
+	}
+
     //standard matrix
     template<class T, size_t R, size_t C>
-    class matrix_t : public matrix_base<elements_t<T, R, C>>
+    class matrix_t : public matrix_base<T, R, C>
     {
-        
+		using matrix_base<T, R, C>::matrix_base;
     };
 
     //square matrix
     template<class T, size_t S>
-    class matrix_t<T, S, S> : public matrix_base<elements_t<T, S, S>>
+    class matrix_t<T, S, S> : public matrix_base<T, S, S>
     {
+		using matrix_base<T, S, S>::matrix_base;
 
+		typename T det() const
+		{
+			//return determinant
+		}
     };
 
     template<typename T1, typename T2, size_t R1, size_t C1R2, size_t C2>
-    matrix_t<typename decltype(T1 * T2), R1, C2> matMul(matrix_t<T1, R1, C1R2>& m1, matrix_t<T2, C1R2, C2>& m2)
+    matrix_t<decltype(std::declval<T1>() * std::declval<T2>()), R1, C2> matMul(matrix_t<T1, R1, C1R2>& m1, matrix_t<T2, C1R2, C2>& m2)
     {
-        //matrix_t<typename decltype(T1 * T2), R1, C2> r;
-        //for (size_t i = 0; i < R1; i++)
-        //{
-        //    for (size_t j = 0; j < C2; j++)
-        //    {
-        //        for (size_t k = 0; k < C1R2; k++)
-        //        {
-        //            r[i][j] += m1[i][k] * m2[k][j];
-        //        }
-        //    }
-        //}
-        //return r;
+		matrix_t<decltype(std::declval<T1>() * std::declval<T2>()), R1, C2> r;
+        for (size_t i = 0; i < R1; i++)
+        {
+            for (size_t j = 0; j < C2; j++)
+            {
+                for (size_t k = 0; k < C1R2; k++)
+                {
+                   r[i][j] += m1[i][k] * m2[k][j];
+                }
+            }
+        }
+        return r;
     }
 };

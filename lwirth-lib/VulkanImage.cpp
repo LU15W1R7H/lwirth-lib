@@ -190,9 +190,9 @@ namespace lw
 			sci.magFilter = VK_FILTER_LINEAR; //variable
 			sci.minFilter = VK_FILTER_LINEAR;
 			sci.mipmapMode = VK_SAMPLER_MIPMAP_MODE_LINEAR;
-			sci.addressModeU = VK_SAMPLER_ADDRESS_MODE_REPEAT;
-			sci.addressModeV = VK_SAMPLER_ADDRESS_MODE_REPEAT;
-			sci.addressModeW = VK_SAMPLER_ADDRESS_MODE_REPEAT;
+			sci.addressModeU = m_repeatMode;
+			sci.addressModeV = m_repeatMode;
+			sci.addressModeW = m_repeatMode;
 			sci.mipLodBias = 0.f;
 			sci.anisotropyEnable = VK_TRUE;
 			sci.maxAnisotropy = 16;
