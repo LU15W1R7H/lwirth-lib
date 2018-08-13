@@ -200,7 +200,6 @@
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="qmath.cpp" />
-    <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PhysicalUnit.cpp" />
     <ClCompile Include="Plane.cpp" />
@@ -262,7 +261,6 @@
     <ClInclude Include="qmath.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MersenneTwister.hpp" />
-    <ClInclude Include="NeuralNetwork.hpp" />
     <ClInclude Include="PerlinNoise.hpp" />
     <ClInclude Include="PhysicalUnit.hpp" />
     <ClInclude Include="Plane.hpp" />

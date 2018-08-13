@@ -122,9 +122,6 @@
     <ClCompile Include="PerlinNoise.cpp">
       <Filter>random</Filter>
     </ClCompile>
-    <ClCompile Include="NeuralNetwork.cpp">
-      <Filter>AI\neural network</Filter>
-    </ClCompile>
     <ClCompile Include="VectorField2D.cpp">
       <Filter>math\mathematical objects\linear algebra</Filter>
     </ClCompile>
@@ -277,9 +274,6 @@
     <ClInclude Include="PerlinNoise.hpp">
       <Filter>random</Filter>
     </ClInclude>
-    <ClInclude Include="NeuralNetwork.hpp">
-      <Filter>AI\neural network</Filter>
-    </ClInclude>
     <ClInclude Include="VectorField2D.hpp">
       <Filter>math\mathematical objects\linear algebra</Filter>
     </ClInclude>
@@ -360,14 +354,14 @@
     <Filter Include="math\mathematical objects\geometry">
       <UniqueIdentifier>{b14c7620-abb9-4555-8e6f-205c7c6b8e33}</UniqueIdentifier>
     </Filter>
-    <Filter Include="AI">
-      <UniqueIdentifier>{67eccde6-5a1f-4c91-a5b3-566ce85de894}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="AI\neural network">
-      <UniqueIdentifier>{75dfdc48-b55e-4289-bc27-7091f8f75ffe}</UniqueIdentifier>
-    </Filter>
     <Filter Include="physics\units">
       <UniqueIdentifier>{d2343edb-f04c-442d-896b-7a12fda5d96d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="machine learning">
+      <UniqueIdentifier>{67eccde6-5a1f-4c91-a5b3-566ce85de894}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="machine learning\neural network">
+      <UniqueIdentifier>{75dfdc48-b55e-4289-bc27-7091f8f75ffe}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
