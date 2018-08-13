@@ -1,6 +1,6 @@
 #include "lwirth.hpp"
 
-#include "GFX.hpp"
+//#include "GFX.hpp"
 
 using namespace lw;
 
@@ -10,9 +10,13 @@ using namespace lw;
 
 int main()
 {
-	Eigen::Vector3f vec = { 2.f, 2.f, 1.f };
-	std::cout << vec.norm() << '\n';
-	std::cout << vec << '\n';
+	lw::NeuralNetwork nn({ 1, 5, 10, 5, 1 });
+	Eigen::VectorXf input = Eigen::VectorXf::Constant(1, 5.f);
+	auto output = nn.feedforward(input);
+	std::cout << output << std::endl;
+	nn.mutate(0.001f);
+	output = nn.feedforward(input);
+	std::cout << output << std::endl;
 
 	std::cin.get();
 }

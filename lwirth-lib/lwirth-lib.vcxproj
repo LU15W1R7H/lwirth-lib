@@ -190,6 +190,7 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="DifferentiableFunction.cpp" />
     <ClCompile Include="Allocations.cpp" />
     <ClCompile Include="Application.cpp" />
     <ClCompile Include="Circle.cpp" />
@@ -199,6 +200,7 @@
     <ClCompile Include="Frame.cpp" />
     <ClCompile Include="Line.cpp" />
     <ClCompile Include="Logger.cpp" />
+    <ClCompile Include="NeuralNetwork.cpp" />
     <ClCompile Include="qmath.cpp" />
     <ClCompile Include="PerlinNoise.cpp" />
     <ClCompile Include="PhysicalUnit.cpp" />
@@ -242,6 +244,7 @@
     <ClCompile Include="VulkanSwapchain.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DifferentiableFunction.hpp" />
     <ClInclude Include="Allocations.hpp" />
     <ClInclude Include="Application.hpp" />
     <ClInclude Include="Array.hpp" />
@@ -258,6 +261,7 @@
     <ClInclude Include="lwirth.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Meta.hpp" />
+    <ClInclude Include="NeuralNetwork.hpp" />
     <ClInclude Include="qmath.hpp" />
     <ClInclude Include="Matrix.hpp" />
     <ClInclude Include="MersenneTwister.hpp" />

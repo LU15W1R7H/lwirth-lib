@@ -130,44 +130,35 @@ namespace lw
 		return mapRandom<f32>(0.f, PI2);
 	}
 
-	Vec2 Random::nextVector2(f32 minX, f32 maxX, f32 minY, f32 maxY)
-	{
-		return Vec2(nextF32(minX, maxX), nextF32(minY, maxY));
-	}
-
-	Vec2 Random::nextVector2(f32 maxX, f32 maxY)
-	{
-		return nextVector2(0.f, maxX, 0.f, maxY);
-	}
-
-	Vec2 Random::nextVector2()
-	{
-		return Vec2(nextF32(), nextF32());
-	}
-
-	Vec2 Random::nextVector2(const Vec2& maxVec)
-	{
-		return nextVector2(maxVec.x, maxVec.y);
-	}
 
 	Color Random::nextColor()
 	{
 		return Color(nextF32(), nextF32(), nextF32());
 	}
 
-	Vertex2D Random::nextVertex()
+	Eigen::MatrixXf Random::nextMatrix(size_t rows, size_t cols, f32 min, f32 max)
 	{
-		return Vertex2D(nextVector2(-1.f, 1.f, -1.f, 1.f), nextColor());
+		Eigen::MatrixXf r(rows, cols);
+		for (size_t i = 0; i < rows; i++)
+		{
+			for (size_t j = 0; j < cols; j++)
+			{
+				r(i, j) = nextF32(min, max);
+			}
+		}
+		return r;
 	}
 
-	Triangle Random::nextTriangle()
+	Eigen::VectorXf Random::nextVector(size_t dim, f32 min, f32 max)
 	{
-		return lw::Triangle(
-			nextVertex(),
-			nextVertex(),
-			nextVertex()
-		);
+		Eigen::VectorXf r(dim);
+		for (size_t i = 0; i < dim; i++)
+		{
+			r(i) = nextF32(min, max);
+		}
+		return r;
 	}
+
 
 
 	template<typename T>

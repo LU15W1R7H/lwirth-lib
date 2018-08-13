@@ -134,6 +134,12 @@
     <ClCompile Include="Texture.cpp">
       <Filter>graphics\core\types</Filter>
     </ClCompile>
+    <ClCompile Include="NeuralNetwork.cpp">
+      <Filter>machine learning\neural network</Filter>
+    </ClCompile>
+    <ClCompile Include="DifferentiableFunction.cpp">
+      <Filter>machine learning\neural network</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Standard.hpp" />
@@ -303,6 +309,12 @@
     </ClInclude>
     <ClInclude Include="Meta.hpp">
       <Filter>general</Filter>
+    </ClInclude>
+    <ClInclude Include="NeuralNetwork.hpp">
+      <Filter>machine learning\neural network</Filter>
+    </ClInclude>
+    <ClInclude Include="DifferentiableFunction.hpp">
+      <Filter>machine learning\neural network</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

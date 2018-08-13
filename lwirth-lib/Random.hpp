@@ -7,7 +7,7 @@
 
 #include "List.hpp"
 #include <string>
-#include "Vector.hpp"
+#include <eigen/Dense>
 #include "Color.hpp"
 #include "Vertices.hpp"
 #include "Triangle.hpp"
@@ -77,17 +77,10 @@ namespace lw
 
 		//@return random lw::Color
 		Color nextColor();
-		Vertex2D nextVertex();
-		Triangle nextTriangle();
 
-		//#TODO refactor
-		Vec2 nextVector2(f32 minX, f32 maxX, f32 minY, f32 maxY);
+		Eigen::MatrixXf nextMatrix(size_t rows, size_t cols, f32 min, f32 max);
 
-		Vec2 nextVector2(f32 maxX, f32 maxY);
-
-		Vec2 nextVector2();
-
-		Vec2 nextVector2(const Vec2& maxVec);
+		Eigen::VectorXf nextVector(size_t dim, f32 min, f32 max);
 
 
 	private:
