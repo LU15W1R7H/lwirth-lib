@@ -91,7 +91,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\eigen\include;$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -105,7 +105,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\eigen\include;$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
@@ -121,7 +121,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\eigen\include;$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
@@ -140,7 +140,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)libraries\eigen\include;$(SolutionDir)libraries\vulkan\include;$(SolutionDir)libraries\glfw\include;$(SolutionDir)lwirth-lib</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
