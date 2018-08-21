@@ -1,4 +1,4 @@
-cmake_minimum_required(3.9)
+cmake_minimum_required(VERSION 3.9)
 
 project(lwirth VERSION 1.0.0 DESCRIPTION "lwirth-lib")
 
@@ -14,7 +14,7 @@ include_directories(${PROJECT_SOURCE_DIR}/lwirth-lib)
 add_subdirectory(lwirth-lib)
 
 set(CMAKE_CXX_STANDARD 17)
-include(GNUInstallDirs)
+
 add_library(lwirth-lib *.cpp *.hpp)
 set_target_properties(lwirth PROPERTIES
         VERSION ${PROJECT_VERSION}
