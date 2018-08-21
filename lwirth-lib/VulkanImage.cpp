@@ -11,7 +11,7 @@
 #include "VulkanBuffer.hpp"
 
 #define STB_IMAGE_IMPLEMENTATION
-#include "stb_image/stb_image.h"
+#include "../libraries/stb/stb_image.h"
 
 namespace lw
 {
