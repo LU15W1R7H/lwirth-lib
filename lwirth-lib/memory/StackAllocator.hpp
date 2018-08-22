@@ -29,9 +29,9 @@ namespace lw
 			const void* m_data;
 			void (*destructor)(const void*);
 		public:
-			template<class T>
-			explicit ElementDestructor(const T& data) noexcept :
-				m_data(std::addressof(data)), destructor(MEM::execDestructor<T>)
+			template<typename U>
+			explicit ElementDestructor(const U& data) noexcept :
+				m_data(std::addressof(data)), destructor(MEM::execDestructor<U>)
 			{}
 
 			void operator()() noexcept
@@ -110,7 +110,7 @@ namespace lw
 			T* newHeadPtr = (T*)((uintptr_t)allocPtr) + objCount * sizeof(U);
 			if (newHeadPtr <= m_data + m_size)
 			{
-				U* returnPtr = reinterpret_cast<U*>(allocAdd);
+				U* returnPtr = reinterpret_cast<U*>(allocPtr);
 				m_head = newHeadPtr;
 				for (size_t i = 0; i < objCount; i++)
 				{

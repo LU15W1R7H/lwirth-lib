@@ -55,9 +55,12 @@ using byte	= unsigned char;
 
 namespace lw
 {
-	inline void debugBreak()
+	inline void debugBreak() __attribute__((always_inline))
 	{
-		__debugbreak();
+    	asm("0:"
+        	".pushsection embed-breakpoints;"
+        	".quad 0b;"
+        	".popsection;");
 	}
 	
 }

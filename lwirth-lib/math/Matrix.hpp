@@ -170,7 +170,7 @@ namespace lw
 		using matrix_base<T, S, S>::matrix_base;
 
 
-		typename T det() const
+		T det() const
 		{
 			//return determinant
 		}

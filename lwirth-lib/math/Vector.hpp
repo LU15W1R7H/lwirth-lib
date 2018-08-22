@@ -350,7 +350,7 @@ namespace lw
 
             @return the magnitude
         */
-        typename T mag() const noexcept
+        T mag() const noexcept
         {
             return lw::sqrt(magSqd());
         }
@@ -363,7 +363,7 @@ namespace lw
 
             @return the squared magnitude
         */
-        typename T magSqd() const noexcept
+        T magSqd() const noexcept
         {
             f32 r = 0;
             for (size_t i = 0; i < N; i++)
@@ -437,7 +437,7 @@ namespace lw
         */
         f32& operator[](size_t index)
         {
-            return arr[index];
+            return COMPONENTS::arr[index];
         }
 
         /*!
@@ -545,7 +545,7 @@ namespace lw
         {
             for (size_t i = 0; i < N; i++)
             {
-                arr[i] -= v.arr[i];
+                COMPONENTS::arr[i] -= v.arr[i];
             }
             return *this;
         }
