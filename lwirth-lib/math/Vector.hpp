@@ -7,7 +7,7 @@
 #include <iostream>
 #include <array> //#TODO use own custom array
 
-#define ARITHMETIC_CHECK(T) static_assert(std::is_arithmetic_v<T>, "T must be an arithmetic type");
+#define ARITHMETIC_CHECK(T) static_assert(std::is_arithmetic<T>::value, "T must be an arithmetic type");
 
 namespace lw
 {
@@ -127,7 +127,7 @@ namespace lw
         union
         {
             std::array<T, 2> arr;
-#pragma pack(sizeof(T))
+//#pragma pack(sizeof(T))
             struct { T x, y; };
         };
     };
@@ -180,7 +180,7 @@ namespace lw
         union
         {
             std::array<T, 3> arr;
-#pragma pack(sizeof(T))
+//#pragma pack(sizeof(T))
             struct { T x, y, z; };
         };
     };
@@ -233,7 +233,7 @@ namespace lw
         union
         {
             std::array<T, 4> arr;
-#pragma pack(sizeof(T))
+//#pragma pack(sizeof(T))
             struct { T x, y, z, w; };
         };
     };

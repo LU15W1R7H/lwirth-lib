@@ -15,7 +15,6 @@ namespace lw
 
 		RenderPass::~RenderPass()
 		{
-			if (m_renderPass != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void RenderPass::create(Device* pDevice)

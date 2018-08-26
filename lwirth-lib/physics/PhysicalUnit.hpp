@@ -1,4 +1,5 @@
-﻿#pragma once
+﻿/**
+#pragma once
 
 #include "../Standard.hpp"
 #include <type_traits>
@@ -10,14 +11,14 @@
  * It tries to mimic it as closely as possible.
  *
  * The type of the value member is always the base-SI-unit. For example: Length::m_value represents meters.
- */
+
 
 namespace lw
 {
 	/**
 	 * L = LengthDim; M = MassDim; T = TimeDim; I = ElectricCurrentDim; Θ = TemperaturDim; DIM = ChemicalAmountDim; J = LuminousIntensity; A = AngleDim
-	 */
-	template<class L, class M, class T, class I, class Θ, class DIM, class J, class A>
+
+	template<class L, class M, class T, class I, class W, class DIM, class J, class A>
 	class Unit
 	{
 	private:
@@ -47,8 +48,8 @@ namespace lw
 
 
 
-#define DEFINE_UNIT(L, M, T, I, Θ, DIM, J, A, name)\
-	using name = Unit<std::ratio<L>, std::ratio<M>, std::ratio<T>, std::ratio<I>, std::ratio<Θ>, std::ratio<DIM>, std::ratio<J>, std::ratio<A>>;
+#define DEFINE_UNIT(L, M, T, I, W, DIM, J, A, name)\
+	using name = Unit<std::ratio<L>, std::ratio<M>, std::ratio<T>, std::ratio<I>, std::ratio<W>, std::ratio<DIM>, std::ratio<J>, std::ratio<A>>;
 
 #define DEFINE_UNIT_LITERAL_FACTOR(UnitType, litIdentifier, factor)\
 	constexpr UnitType operator"" _##litIdentifier(f128 value) { return UnitType(static_cast<f32>(value * factor)); } \
@@ -60,7 +61,6 @@ namespace lw
 	DEFINE_UNIT(0, 0, 0, 0, 0, 0, 0, 0, Number);
 
 	DEFINE_UNIT(1, 0, 0, 0, 0, 0, 0, 0, Length);
-	DEFINE_UNIT_LITERAL(Length, µm, -6);
 	DEFINE_UNIT_LITERAL(Length, mm, -3);
 	DEFINE_UNIT_LITERAL(Length, cm, -2);
 	DEFINE_UNIT_LITERAL(Length, dm, -1);
@@ -87,7 +87,6 @@ namespace lw
 	DEFINE_UNIT(4, 0, 0, 0, 0, 0, 0, 0, HyperVolume);
 
 	DEFINE_UNIT(0, 1, 0, 0, 0, 0, 0, 0, Mass);
-	DEFINE_UNIT_LITERAL(Mass, µg, -9);
 	DEFINE_UNIT_LITERAL(Mass, mg, -6);
 	DEFINE_UNIT_LITERAL(Mass, g, -3);
 	DEFINE_UNIT_LITERAL(Mass, kg, 0);
@@ -166,3 +165,4 @@ namespace lw
 	
 }
 
+**/

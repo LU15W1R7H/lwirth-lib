@@ -16,7 +16,6 @@ namespace lw
 	{
 		CommandPool::~CommandPool()
 		{
-			if (m_pool != VK_NULL_HANDLE) throw NotDestroyedException();
 		}
 
 		void CommandPool::create(Device* pDevice)
@@ -60,7 +59,6 @@ namespace lw
 
 		CommandBuffer::~CommandBuffer()
 		{
-			if (exists()) throw NotFreedException();
 		}
 
 		void CommandBuffer::allocate(const Device* pDevice, const CommandPool* pPool)

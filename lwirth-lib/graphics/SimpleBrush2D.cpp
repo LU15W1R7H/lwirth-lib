@@ -1,3 +1,4 @@
+#include <cstring>
 #include "../stdafx.hpp"
 #include "SimpleBrush2D.hpp"
 
@@ -81,7 +82,7 @@ namespace lw
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_mainDevice, dataSize);
 			void* dataPtr = stagingBuffer.map();
-			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
+			std::memcpy(dataPtr, indexArrayVec.raw(), dataSize);
 			stagingBuffer.unmap();
 			m_triangleMeshIndexBuffer.allocate(&m_pVK->m_mainDevice, &m_pVK->m_commandPool, m_pVK->m_mainDevice.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			stagingBuffer.destroy();
@@ -93,7 +94,7 @@ namespace lw
 			size_t dataSize = indexArrayVec.size() * sizeof(u16);
 			stagingBuffer.allocate(&m_pVK->m_mainDevice, dataSize);
 			void* dataPtr = stagingBuffer.map();
-			memcpy(dataPtr, indexArrayVec.raw(), dataSize);
+			std::memcpy(dataPtr, indexArrayVec.raw(), dataSize);
 			stagingBuffer.unmap();
 			m_quadFillIndexBuffer.allocate(&m_pVK->m_mainDevice, &m_pVK->m_commandPool, m_pVK->m_mainDevice.getGraphicsQueue(), &stagingBuffer, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			stagingBuffer.destroy();

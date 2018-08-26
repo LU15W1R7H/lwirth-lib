@@ -33,7 +33,7 @@
 		__debugbreak(); \
 	}
 #else
-#define ASSERT(expr)
+#define ASSERT(expr, msg)
 #endif
 
 #include <stdint.h>
@@ -55,7 +55,9 @@ using byte	= unsigned char;
 
 namespace lw
 {
-	inline void debugBreak() __attribute__((always_inline))
+	inline void debugBreak() __attribute__((always_inline));
+
+	inline void debugBreak()
 	{
     	asm("0:"
         	".pushsection embed-breakpoints;"

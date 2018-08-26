@@ -1,6 +1,7 @@
 #include "../../stdafx.hpp"
 #include "VulkanInstance.hpp"
 
+#include <cstring>
 #include "../../general/Exceptions.hpp"
 
 namespace lw
@@ -84,7 +85,7 @@ namespace lw
 				bool layerFound = false;
 				for (const auto& layerProperties : availableLayers)
 				{
-					if (strcmp(layerName, layerProperties.layerName) == 0)
+					if (std::strcmp(layerName, layerProperties.layerName) == 0)
 					{
 						layerFound = true;
 						break;

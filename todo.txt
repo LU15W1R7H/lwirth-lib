@@ -1,1 +1,0 @@
-Switch from VS-Project/Solution to CMake-Project

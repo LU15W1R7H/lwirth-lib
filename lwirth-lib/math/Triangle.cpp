@@ -2,6 +2,7 @@
 #include "Triangle.hpp"
 
 #include <math.h>
+#include <cstring>
 #include "../graphics/vulkan/VulkanDevice.hpp"
 
 namespace lw
@@ -16,7 +17,7 @@ namespace lw
 			staging.allocate(pDevice, sizeof(float) * 6);
 			float data[] = { 1, 1, 1, 1, 1, 1 };
 			void* dataPtr = staging.map();
-			memcpy(dataPtr, data, sizeof(Vertex2D) * 3);
+			std::memcpy(dataPtr, data, sizeof(Vertex2D) * 3);
 			staging.unmap();
 			s_vertexBuffer.allocate(pDevice, pCommandPool, pDevice->getGraphicsQueue(), &staging, VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			staging.destroy();
@@ -27,7 +28,7 @@ namespace lw
 			staging.allocate(pDevice, sizeof(u32) * 3);
 			u32 data[] = { 0, 1, 2 };
 			void* dataPtr = staging.map();
-			memcpy(dataPtr, data, sizeof(u32) * 3);
+			std::memcpy(dataPtr, data, sizeof(u32) * 3);
 			staging.unmap();
 			s_indexBuffer.allocate(pDevice, pCommandPool, pDevice->getGraphicsQueue(), &staging, VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_SHARING_MODE_EXCLUSIVE);
 			staging.destroy();

@@ -3,7 +3,7 @@
 #include "../Standard.hpp"
 
 #define GLFW_INCLUDE_VULKAN
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include "vulkan/VulkanPipeline.hpp"
 #include "vulkan/VulkanCommands.hpp"
@@ -23,6 +23,7 @@ namespace lw
 	class SimpleBrush2D
 	{
 		friend class VK::Vulkan;
+		friend class Renderer;
 	private:
 		VK::VertexShader m_vertexShader;
 		VK::FragmentShader m_fragmentShader;

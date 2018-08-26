@@ -16,7 +16,6 @@ namespace lw
 
 		Pipeline::~Pipeline()
 		{
-			if (m_pipeline != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void Pipeline::init(u32 screenWidth, u32 screenHeight)

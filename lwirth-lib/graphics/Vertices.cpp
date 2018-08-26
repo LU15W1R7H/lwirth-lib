@@ -1,6 +1,8 @@
 #include "../stdafx.hpp"
 #include "Vertices.hpp"
 
+#include <cstring>
+
 #include "../general/Exceptions.hpp"
 
 namespace lw
@@ -107,7 +109,7 @@ namespace lw
 		}
 
 		void* dataPtr = m_stagingBuffer.map();
-		memcpy(dataPtr, m_vertices.raw(), sizeof(Vertex2D) * size());
+		std::memcpy(dataPtr, m_vertices.raw(), sizeof(Vertex2D) * size());
 		m_stagingBuffer.unmap();
 
 		m_buffer.destroy();
@@ -176,7 +178,7 @@ namespace lw
 		}
 
 		void* dataPtr = m_stagingBuffer.map();
-		memcpy(dataPtr, m_vertices.raw(), sizeof(Vertex3D) * size());
+		std::memcpy(dataPtr, m_vertices.raw(), sizeof(Vertex3D) * size());
 		m_stagingBuffer.unmap();
 
 		m_buffer.destroy();

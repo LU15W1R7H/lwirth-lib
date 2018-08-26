@@ -11,7 +11,6 @@ namespace lw
 
 		Fence::~Fence()
 		{
-			if (m_fence != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void Fence::create(const Device* pDevice)

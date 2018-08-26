@@ -19,7 +19,6 @@ namespace lw
 
 		Device::~Device()
 		{
-			if (m_device != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		bool Device::exists() const

@@ -12,7 +12,6 @@ namespace lw
 
 		VertexShader::~VertexShader()
 		{
-			if (m_module != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void VertexShader::create(const Device* device, const std::string& filePath)
@@ -69,7 +68,6 @@ namespace lw
 
 		FragmentShader::~FragmentShader()
 		{
-			if (m_module != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void FragmentShader::create(const Device* device, const std::string& filePath)

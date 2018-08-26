@@ -291,7 +291,7 @@ namespace lw
 			m_pData = nullptr;
 			m_size = 0;
 			m_capacity = 0;
-			m_pAllocator = false;
+			m_pAllocator = nullptr;
 			m_shouldDestroyAllocator = false;
 		}
 

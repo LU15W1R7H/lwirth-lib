@@ -175,13 +175,13 @@ namespace lw
 
 	private:
 		template<class U>
-		inline std::enable_if_t<std::is_trivially_destructible_v<U>> addDestructor(U* obj)
+		inline std::enable_if_t<std::is_trivially_destructible<U>::value> addDestructor(U* obj)
 		{
 			//do nothing
 		}
 
 		template<class U>
-		inline std::enable_if_t<!std::is_trivially_destructible_v<U>> addDestructor(U* obj)
+		inline std::enable_if_t<!std::is_trivially_destructible<U>::value> addDestructor(U* obj)
 		{
 			m_destructors.push(ElementDestructor(*obj));
 		}

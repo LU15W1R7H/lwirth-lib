@@ -3,7 +3,7 @@
 #include "../Standard.hpp"
 
 #define GLFW_INCLUDE_VULKAN
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include "Frame.hpp"
 
@@ -35,9 +35,8 @@ namespace lw
 	{
 		class Vulkan
 		{
-			friend class SimpleBrush2D;
-			friend class SimpleBrush3D;
-			friend class Visualizer;
+			friend class ::lw::SimpleBrush2D;
+			friend class ::lw::SimpleBrush3D;
 
 		private:
 			const Frame* m_pFrame = nullptr;

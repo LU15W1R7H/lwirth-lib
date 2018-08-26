@@ -15,7 +15,6 @@ namespace lw
 
 		DepthImage::~DepthImage()
 		{
-			if (m_image != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void DepthImage::create(Device* pDevice, CommandPool* pCommandPool, u32 width, u32 height)

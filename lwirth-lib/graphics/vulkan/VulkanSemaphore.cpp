@@ -11,7 +11,6 @@ namespace lw
 
 		Semaphore::~Semaphore()
 		{
-			if (m_semaphore != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void Semaphore::create(Device* pDevice)

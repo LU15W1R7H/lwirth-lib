@@ -11,8 +11,8 @@ namespace lw
 
 	class Root
 	{
-		extern friend void init();
-		extern friend void terminate();
+		friend void init();
+		friend void terminate();
 	private:
 
 	public:

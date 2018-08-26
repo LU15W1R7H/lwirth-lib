@@ -3,7 +3,7 @@
 #include "../../Standard.hpp"
 
 #define GLFW_INCLUDE_VULKAN
-#include <glfw3.h>
+#include <GLFW/glfw3.h>
 
 #include "../../general/Exceptions.hpp"
 
@@ -71,7 +71,7 @@ namespace lw
 			void cmdSetScissor(const VkRect2D* pScissors, u32 count, u32 firstScissor) const;
 			void cmdBindVertexBuffer(const Buffer& buffer) const;
 			void cmdBindVertexBuffer(const Buffer* pBuffer, u32 firstBinding, u32 bindingCount, const VkDeviceSize* pOffsets = nullptr) const;
-			void cmdBindIndexBuffer(const Buffer& buffer, VkIndexType indexType, VkDeviceSize offset = 0) const const;
+			void cmdBindIndexBuffer(const Buffer& buffer, VkIndexType indexType, VkDeviceSize offset = 0) const;
 			void cmdDraw(u32 vertexCount, u32 firstVertex = 0, u32 instanceCount = 1, u32 firstInstance = 0) const;
 			void cmdDrawIndexed(u32 indexCount, u32 firstIndex = 0, u32 vertexOffset = 0, u32 instanceCount = 0, u32 firstInstance = 0) const;
 			void cmdCopyBuffer(const Buffer& src, const Buffer& dst, const VkBufferCopy* pRegions, u32 regionCount) const;

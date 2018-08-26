@@ -8,7 +8,6 @@
 #include "general/Exceptions.hpp"
 #include "general/FileManager.hpp"
 #include "general/Logger.hpp"
-#include "general/SIMD.hpp"
 #include "general/Utils.hpp"
 #include "math/Math.hpp"
 #include "graphics/Color.hpp"

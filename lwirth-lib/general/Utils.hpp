@@ -4,6 +4,7 @@
 
 #include <math.h>
 #include <utility>
+#include <limits>
 
 #define precCast(x) static_cast<f64>(x)
 #define LW_FORWARD(var) std::forward<decltype(var)>(var)
