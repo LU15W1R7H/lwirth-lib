@@ -5,11 +5,9 @@ The **_lwirth-lib_** is a general purpose library written in **C++17** by **Luis
 ## Purpose
 The lwirth-lib is general purpose. It is made up of the following separate components: Math, Graphics, Physics, Memory management and Artifical Intelligence. All of this combines to form a **game-engine**.
 
-It also serves the purpose of practice, since it is the first game-engine made by Luis Wirth.
-
 ## Components
 ### Graphics (Vulkan)
-**GLFW** is in charge of creating the window and fetching all keyboard and mouse inputs. The responsible class for this is the *lw::Frame*. In the future, the plan is to remove GLFW and instead use only the *lwirth-lib* for these tasks.
+**GLFW** is in charge of creating the window and fetching all keyboard and mouse inputs. The responsible class for this is the *lw::Frame*.
 
 As previously stated the library utilizes Vulkan for rendering. For most Vulkan modules there are **wrappers**, e.g *VK::Pipeline* or *VK::Device* to simplify their use. In the core, higher-level classes use these wrappers to form actual **renderers**, e.g. the **_lw::SimpleBrush2D_**.
 
@@ -17,18 +15,25 @@ The **_lw::RenderWindow_** takes care of handling all of these abilities. It is 
 
 ### Math
 #### Linear Algebra
+As of this time, it is not recommended to use the linear algebra build into the *lwirth-lib* but instead to utilize **Eigen**, which is innately available.
+
 The *lwirth-lib* supports basic **linear algebra** like **vectors** and **matrices**. These can be of **any dimensions** due to the classes being **templated**. For the *lw::Vec2*, *lw::Vec3* and *lw::Vec4* template **specializations** do exist and provide extra functionality.
+
 
 #### (Vector-)Geometry
 Some basic geometry is also built into the library, which mainly is **vector-geometry**. You can perform many actions on __*lw::Line*s__ and __*lw::Plane*s__ and compute useful data.
 
 ## How to get started/Setting up the project
 
-It is recommended to use Visual Studio to build and use the project since it was developed in this very IDE. Further, there have been no tests on other compilers, so there is no guarantee of running on other compilers.
+The project is currently being ported to **CMake**. As of now CMake works fine for Windows but not yet for Mac. Mac support is currently work in progress.
 
-The necessary **dependencies** for the *lwirth-lib* to run are the following:
-* [**Vulkan**](https://vulkan.lunarg.com/sdk/home)
-* [**GLFW**](http://www.glfw.org/)
+All the necessary **dependencies** for the *lwirth-lib* are in the libraries directory. They are automatically included and linked by the CMake-Project. Therefor there is no need to download any third-party dependencies.
+
+Third-party libraries include the following:
+* [**Vulkan**](https://vulkan.lunarg.com/sdk/home) as graphics API
+* [**GLFW**](http://www.glfw.org/) as window API
+* [**Eigen**](http://eigen.tuxfamily.org) as linear algebra API
+* [**stb_image**](https://github.com/nothings/stb) as image API
 
 
 
@@ -44,6 +49,9 @@ int main()
 ```
 
 ## Plans for the future
+* finish CMake porting
+* MacOS support
+* Machine learning (NeuralNetworks)
 * 3D rendering
 * Physics
 
