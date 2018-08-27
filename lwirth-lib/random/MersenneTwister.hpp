@@ -6,7 +6,7 @@
 
 namespace lw
 {
-	template<typename FieldType, u16 DIM, int M, int R, int A, int F, int U, int S, int B, int T, int C, int L>
+	template<typename FieldType, u16 DIM, u32 M, u32 R, u32 A, u32 F, u32 U, u32 S, u32 B, int T, u32 C, u32 L>
 	class MersenneTwisterBase
 	{
 	private:

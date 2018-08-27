@@ -117,36 +117,7 @@ namespace lw
 	void SimpleBrush3D::createPipeline()
 	{
 
-		m_pipelinePoint.init(m_screenWidth, m_screenHeight);
-		m_pipelinePoint.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-		m_pipelinePoint.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
-		m_pipelinePoint.setTopology(VK_PRIMITIVE_TOPOLOGY_POINT_LIST);
-		m_pipelinePoint.setPolygonMode(VK_POLYGON_MODE_POINT);
-		m_pipelinePoint.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
-		m_pipelinePoint.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
-		m_pipelinePoint.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelinePoint.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 
-		m_pipelineLine.init(m_screenWidth, m_screenHeight);
-		m_pipelineLine.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-		m_pipelineLine.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
-		m_pipelineLine.setTopology(VK_PRIMITIVE_TOPOLOGY_LINE_LIST);
-		m_pipelineLine.setPolygonMode(VK_POLYGON_MODE_LINE);
-		m_pipelineLine.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
-		m_pipelineLine.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
-		m_pipelineLine.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelineLine.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
-
-
-		m_pipelineTriangleFill.init(m_screenWidth, m_screenHeight);
-		m_pipelineTriangleFill.addDynamicState(VK_DYNAMIC_STATE_VIEWPORT);
-		m_pipelineTriangleFill.addDynamicState(VK_DYNAMIC_STATE_SCISSOR);
-		m_pipelineTriangleFill.setTopology(VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST);
-		m_pipelineTriangleFill.setPolygonMode(VK_POLYGON_MODE_FILL);
-		m_pipelineTriangleFill.addVertexBinding(0, sizeof(Vertex2D), VK_VERTEX_INPUT_RATE_VERTEX);
-		m_pipelineTriangleFill.addVertexDescription(0, 0, VK_FORMAT_R32G32_SFLOAT, offsetof(Vertex2D, Vertex2D::pos));
-		m_pipelineTriangleFill.addVertexDescription(1, 0, VK_FORMAT_R32G32B32A32_SFLOAT, offsetof(Vertex2D, Vertex2D::color));
-		m_pipelineTriangleFill.create(&m_pVK->m_mainDevice, &m_pVK->m_renderPass, &m_vertexShader, &m_fragmentShader);
 
 	}
 

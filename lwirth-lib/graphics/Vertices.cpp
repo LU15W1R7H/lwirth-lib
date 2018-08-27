@@ -134,7 +134,7 @@ namespace lw
 	}
 
 	Vertex3D::Vertex3D(Vec3 pos, Vec2 texCoord)
-		: pos(pos), color(color), texCoord(texCoord)
+		: pos(pos), color(), texCoord(texCoord)
 	{
 	}
 
