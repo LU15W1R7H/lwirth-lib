@@ -5,6 +5,8 @@ namespace lw
 {
 	lw::List<byte> readBinFile(const std::string& filePath)
 	{
+		//#TODO: fix this! Not working at the moment
+
 		std::basic_ifstream<byte, std::char_traits<byte>> stream(filePath, std::ios::ate | std::ios::binary);
 
 		if (!stream.is_open())

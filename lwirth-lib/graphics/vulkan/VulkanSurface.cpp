@@ -12,7 +12,6 @@ namespace lw
 	
 		Surface::~Surface()
 		{
-			if (m_surface != VK_NULL_HANDLE)throw NotDestroyedException();
 		}
 
 		void Surface::create(const Instance* instance, const Frame* frame)

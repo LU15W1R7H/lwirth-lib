@@ -27,7 +27,6 @@ namespace lw
 			moduleInfo.flags = 0;
 			moduleInfo.codeSize = code.size();
 			moduleInfo.pCode = reinterpret_cast<const u32*>(code.raw());
-			moduleInfo.sType = VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO;
 
 			if (vkCreateShaderModule(m_pDevice->raw(), &moduleInfo, nullptr, &m_module) != VK_SUCCESS)
 			{

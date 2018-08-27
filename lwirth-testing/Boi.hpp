@@ -2,6 +2,8 @@
 
 #include "lwirth.hpp"
 
+#include <Eigen/Dense>
+
 #define ABSSIN(x) std::abs(sin(x))
 
 
@@ -16,8 +18,8 @@ public:
 
 
 	lw::Vertex2DArray va;
-	lw::Vec2 vels[3];
-	lw::Vec2 accs[3];
+	Eigen::Vector2f vels[3];
+	Eigen::Vector2f accs[3];
 	int run = 0;
 
 	Boi()

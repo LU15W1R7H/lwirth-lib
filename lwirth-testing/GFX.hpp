@@ -1,6 +1,6 @@
 #include "lwirth.hpp"
 
-#include "Boi.hpp"
+//#include "Boi.hpp"
 #include "CellSystem.hpp"
 
 
@@ -14,7 +14,7 @@ void vk()
 	lw::RenderWindow window;
 	window.create("LWIRTH-LIB", 1000, 800);
 
-	lw::List<Boi> bois(20);
+	//lw::List<Boi> bois(20);
 
 	//CellSystem cellSystem(500, 500);
 
@@ -37,11 +37,7 @@ void vk()
 		
 		window.preDraw();
 
-		for (size_t i = 0; i < bois.size(); i++)
-		{
-			bois[i].update2();
-			brush->drawVertexArray(bois[i].va);
-		}
+
 		
 
 		//brush->drawVertexArray(va);
