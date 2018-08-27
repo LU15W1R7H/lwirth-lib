@@ -3,17 +3,17 @@
 
 namespace lw
 {
-	lw::List<byte> readBinFile(const std::string& filePath)
+	lw::List<char> readBinFile(const std::string& filePath)
 	{
-		//#TODO: fix this! Not working at the moment
+		//#TODO: change from char to byte(unsigned char)
 
-		std::basic_ifstream<byte, std::char_traits<byte>> stream(filePath, std::ios::ate | std::ios::binary);
+		std::ifstream stream(filePath, std::ios::ate | std::ios::binary);
 
 		if (!stream.is_open())
 			throw std::runtime_error("failed to open file");
 
 		u32 fileSize = static_cast<u32>(stream.tellg());
-		lw::List<byte> buffer(fileSize);
+		lw::List<char> buffer(fileSize);
 		stream.seekg(0);
 		stream.read(buffer.raw(), fileSize);
 		stream.close();

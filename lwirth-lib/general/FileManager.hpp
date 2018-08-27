@@ -8,7 +8,7 @@
 
 namespace lw
 {
-	extern lw::List<byte> readBinFile(const std::string& filePath);
+	extern lw::List<char> readBinFile(const std::string& filePath);
 	extern std::string readTextFile(const std::string & filePath);
 }
 
