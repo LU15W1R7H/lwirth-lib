@@ -2,9 +2,14 @@ file(GLOB_RECURSE lwirth-lib_SRC
         "*.hpp"
         "*.cpp")
 
+find_package(vulkan REQUIRED)
 add_library(lwirth-lib STATIC ${lwirth-lib_SRC})
 
-find_package(vulkan REQUIRED)
+
+target_include_directories(lwirth-lib PUBLIC ${GLFW_DIR}/include)
+target_include_directories(lwirth-lib PUBLIC ${EIGEN_DIR}/include)
+target_include_directories(lwirth-lib PUBLIC ${STB_DIR}/include)
+
 target_link_libraries(lwirth-lib Vulkan::Vulkan)
 target_link_libraries(lwirth-lib glfw)
 
