@@ -55,15 +55,25 @@ using byte	= unsigned char;
 
 namespace lw
 {
+#if defined(__clang__)
+
+#elif defined(__GNUC__) || defined(__GNUG__)
 	inline void debugBreak() __attribute__((always_inline));
 
 	inline void debugBreak()
 	{
-    	asm("0:"
-        	".pushsection embed-breakpoints;"
-        	".quad 0b;"
-        	".popsection;");
+		asm("0:"
+			".pushsection embed-breakpoints;"
+			".quad 0b;"
+			".popsection;");
 	}
+#elif defined(_MSC_VER)
+	__inline inline void debugBreak()
+	{
+		__debugbreak();
+	}
+#endif
+	
 	
 }
 
