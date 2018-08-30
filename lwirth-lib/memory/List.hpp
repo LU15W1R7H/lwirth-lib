@@ -118,6 +118,7 @@ namespace lw
 			destroy();
 		}
 
+
 		size_t size() const
 		{
 			return m_size;

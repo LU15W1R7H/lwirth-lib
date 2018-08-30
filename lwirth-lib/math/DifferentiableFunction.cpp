@@ -15,6 +15,11 @@ namespace lw
 		return o - y;
 	}
 
+	Eigen::VectorXf costFunctionDerivative(const Eigen::VectorXf& o, const Eigen::VectorXf& y)
+	{
+		return o - y;
+	}
+
 	f32 sigmoid(f32 x)
 	{
 		return 1.f / (1.f + lw::exp(-x));
