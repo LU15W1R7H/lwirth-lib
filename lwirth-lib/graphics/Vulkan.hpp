@@ -43,7 +43,7 @@ namespace lw
 
 			Instance m_instance									= {};
 			Surface m_surface									= {};
-			PhysicalDeviceContainer m_physicalDeviceContatiner	= {};
+			PhysicalDeviceContainer m_physicalDeviceContainer	= {};
 			Device m_mainDevice									= {};
 			RenderPass m_renderPass								= {};
 			DepthImage m_depthImage								= {};

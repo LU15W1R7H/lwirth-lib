@@ -309,7 +309,7 @@ namespace lw
 		{
 			checkInitNotCreated();
 			m_cbas = attachment;
-			m_pcbsci.logicOpEnable = enableLogicOp;
+			m_pcbsci.logicOpEnable = enableLogicOp ? VK_TRUE : VK_FALSE;
 			m_pcbsci.logicOp = logicOp;
 			m_pcbsci.attachmentCount = 1;
 			m_pcbsci.pAttachments = &m_cbas;

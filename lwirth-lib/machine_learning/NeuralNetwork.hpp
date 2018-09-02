@@ -8,6 +8,8 @@
 
 namespace lw
 {
+
+	//#TODO: do testing
 	class NeuralNetwork
 	{
 	private:

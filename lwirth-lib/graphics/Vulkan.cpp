@@ -19,8 +19,8 @@ namespace lw
 			m_screenHeight = m_pFrame->getHeight();
 
 			m_surface.create(&m_instance, m_pFrame);
-			m_physicalDeviceContatiner.init(&m_instance, &m_surface);
-			m_mainDevice.create(&m_physicalDeviceContatiner, &m_surface);
+			m_physicalDeviceContainer.init(&m_instance, &m_surface);
+			m_mainDevice.create(&m_physicalDeviceContainer, &m_surface);
 			m_commandPool.create(&m_mainDevice);
 			m_renderPass.create(&m_mainDevice);
 			m_depthImage.create(&m_mainDevice, &m_commandPool, m_screenWidth, m_screenHeight);

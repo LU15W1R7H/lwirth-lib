@@ -101,6 +101,8 @@ namespace lw
 			stagingBuffer.destroy();
 		}
 
+
+
 		Triangle::s_init(&m_pVK->m_mainDevice, &m_pVK->m_commandPool);
 	}
 

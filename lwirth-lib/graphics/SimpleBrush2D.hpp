@@ -33,8 +33,8 @@ namespace lw
 		VK::Pipeline m_pipelineTriangleFill;
 
 
-		u32 m_screenWidth;
-		u32 m_screenHeight;
+		u32 m_screenWidth = 0;
+		u32 m_screenHeight = 0;
 
 		bool m_ready = false;
 

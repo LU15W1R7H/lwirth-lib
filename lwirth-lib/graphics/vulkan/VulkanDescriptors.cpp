@@ -146,7 +146,7 @@ namespace lw
 			info.imageView = image.getView();
 			info.imageLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
 
-			m_imageDescriptors.push_back(DescriptorImage(info, binding));
+			m_imageDescriptors.emplace_back(info, binding);
 		}
 
 		void DescriptorPool::init(Device * device)
