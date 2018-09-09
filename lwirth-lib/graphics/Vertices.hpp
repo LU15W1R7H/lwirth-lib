@@ -4,7 +4,7 @@
 
 #include "../memory/List.hpp"
 #include "Color.hpp"
-#include "../math/Vector.hpp"
+#include <eigen/Dense>
 #include "vulkan/VulkanBuffer.hpp"
 #include "vulkan/VulkanDevice.hpp"
 #include "vulkan/VulkanCommands.hpp"
@@ -18,11 +18,11 @@ namespace lw
 	public:
 		Vertex2D();
 		~Vertex2D() = default;
-		Vertex2D(Vec2 pos, Color color, Vec2 texCoord);
-		Vertex2D(Vec2 pos, Color color);
-		Vertex2D(Vec2 pos, Vec2 texCoord);
+		Vertex2D(Eigen::Vector2f pos, Color color, Vec2 texCoord);
+		Vertex2D(Eigen::Vector2f pos, Color color);
+		Vertex2D(Eigen::Vector2f pos, Vec2 texCoord);
 
-		Vec2 pos;
+		Eigen::Vector2f pos;
 		Color color;
 		Vec2 texCoord;
 	};
@@ -32,11 +32,11 @@ namespace lw
 	public:
 		Vertex3D();
 		~Vertex3D() = default;
-		Vertex3D(Vec3 pos, Color color, Vec2 texCoord);
-		Vertex3D(Vec3 pos, Color color);
-		Vertex3D(Vec3 pos, Vec2 texCoord);
+		Vertex3D(Eigen::Vector3f pos, Color color, Vec2 texCoord);
+		Vertex3D(Eigen::Vector3f pos, Color color);
+		Vertex3D(Eigen::Vector3f pos, Vec2 texCoord);
 
-		Vec3 pos;
+		Eigen::Vector3f pos;
 		Color color;
 		Vec2 texCoord;
 	};

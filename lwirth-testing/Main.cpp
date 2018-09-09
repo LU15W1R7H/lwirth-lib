@@ -1,11 +1,12 @@
 #include "lwirth.hpp"
 
-#include "tests/NeuralNetworkTest.hpp"
+#include "tests/VulkanTrianglesTest.hpp"
 
-using namespace lw;
 
 int main()
 {
+	trianglesTest();
+
 
     return 0;
 }

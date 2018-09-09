@@ -159,6 +159,10 @@ namespace lw
 		return r;
 	}
 
+	Vertex2D Random::nextVertex2D()
+	{
+		return Vertex2D(nextVector(2, -1.f, 1.f), nextColor());
+	}
 
 
 	template<typename T>

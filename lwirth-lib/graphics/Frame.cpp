@@ -6,7 +6,6 @@
 
 #include "../general/Exceptions.hpp"
 #include <iostream>
-#include "../general/Root.hpp"
 
 namespace lw
 {

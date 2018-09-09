@@ -2,7 +2,6 @@
 #include "RenderWindow.hpp"
 
 #include "../general/Exceptions.hpp"
-#include "../general/Root.hpp"
 
 #include <string>
 #include <iostream>

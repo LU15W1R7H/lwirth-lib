@@ -62,7 +62,7 @@ namespace lw
 
 	f32 Triangle::area() const
 	{
-		return 0.5f * std::abs((m_vertices[0].pos.x - m_vertices[2].pos.x) * (m_vertices[1].pos.y - m_vertices[0].pos.y) - (m_vertices[0].pos.x - m_vertices[1].pos.x) * (m_vertices[2].pos.y - m_vertices[0].pos.y));
+		return 0.5f * std::abs((m_vertices[0].pos.x() - m_vertices[2].pos.x()) * (m_vertices[1].pos.y() - m_vertices[0].pos.y()) - (m_vertices[0].pos.x() - m_vertices[1].pos.x()) * (m_vertices[2].pos.y() - m_vertices[0].pos.y()));
 	}
 
 	void Triangle::rotate(f32 angle, Vec2 & center)

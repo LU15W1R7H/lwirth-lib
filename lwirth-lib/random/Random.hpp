@@ -82,6 +82,8 @@ namespace lw
 
 		Eigen::VectorXf nextVector(size_t dim, f32 min, f32 max);
 
+		Vertex2D nextVertex2D();
+
 
 	private:
 		mt19937 m_mt;

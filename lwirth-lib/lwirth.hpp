@@ -4,7 +4,6 @@
 #include "memory/List.hpp"
 #include "memory/StackAllocator.hpp"
 #include "memory/PoolAllocator.hpp"
-#include "general/Root.hpp"
 #include "general/Exceptions.hpp"
 #include "general/FileManager.hpp"
 #include "general/Logger.hpp"
