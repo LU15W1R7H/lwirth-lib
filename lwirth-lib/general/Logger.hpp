@@ -7,6 +7,8 @@
 namespace lw
 {
 
+	//#TODO: make work
+
 	template<class First, class... Rest>
 	void print(First first, Rest... rest)
 	{

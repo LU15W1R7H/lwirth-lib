@@ -75,6 +75,8 @@ namespace lw
 		return std::exp(x);
 	}
 
+
+
 	template<class T>
 	constexpr T lerp(const T& start, const T& dest, f32 beta)
 	{

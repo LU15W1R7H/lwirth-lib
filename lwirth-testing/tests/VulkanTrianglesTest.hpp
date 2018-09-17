@@ -28,7 +28,7 @@ void trianglesTest()
     //lw::VK::Image image;
     //image.createAndLoadFromFile(window.getVulkan()->m_mainDevice, window.getVulkan()->m_commandPool, "texture.jpg");
 
-
+    lw::Color color;
     while (window.isOpen())
     {
         run += 1;
@@ -39,17 +39,28 @@ void trianglesTest()
 
 
 
-
+        color.r += rand.nextF32(-0.01f, 0.01f);
+        color.g += rand.nextF32(-0.01f, 0.01f);
+        color.b += rand.nextF32(-0.01f, 0.01f);
+        if(color.r < 0.f)color.r = 0.f; if(color.r > 1.f)color.r = 1.f;
+        if(color.g < 0.f)color.g = 0.f; if(color.g > 1.f)color.g = 1.f;
+        if(color.b < 0.f)color.b = 0.f; if(color.b > 1.f)color.b = 1.f;
         //brush->drawVertexArray(va);
         //cellSystem.update();
         //cellSystem.render(brush);
 
-        for (f32 i = -1.f; i < 1.f; i += 0.01f)
+        double mouseX, mouseY;
+        glfwGetCursorPos(window.raw(), &mouseX, &mouseY);
+        mouseX /= window.getWidth() / 2.0;
+        mouseX -= 1.0;
+        mouseY /= window.getHeight() / 2.0;
+        mouseY -= 1.0;
+        for (f32 i = -1.f; i < 1.f; i += 0.1f)
         {
-            for (f32 j = -1.f; j < 1.f; j += 0.01f)
+            for (f32 j = -1.f; j < 1.f; j += 0.1f)
             {
-                brush->setColor(rand.nextColor());
-                brush->drawLine(0, 0, i, j);
+                brush->setColor(color);
+                brush->drawLine(mouseX, mouseY, i, j);
             }
         }
 
@@ -95,13 +106,13 @@ public:
     {
         va[0].pos.x() = std::sin(run * 0.0001f);
         va[0].pos.y() = std::cos(run * 0.0001f);
-        va[0].color = lw::Color(ABSSIN(run * 0.0001), ABSSIN(run * 0.0003), ABSSIN(run * 0.0002 + 2));
+        va[0].color = lw::Color(ABSSIN(run * 0.0001f), ABSSIN(run * 0.0003f), ABSSIN(run * 0.0002f + 2));
         va[1].pos.x() = std::sin(run * 0.0001f + 1.5f);
         va[1].pos.y() = std::cos(run * 0.0001f + 1.5f);
-        va[1].color = lw::Color(ABSSIN(run * 0.0003 + 3), ABSSIN(run * 0.0002 + 2), ABSSIN(run * 0.0001 + 1));
+        va[1].color = lw::Color(ABSSIN(run * 0.0003f + 3), ABSSIN(run * 0.0002f + 2), ABSSIN(run * 0.0001f + 1));
         va[2].pos.x() = std::sin(run * 0.0001f + 3.f);
         va[2].pos.y() = std::cos(run * 0.0001f + 3.f);
-        va[2].color = lw::Color(ABSSIN(run * 0.0002 + 1), ABSSIN(run * 0.0001 + 3), ABSSIN(run * 0.0003 + 2));
+        va[2].color = lw::Color(ABSSIN(run * 0.0002f + 1), ABSSIN(run * 0.0001f + 3), ABSSIN(run * 0.0003f + 2));
         /*va[3].pos.x = std::sin(run * 0.0001f + 4.f);
         va[3].pos.y = std::cos(run * 0.0001f + 4.f);
         va[3].color = lw::Color(ABSSIN(run * 0.0005 + 5), ABSSIN(run * 0.0006 + 6), ABSSIN(run * 0.0002 + 9));*/
