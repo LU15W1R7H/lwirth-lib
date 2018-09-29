@@ -14,6 +14,8 @@ namespace lw
 	template<class T, class Allocator = std::allocator<T>>
 	class List
 	{
+	private:
+
 		T* m_pData;
 		size_t m_size;
 		size_t m_capacity;
@@ -22,6 +24,8 @@ namespace lw
 		bool m_shouldDestroyAllocator;
 
 	public:
+		using iterator = T*;
+
 		List(Allocator* pAllocator = nullptr)
 		{
 			create(0, pAllocator);
@@ -186,24 +190,24 @@ namespace lw
 			return m_pData[m_size - 1];
 		}
 
-		T* begin() //#TODO: use iterators
+		iterator begin()
 		{
 			return &m_pData[0];
 		}
 
-		const T* begin() const
+		const iterator begin() const
 		{
 			return &m_pData[0];
 		}
 
-		T* end()
+		iterator end()
 		{
-			return m_size ? &m_pData[m_size - 1] : &m_pData[0];
+			return &m_pData[m_size];
 		}
 
-		const T* end() const
+		const iterator end() const
 		{
-			return &m_pData[m_size - 1];
+			return &m_pData[m_size];
 		}
 
 		void reserve(size_t memNeeded)

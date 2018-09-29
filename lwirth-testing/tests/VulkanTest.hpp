@@ -12,6 +12,7 @@
 int vulkanTest()
 {
     lw::Random rand;
+    lw::PerlinNoise perlin(rand.nextU32());
     lw::RenderWindow window;
     window.create("Hello lwirth", 1000, 800);
 
@@ -29,7 +30,7 @@ int vulkanTest()
 
         for (size_t i = 0; i < 100; ++i) {
             for (int j = 0; j < 100; ++j) {
-                brush->drawLine(rand.nextVertex2D(), rand.nextVertex2D());
+                brush->drawLine(perlin.noise0_1(i*100, i*100, 0), perlin.noise0_1(j*100, j*100, 0), perlin.noise0_1(0, i*100, j*100), perlin.noise0_1(j*100, 0, i*100));
             }
         }
 
