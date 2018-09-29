@@ -1,7 +1,4 @@
-#include "lwirth.hpp"
-
-#include "tests/VulkanTest.hpp"
-
+#include <lwirth.hpp>
 
 int main()
 {
@@ -10,7 +7,7 @@ int main()
 
 	for(const auto& e : list)
 	{
-		std::cout << e << '\n';
+		lw::print(e);
 	}
 
 	std::cin.get();

@@ -160,7 +160,7 @@ namespace lw
 		else
 		{
 			if (intersect(l1, l2).viable())
-				return Line::intersecting; //#TODO return point
+				return Line::intersecting;
 			else
 				return Line::skew;
 		}

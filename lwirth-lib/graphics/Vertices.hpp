@@ -41,7 +41,6 @@ namespace lw
 		Vec2 texCoord;
 	};
 
-	//#TODO: Use special allocator, not dynamic allocation... especially for drawing lines with SimpleBrush2D
 	class Vertex2DArray
 	{
 		friend class SimpleBrush2D;

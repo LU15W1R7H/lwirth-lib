@@ -57,7 +57,10 @@ using byte	= unsigned char;
 namespace lw
 {
 #if defined(__clang__)
-	asm("int $3");
+	inline void debugBreak()
+	 {
+		asm("int $3");
+	 }
 #elif defined(__GNUC__) || defined(__GNUG__)
 	inline void debugBreak() __attribute__((always_inline));
 

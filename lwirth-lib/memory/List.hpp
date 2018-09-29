@@ -8,9 +8,6 @@
 
 namespace lw
 {
-	//#TODO use own allocator -> performance
-
-
 	template<class T, class Allocator = std::allocator<T>>
 	class List
 	{
