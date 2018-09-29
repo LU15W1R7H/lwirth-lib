@@ -72,6 +72,12 @@ namespace lw
 			return elements[nextIndex(size)];
 		}
 
+		template<class Enum>
+		Enum nextEnum(size_t maxEnumValue)
+		{
+			return static_cast<Enum>(nextI32(maxEnumValue));
+		}
+
 		//@return random F32(angle) in radians in range [0 -> 2PI]
 		f32 nextAngle();
 
