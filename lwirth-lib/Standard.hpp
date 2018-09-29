@@ -1,4 +1,5 @@
-#pragma once
+#ifndef LWIRTH_STANDARD_HPP
+#define LWIRTH_STANDARD_HPP
 
 #include <iostream>
 
@@ -77,3 +78,4 @@ namespace lw
 	
 }
 
+#endif //LWIRTH_STANDARD_HPP

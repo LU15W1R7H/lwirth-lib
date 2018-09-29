@@ -1,8 +1,8 @@
 #project()
 
-ADD_EXECUTABLE(lwirth-testing Main.cpp)
-TARGET_LINK_LIBRARIES(lwirth-testing lwirth-lib)
 find_package(vulkan REQUIRED)
+add_executable(lwirth-testing Main.cpp)
+target_link_libraries(lwirth-testing lwirth-lib)
 target_link_libraries(lwirth-testing Vulkan::Vulkan)
 target_link_libraries(lwirth-testing glfw)
 

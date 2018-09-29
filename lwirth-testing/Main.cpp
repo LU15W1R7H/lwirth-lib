@@ -1,12 +1,9 @@
 #include "lwirth.hpp"
 
-#include "tests/VulkanTrianglesTest.hpp"
+#include "tests/VulkanTest.hpp"
 
 
 int main()
 {
-	trianglesTest();
-
-
-    return 0;
+	return vulkanTest();
 }
