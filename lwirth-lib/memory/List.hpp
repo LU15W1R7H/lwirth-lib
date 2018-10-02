@@ -218,22 +218,20 @@ namespace lw
 			construct(newSize);
 		}
 
-		void push(const T& element) //#TODO parameter pack
+		template<class ... Elements>
+		void push(Elements&& ... elements)
 		{
-			construct(m_size + 1);
-			m_pData[m_size - 1] = element;
+			size_t index = m_size;
+			provide(m_size + sizeof...(Elements));
+			consumePush(index, elements...);
 		}
 
-		void push(const T&& element)
-		{
-			push(element);
-		}
 
 		template<class ...Args>
 		void emplace(Args... args)
 		{
-			construct(m_size + 1);
-			m_pData[m_size] = T(args...);
+			provide(m_size + 1);
+			m_pData[m_size - 1] = T(args...);
 		}
 
 
@@ -316,21 +314,37 @@ namespace lw
 			m_pData = pNewData;
 		}
 
-		void construct(size_t newSize)
+		void provide(size_t newSize)
 		{
 			if (newSize > m_capacity)
 			{
 				size_t newCap = lw::max(newSize, m_capacity * 2);
 				allocate(newCap);
 			}
+			m_size = newSize;
+		}
+
+		void construct(size_t newSize)
+		{
+			provide(newSize);
 			
 			for (size_t i = m_size; i < newSize; i++)
 			{
 				new(std::addressof(m_pData[i])) T(); //only initializes (doesn't allocate)
 			}
-
-			m_size = newSize;
 		}
+
+
+		template<typename First, typename ... Rest>
+		void consumePush(size_t index, First && first, Rest && ... rest)
+		{
+			m_pData[index] = static_cast<T>(first);
+			consumePush(index + 1, rest...);
+		}
+
+		//when finished
+		void consumePush(size_t index)
+		{}
 
 	};
 }
