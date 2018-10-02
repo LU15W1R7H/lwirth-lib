@@ -223,7 +223,7 @@ namespace lw
 		{
 			size_t index = m_size;
 			provide(m_size + sizeof...(Elements));
-			consumePush(index, elements...);
+			consumePush(index, std::forward<Elements>(elements)...);
 		}
 
 
@@ -339,7 +339,7 @@ namespace lw
 		void consumePush(size_t index, First && first, Rest && ... rest)
 		{
 			m_pData[index] = static_cast<T>(first);
-			consumePush(index + 1, rest...);
+			consumePush(index + 1, std::forward<Rest>(rest)...);
 		}
 
 		//when finished

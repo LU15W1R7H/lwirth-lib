@@ -32,4 +32,11 @@ namespace lw
         static_assert(sizeof...(args) >= N, "too few arguments to assign");
         DETAIL::assign_helper<T, N, 0>::assign(arr, std::forward<ARGS>(args)...);
     }
+
+    /**
+    * Function to swallow variadic template pack
+    */
+    template<typename ... Pack>
+    void swallow(Pack&&...)
+    {}
 }
