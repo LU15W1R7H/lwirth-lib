@@ -1,12 +1,15 @@
 #pragma once
 
 #include "Standard.hpp"
+#include "experimental/experimental.hpp"
 #include "memory/List.hpp"
 #include "memory/StackAllocator.hpp"
 #include "memory/PoolAllocator.hpp"
+#include "general/Application.hpp"
 #include "general/Exceptions.hpp"
 #include "general/FileManager.hpp"
 #include "general/Logger.hpp"
+#include "general/Meta.hpp"
 #include "general/Utils.hpp"
 #include "math/Math.hpp"
 #include "graphics/Color.hpp"
