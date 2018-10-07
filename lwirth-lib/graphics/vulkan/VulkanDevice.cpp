@@ -101,6 +101,7 @@ namespace lw
 			if (m_device == VK_NULL_HANDLE)throw NotCreatedException();
 			Queue r;
 			r.init(this, pFamily, index);
+			return r;
 		}
 
 		void Device::waitIdle() const
