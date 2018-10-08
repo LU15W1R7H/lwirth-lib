@@ -1,6 +1,7 @@
 #project()
 
 find_package(vulkan REQUIRED)
+
 add_executable(lwirth-testing Main.cpp)
 target_link_libraries(lwirth-testing lwirth-lib)
 target_link_libraries(lwirth-testing Vulkan::Vulkan)

@@ -19,4 +19,3 @@ elseif(APPLE)
     set(Vulkan_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/libraries/vulkan/macOS/macOS/include" PARENT_SCOPE)
 endif()
 
-

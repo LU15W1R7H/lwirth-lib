@@ -12,6 +12,7 @@
 namespace lw
 {
 	
+	void sleep(size_t milliseconds);
 
 
 	//template functions

@@ -10,12 +10,12 @@ class DIM : public lw::Exception				\
 private:									\
 	std::string msg = M; 					\
 public:										\
-	DIM()										\
+	explicit DIM()										\
 	{										\
 											\
 	}										\
 											\
-	DIM(const char* m)						\
+	explicit DIM(const char* m)						\
 	{										\
 		msg.append(": ");					\
 		msg.append(m);						\
@@ -41,6 +41,8 @@ namespace lw
 
 		virtual const char* what() const throw() = 0;
 	};
+
+	MAKE_EXC(NotImplementedException, "Functionality was not yet implemented.");
 
 	MAKE_EXC(AllocatorOutOfMemoryException, "Allocator has run out of memory");
 	MAKE_EXC(MalformedPointerException, "Pointer is not valid in this context");
