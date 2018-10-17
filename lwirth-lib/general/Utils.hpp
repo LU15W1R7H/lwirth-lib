@@ -1,10 +1,12 @@
-#pragma once
+#ifndef LWIRTH_UTILS_HPP
+#define LWIRTH_UTILS_HPP
 
 #include "../Standard.hpp"
 
 #include <math.h>
 #include <utility>
 #include <limits>
+#include <chrono>
 
 #define precCast(x) static_cast<f64>(x)
 #define LW_FORWARD(var) std::forward<decltype(var)>(var)
@@ -16,6 +18,10 @@ namespace lw
 
 
 	//template functions
+
+    template<typename ... Pack>
+    void swallow(Pack &&...)
+    {}
 
 	template<typename T, typename U>
 	inline U roundCast(T value)
@@ -45,5 +51,33 @@ namespace lw
 		return result;
 	}
 
+	template<typename Func, typename ... Args>
+	i64 chronometer(Func func, Args &&... args)
+	{
+		const auto start = std::chrono::high_resolution_clock::now();
+		func(args...);
+		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
+	}
+
+	//strong types
+
+	template<typename Type, typename Tag>
+	class StrongType
+    {
+    private:
+		   Type val;
+    public:
+        explicit StrongType() : val{} {};
+        explicit StrongType(Type newVal) : val(newVal) {}
+        Type get() const noexcept {return val;}
+        void set(Type newVal) noexcept {val = newVal;}
+    };
+
+    using ExampleStrongType = StrongType<u32, struct unique>;
+
+    //add ArithmeticStrongType
+
 
 }
+
+#endif //LWIRTH_UTILS_HPP

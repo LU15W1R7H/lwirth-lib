@@ -1,19 +1,6 @@
-Matrix operations:
+TODO:
 
-Addition
-Subtraction
-Multiplication
-PowerOf
-Transpose
-Inverse
-Determinant
-
-Properties:
-isSquare
-isSymmetric
-hasInverse
-isOrthogonal
-isProjectional
-
-Related:
-Eigenvalues and eigenvectors
+-Add Event-System (for window events and user should be able to create custom events)
+-Add geometric primitives for drawing
+-Implement textures
+-3D Rendering
