@@ -40,7 +40,7 @@ namespace lw
 
 
 	template<typename T, typename U>
-	inline U map(T value, T oldMin, T oldMax, U newMin, U newMax)
+	constexpr inline U map(T value, T oldMin, T oldMax, U newMin, U newMax)
 	{
 		f64 percise = (((precCast(value) - precCast(oldMin)) *
 			(precCast(newMax) - precCast(newMin))) /
@@ -55,25 +55,23 @@ namespace lw
 	i64 chronometer(Func func, Args &&... args)
 	{
 		const auto start = std::chrono::high_resolution_clock::now();
-		func(args...);
+		func(LW_FORWARD(args)...);
 		return std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start).count();
 	}
 
 	//strong types
 
-	template<typename Type, typename Tag>
-	class StrongType
-    {
-    private:
-		   Type val;
-    public:
-        explicit StrongType() : val{} {};
-        explicit StrongType(Type newVal) : val(newVal) {}
-        Type get() const noexcept {return val;}
-        void set(Type newVal) noexcept {val = newVal;}
-    };
+	
 
-    using ExampleStrongType = StrongType<u32, struct unique>;
+    template<typename ForwardIter, typename ElementCallable, typename ... Args>
+    void fill(ForwardIter first, ForwardIter last, ElementCallable callable, Args &&... args)
+    {
+        for(; first != last; ++first)
+        {
+            *first = callable(LW_FORWARDS(args)...);
+        }
+    }
+
 
     //add ArithmeticStrongType
 

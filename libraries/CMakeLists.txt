@@ -10,6 +10,7 @@ set(GLFW_VULKAN_STATIC OFF CACHE INTERNAL "Use the Vulkan loader statically link
 add_subdirectory(${GLFW_DIR})
 set(GLFW_LIBRARY "glfw" PARENT_SCOPE)
 
+
 if(WIN32)
     set(Vulkan_LIBRARY "${PROJECT_SOURCE_DIR}/libraries/vulkan/windows/Lib32/vulkan-1.lib" PARENT_SCOPE)
     set(Vulkan_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/libraries/vulkan/windows/Include" PARENT_SCOPE)

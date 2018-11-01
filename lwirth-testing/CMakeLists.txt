@@ -2,7 +2,7 @@
 
 find_package(vulkan REQUIRED)
 
-add_executable(lwirth-testing Main.cpp)
+add_executable(lwirth-testing Main.cpp tests/UtilsTests.hpp)
 target_link_libraries(lwirth-testing lwirth-lib)
 target_link_libraries(lwirth-testing Vulkan::Vulkan)
 target_link_libraries(lwirth-testing glfw)

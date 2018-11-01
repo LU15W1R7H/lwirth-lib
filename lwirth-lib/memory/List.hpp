@@ -12,31 +12,36 @@ namespace lw
 	class List
 	{
 	private:
+	    enum Status {destroyed, created, constructed, sized};
 
-		T* m_pData;
-		size_t m_size;
-		size_t m_capacity;
+	private:
+	    Status m_status = destroyed;
 
-		Allocator* m_pAllocator;
-		bool m_shouldDestroyAllocator;
+		T* m_pData = nullptr;
+		size_t m_size = 0;
+		size_t m_capacity = 0;
+
+		Allocator* m_pAllocator = nullptr;
+		bool m_shouldDestroyAllocator = false;
 
 	public:
 		using iterator = T*;
 
 		List(Allocator* pAllocator = nullptr)
 		{
-			create(0, pAllocator);
+            recreate(pAllocator);
 		}
 
 		List(size_t size, Allocator* pAllocator = nullptr)
 		{
-			create(size, pAllocator);
-			construct(size);
+            recreate(pAllocator);
+			reconstruct(size);
 		}
 
 		List(const List<T>& other, Allocator* pAllocator = nullptr)
 		{
-			create(other.m_size, pAllocator);
+            recreate(pAllocator);
+            allocate(other.m_size);
 			m_size = other.m_size;
 			for (size_t i = 0; i < m_size; i++)
 			{
@@ -57,11 +62,14 @@ namespace lw
 			other.m_pData = nullptr;
 			other.m_pAllocator = nullptr;
 			other.m_shouldDestroyAllocator = false;
+
+			m_status = created;
 		}
 
 		List(const std::initializer_list<T>& il, Allocator* pAllocator = nullptr)
 		{
-			create(il.size(), pAllocator);
+			recreate(pAllocator);
+			allocate(il.size());
 			m_size = il.size();
 			auto iter = il.begin();
 			for (size_t i = 0; i < m_size; i++)
@@ -71,19 +79,21 @@ namespace lw
 			}
 		}
 
-		void operator=(const List<T>& other)
+		List& operator=(const List<T>& other)
 		{
 			destroy();
 
-			create(other.m_size, nullptr);
+			recreate(other.m_size, nullptr);
 			m_size = other.m_size;
 			for (size_t i = 0; i < other.m_size; i++)
 			{
 				new(std::addressof(m_pData[i])) T(other.m_pData[i]);
 			}
+
+			return *this;
 		}
 
-		void operator=(List<T>&& other)
+		List& operator=(List<T>&& other)
 		{
 			destroy();
 			
@@ -98,13 +108,19 @@ namespace lw
 			other.m_pData = nullptr;
 			other.m_pAllocator = nullptr;
 			other.m_shouldDestroyAllocator = false;
+
+			m_status = created;
+
+			return *this;
 		}
 
-		void operator=(const std::initializer_list<T>& il)
+		List& operator=(const std::initializer_list<T>& il)
 		{
 			destroy();
 
-			create(il.size(), nullptr);
+			recreate(nullptr);
+			allocate(il.size());
+
 			m_size = il.size();
 			size_t i = 0;
 			for (auto iter = il.begin(); iter != il.end(); iter++)
@@ -112,6 +128,8 @@ namespace lw
 				new(std::addressof(m_pData[i])) T(*iter);
 				i++;
 			}
+
+			return *this;
 		}
 
 		~List()
@@ -207,16 +225,43 @@ namespace lw
 			return &m_pData[m_size];
 		}
 
-		void reserve(size_t memNeeded)
-		{
-			if (memNeeded <= m_capacity)return;
-			allocate(memNeeded);
-		}
+        void provide(size_t newSize)
+        {
+		    if(m_status < created)throw NotCreatedException("List was not created");
 
-		void resize(size_t newSize)
-		{
-			construct(newSize);
-		}
+            if (newSize > m_capacity)
+            {
+                size_t newCap = lw::max(newSize, m_capacity * 2);
+                allocate(newCap);
+            }
+            m_size = newSize;
+        }
+
+        void reconstruct(size_t newSize)
+        {
+		    if(m_status < created)throw NotCreatedException("List was not created");
+
+            provide(newSize);
+
+            for (size_t i = m_size; i < newSize; i++)
+            {
+                new(std::addressof(m_pData[i])) T(); //only initializes (doesn't allocate)
+            }
+        }
+
+        template<typename ValueCallable>
+        void fillConstruct(size_t newSize, ValueCallable callable)
+        {
+            if(m_status < created)throw NotCreatedException("List was not created");
+
+            size_t oldSize = m_size;
+            provide(newSize);
+
+            for (size_t i = oldSize; i < newSize; i++)
+            {
+                m_pData[i] = static_cast<T>(callable());
+            }
+        }
 
 		template<class ... Elements>
 		void push(Elements&& ... elements)
@@ -249,55 +294,55 @@ namespace lw
 			m_size = 0;
 		}
 
+        void recreate(Allocator* allocator = nullptr)
+        {
+            if(m_status > destroyed)throw AlreadyCreatedException("List was already created");
+
+            if (!m_pAllocator)
+            {
+                m_pAllocator = new Allocator();
+                m_shouldDestroyAllocator = true;
+            }
+            else
+            {
+                m_pAllocator = allocator;
+                m_shouldDestroyAllocator = false;
+            }
+
+            m_status = created;
+        }
+
+        void destroy()
+        {
+            if(m_status == destroyed)return;
+
+            clear();
+
+            if (m_pData)
+            {
+                m_pAllocator->deallocate(m_pData, m_capacity);
+            }
+
+            if (m_shouldDestroyAllocator)
+            {
+                delete m_pAllocator;
+            }
+
+            m_pData = nullptr;
+            m_size = 0;
+            m_capacity = 0;
+            m_pAllocator = nullptr;
+            m_shouldDestroyAllocator = false;
+
+            m_status = destroyed;
+        }
+
 	private:
-		void create(size_t capacity, Allocator* allocator)
-		{
-			m_pData = nullptr;
-			m_size = 0;
-			m_capacity = 0;
-
-			m_pAllocator = nullptr;
-			m_shouldDestroyAllocator = false;
-
-
-			if (!m_pAllocator)
-			{
-				m_pAllocator = new Allocator();
-				m_shouldDestroyAllocator = true;
-			}
-			else
-			{
-				m_pAllocator = allocator;
-				m_shouldDestroyAllocator = false;
-			}
-
-			allocate(capacity);
-		}
-
-		void destroy()
-		{
-			clear();
-
-			if (m_pData)
-			{
-				m_pAllocator->deallocate(m_pData, m_capacity);
-			}
-
-			if (m_shouldDestroyAllocator)
-			{
-				delete m_pAllocator;
-			}
-
-			m_pData = nullptr;
-			m_size = 0;
-			m_capacity = 0;
-			m_pAllocator = nullptr;
-			m_shouldDestroyAllocator = false;
-		}
 
 		void allocate(size_t newCapacity)
 		{
-			if (m_capacity >= newCapacity)return;
+            if(m_status < created)throw NotCreatedException("List was not created");
+            if (m_capacity >= newCapacity)return;
 			auto* pNewData = m_pAllocator->allocate(newCapacity);
 
 			if (m_pData)
@@ -313,27 +358,6 @@ namespace lw
 			m_capacity = newCapacity;
 			m_pData = pNewData;
 		}
-
-		void provide(size_t newSize)
-		{
-			if (newSize > m_capacity)
-			{
-				size_t newCap = lw::max(newSize, m_capacity * 2);
-				allocate(newCap);
-			}
-			m_size = newSize;
-		}
-
-		void construct(size_t newSize)
-		{
-			provide(newSize);
-			
-			for (size_t i = m_size; i < newSize; i++)
-			{
-				new(std::addressof(m_pData[i])) T(); //only initializes (doesn't allocate)
-			}
-		}
-
 
 		template<typename First, typename ... Rest>
 		void consumePush(size_t index, First && first, Rest && ... rest)

@@ -57,7 +57,7 @@ namespace lw
 
 	void Vertex2DArray::resize(u32 newSize)
 	{
-		m_vertices.resize(newSize);
+		m_vertices.reconstruct(newSize);
 	}
 
 	Vertex2D& Vertex2DArray::at(u32 index)
@@ -150,7 +150,7 @@ namespace lw
 
 	void Vertex3DArray::resize(u32 newSize)
 	{
-		m_vertices.resize(newSize);
+		m_vertices.reconstruct(newSize);
 	}
 
 	Vertex3D& Vertex3DArray::at(u32 index)

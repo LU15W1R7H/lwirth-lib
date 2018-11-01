@@ -53,7 +53,9 @@ int main()
 * MacOS support
 * Machine learning (NeuralNetworks)
 * 3D rendering
-* Physics
+* Physics (based on physics studies)
+* add libraries as git submodules
+* create math module
 
 ## How you can help
 

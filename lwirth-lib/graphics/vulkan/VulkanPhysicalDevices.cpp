@@ -48,17 +48,17 @@ namespace lw
 
 			u32 amountSurfaceFormats;
 			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, nullptr);
-			m_surfaceFormats.resize(amountSurfaceFormats);
+			m_surfaceFormats.provide(amountSurfaceFormats);
 			vkGetPhysicalDeviceSurfaceFormatsKHR(m_device, m_pSurface->raw(), &amountSurfaceFormats, m_surfaceFormats.raw());
 
 			u32 amountPresentModes;
 			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, nullptr);
-			m_presentModes.resize(amountPresentModes);
+			m_presentModes.provide(amountPresentModes);
 			vkGetPhysicalDeviceSurfacePresentModesKHR(m_device, m_pSurface->raw(), &amountPresentModes, m_presentModes.raw());
 
 			u32 amountExtensionProperties;
 			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, nullptr);
-			m_extensionProperties.resize(amountExtensionProperties);
+			m_extensionProperties.provide(amountExtensionProperties);
 			vkEnumerateDeviceExtensionProperties(m_device, nullptr, &amountExtensionProperties, m_extensionProperties.raw());
 		}
 
@@ -111,7 +111,7 @@ namespace lw
 				physicalDevices = new VkPhysicalDevice[amountDevices];
 				vkEnumeratePhysicalDevices(instance->raw(), &amountDevices, physicalDevices);
 
-				m_devices.resize(amountDevices);
+				m_devices.reconstruct(amountDevices);
 
 				for (u32 i = 0; i < amountDevices; i++)
 				{
