@@ -1,4 +1,5 @@
-set(EIGEN_DIR "${PROJECT_SOURCE_DIR}/libraries/eigen" PARENT_SCOPE)
+set(EIGEN_DIR "${PROJECT_SOURCE_DIR}/libraries/eigen-git-mirror")
+add_subdirectory(${EIGEN_DIR})
 set(STB_DIR "${PROJECT_SOURCE_DIR}/libraries/stb" PARENT_SCOPE)
 
 set(GLFW_DIR "${PROJECT_SOURCE_DIR}/libraries/glfw")

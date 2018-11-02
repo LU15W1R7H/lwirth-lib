@@ -1,9 +1,11 @@
 #project()
 
+find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 find_package(vulkan REQUIRED)
 
 add_executable(lwirth-testing Main.cpp tests/UtilsTests.hpp)
 target_link_libraries(lwirth-testing lwirth-lib)
+target_link_libraries(lwirth-lib Eigen3::Eigen)
 target_link_libraries(lwirth-testing Vulkan::Vulkan)
 target_link_libraries(lwirth-testing glfw)
 
