@@ -7,3 +7,6 @@
 [submodule "libraries/stb"]
 	path = libraries/stb
 	url = https://github.com/nothings/stb.git
+[submodule "libraries/vulkanAPI"]
+	path = libraries/vulkanAPI
+	url = https://github.com/LU15W1R7H/vulkanAPI.git
