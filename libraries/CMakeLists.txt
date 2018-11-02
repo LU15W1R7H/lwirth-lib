@@ -10,13 +10,13 @@ set(GLFW_VULKAN_STATIC OFF CACHE INTERNAL "Use the Vulkan loader statically link
 add_subdirectory(${GLFW_DIR})
 set(GLFW_LIBRARY "glfw" PARENT_SCOPE)
 
-
+set(Vulkan_DIR "${PROJECT_SOURCE_DIR}/libraries/vulkanAPI")
 if(WIN32)
-    set(Vulkan_LIBRARY "${PROJECT_SOURCE_DIR}/libraries/vulkan/windows/Lib32/vulkan-1.lib" PARENT_SCOPE)
-    set(Vulkan_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/libraries/vulkan/windows/Include" PARENT_SCOPE)
+    set(Vulkan_LIBRARY "${Vulkan_DIR}/windows/Lib32/vulkan-1.lib" PARENT_SCOPE)
+    set(Vulkan_INCLUDE_DIR "${Vulkan_DIR}/windows/Include" PARENT_SCOPE)
 elseif(APPLE)
-    set(VULKAN_SDK "${PROJECT_SOURCE_DIR}/libraries/vulkan/macOS" PARENT_SCOPE)
-    set(Vulkan_LIBRARY "${PROJECT_SOURCE_DIR}/libraries/vulkan/macOS/MoltenVK/macOS/libMoltenVK.dylib" PARENT_SCOPE)
-    set(Vulkan_INCLUDE_DIR "${PROJECT_SOURCE_DIR}/libraries/vulkan/macOS/MoltenVK/include" PARENT_SCOPE)
+    set(VULKAN_SDK "${Vulkan_DIR}/macOS" PARENT_SCOPE)
+    set(Vulkan_LIBRARY "${Vulkan_DIR}/macOS/MoltenVK/macOS/libMoltenVK.dylib" PARENT_SCOPE)
+    set(Vulkan_INCLUDE_DIR "${Vulkan_DIR}/macOS/MoltenVK/include" PARENT_SCOPE)
 endif()
 
