@@ -1,0 +1,9 @@
+[submodule "libraries/glfw"]
+	path = libraries/glfw
+	url = https://github.com/glfw/glfw.git
+[submodule "libraries/eigen-git-mirror"]
+	path = libraries/eigen-git-mirror
+	url = https://github.com/eigenteam/eigen-git-mirror.git
+[submodule "libraries/stb"]
+	path = libraries/stb
+	url = https://github.com/nothings/stb.git
