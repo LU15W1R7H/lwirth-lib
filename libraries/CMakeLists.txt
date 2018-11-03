@@ -19,5 +19,8 @@ elseif(APPLE)
     set(VULKAN_SDK "${Vulkan_DIR}/macOS" PARENT_SCOPE)
     set(Vulkan_LIBRARY "${Vulkan_DIR}/macOS/MoltenVK/macOS/libMoltenVK.dylib" PARENT_SCOPE)
     set(Vulkan_INCLUDE_DIR "${Vulkan_DIR}/macOS/MoltenVK/include" PARENT_SCOPE)
+elseif(UNIX)
+    set(VULKAN_LIBRARY "${Vulkan_DIR}/linux/lib/libvulkan.so" PARENT_SCOPE)
+    set(VULKAN_INCLUDE_DIR "${Vulkan_DIR}/linux/include" PARENT_SCOPE)
 endif()
 
