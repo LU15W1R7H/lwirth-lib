@@ -25,7 +25,7 @@ Some basic geometry is also built into the library, which mainly is **vector-geo
 
 ## How to get started/Setting up the project
 
-The project is currently being ported to **CMake**. As of now CMake works fine for Windows but not yet for Mac. Mac support is currently work in progress.
+The project uses **CMake** therefor you can build the project on any platform. As of now CMake works fine for Windows but not yet for Mac. Mac support is currently work in progress.
 
 All the necessary **dependencies** for the *lwirth-lib* are in the libraries directory. They are automatically included and linked by the CMake-Project. Therefor there is no need to download any third-party dependencies.
 
@@ -49,13 +49,14 @@ int main()
 ```
 
 ## Plans for the future
-* finish CMake porting
 * MacOS support
-* Machine learning (NeuralNetworks)
-* 3D rendering
-* Physics (based on physics studies)
-* add libraries as git submodules
-* create math module
+* Linux support
+* finish CMake setup
+* work on 2D-rendering (textures, shaders, more components, ...)
+* start 3D-rendering
+* implement more math
+* implement physics (based on physics studies)
+* expand machine learning
 
 ## How you can help
 
