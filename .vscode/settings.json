@@ -54,6 +54,23 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xtree": "cpp",
-        "xutility": "cpp"
+        "xutility": "cpp",
+        "atomic": "cpp",
+        "cctype": "cpp",
+        "condition_variable": "cpp",
+        "cstdarg": "cpp",
+        "deque": "cpp",
+        "future": "cpp",
+        "iomanip": "cpp",
+        "mutex": "cpp",
+        "numeric": "cpp",
+        "queue": "cpp",
+        "random": "cpp",
+        "stack": "cpp",
+        "thread": "cpp",
+        "unordered_set": "cpp",
+        "valarray": "cpp",
+        "xlocmon": "cpp",
+        "xloctime": "cpp"
     }
 }

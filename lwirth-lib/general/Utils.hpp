@@ -11,9 +11,24 @@
 #define precCast(x) static_cast<f64>(x)
 #define LW_FORWARD(var) std::forward<decltype(var)>(var)
 
+
+#define DISABLE_COPYING(T)\
+	T(const T&) = delete; \
+	T& operator=(const T&) = delete;
+
+#define DISABLE_MOVING(T)\
+	T(T&&) = delete; \
+	T& operator=(T&&) = delete;
+
+#define DISABLE_COP_MOV(T)\
+	DISABLE_COPYING(T); \
+	DISABLE_MOVING(T);
+
 namespace lw
 {
 	
+
+
 	void sleep(size_t milliseconds);
 
 
