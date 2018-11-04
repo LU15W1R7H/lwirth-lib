@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Vertices.hpp"
 
 #include <cstring>

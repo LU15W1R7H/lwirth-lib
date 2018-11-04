@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "FileManager.hpp"
 
 namespace lw

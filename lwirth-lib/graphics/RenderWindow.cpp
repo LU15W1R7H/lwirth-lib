@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "RenderWindow.hpp"
 
 #include "../general/Exceptions.hpp"

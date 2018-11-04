@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanFence.hpp"
 
 #include "VulkanDevice.hpp"

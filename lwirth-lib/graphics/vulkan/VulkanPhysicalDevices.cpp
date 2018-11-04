@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanPhysicalDevices.hpp"
 
 #include "../../general/Exceptions.hpp"

@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Line.hpp"
 
 #include "Plane.hpp"

@@ -1,7 +1,6 @@
-#include <cstring>
-#include "../stdafx.hpp"
 #include "SimpleBrush2D.hpp"
 
+#include <cstring>
 #include "Color.hpp"
 #include <stddef.h>
 

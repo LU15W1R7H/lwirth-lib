@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Triangle.hpp"
 
 #include <math.h>

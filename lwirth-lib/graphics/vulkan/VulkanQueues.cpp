@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanQueues.hpp"
 
 #include "VulkanPhysicalDevices.hpp"

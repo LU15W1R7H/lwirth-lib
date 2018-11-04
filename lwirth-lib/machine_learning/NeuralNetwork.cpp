@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 
 #include "NeuralNetwork.hpp"
 #include "../math/DifferentiableFunction.hpp"

@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanSemaphore.hpp"
 
 #include "../../general/Exceptions.hpp"

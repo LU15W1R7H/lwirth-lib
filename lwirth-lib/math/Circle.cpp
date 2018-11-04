@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Circle.hpp"
 
 #include "../general/Utils.hpp"

@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Frame.hpp"
 
 #include <vulkan/vulkan.h>

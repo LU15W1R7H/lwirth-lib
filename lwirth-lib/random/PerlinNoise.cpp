@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "PerlinNoise.hpp"
 
 #include <algorithm>

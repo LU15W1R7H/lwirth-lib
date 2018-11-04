@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "SimpleBrush3D.hpp"
 
 #include "Color.hpp"

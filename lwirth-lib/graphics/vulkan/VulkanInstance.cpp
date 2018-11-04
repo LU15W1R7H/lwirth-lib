@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanInstance.hpp"
 
 #include <cstring>

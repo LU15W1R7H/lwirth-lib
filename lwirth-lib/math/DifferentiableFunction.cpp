@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "DifferentiableFunction.hpp"
 
 #include "Math.hpp"

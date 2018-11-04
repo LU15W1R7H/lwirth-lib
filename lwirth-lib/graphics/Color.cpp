@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Color.hpp"
 
 namespace lw

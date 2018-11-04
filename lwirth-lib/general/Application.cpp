@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Application.hpp"
 
 void lw::Application::loop()

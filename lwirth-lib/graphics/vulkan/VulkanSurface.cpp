@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanSurface.hpp"
 
 #include "../../general/Exceptions.hpp"

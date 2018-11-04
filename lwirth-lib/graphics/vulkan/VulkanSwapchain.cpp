@@ -1,4 +1,3 @@
-#include "../../stdafx.hpp"
 #include "VulkanSwapchain.hpp"
 
 #include "../../general/Exceptions.hpp"

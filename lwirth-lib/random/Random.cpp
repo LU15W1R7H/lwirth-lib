@@ -1,4 +1,3 @@
-#include "../stdafx.hpp"
 #include "Random.hpp"
 
 #include "../math/Math.hpp"
