@@ -27,7 +27,7 @@ namespace lw
 	inline U roundCast(T value)
 	{
 		int precision = std::numeric_limits<U>::max_digits10;
-		double raised = pow(10, precision);
+		double raised = pow(10.f, static_cast<f32>(precision));
 		double temp = value * raised;
 		T rounded = static_cast<T>(floor(temp));
 
@@ -60,7 +60,17 @@ namespace lw
 	}
 
 	//strong types
-
+    template<typename Type, typename Tag>
+    class StrongType
+    {
+    private:
+        Type val;
+    public:
+        explicit StrongType() : val{} {};
+        explicit StrongType(Type newVal) : val(newVal) {}
+        Type get() const noexcept {return val;}
+        void set(Type newVal) noexcept {val = newVal;}
+    };
 	
 
     template<typename ForwardIter, typename ElementCallable, typename ... Args>

@@ -6,7 +6,7 @@ set(lwirth_VERSION_MINOR 0)
 set(lwirth_VERSION_PATCH 0)
 
 add_subdirectory(libraries)
-
+find_package(vulkan REQUIRED)
 
 # configure_file(${PROJECT_SOURCE_DIR}/lwirth.pc.in ${PROJECT_BINARY_DIR}/lwirth.pc) #or .h better?
 

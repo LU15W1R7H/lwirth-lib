@@ -2,7 +2,7 @@
 
 #include "../Standard.hpp"
 
-#include <Eigen/Dense>
+#include <Dense>
 
 namespace lw
 {

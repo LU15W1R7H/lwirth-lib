@@ -72,7 +72,7 @@ namespace lw
 			".popsection;");
 	}
 #elif defined(_MSC_VER)
-	__inline inline void debugBreak()
+	__inline void debugBreak()
 	{
 		__debugbreak();
 	}

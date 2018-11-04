@@ -7,7 +7,7 @@
 
 #include "../memory/List.hpp"
 #include <string>
-#include <eigen/Dense>
+#include <Dense>
 #include "../graphics/Color.hpp"
 #include "../graphics/Vertices.hpp"
 #include "../math/Triangle.hpp"

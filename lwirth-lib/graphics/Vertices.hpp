@@ -4,7 +4,7 @@
 
 #include "../memory/List.hpp"
 #include "Color.hpp"
-#include <Eigen/Dense>
+#include <Dense>
 #include "vulkan/VulkanBuffer.hpp"
 #include "vulkan/VulkanDevice.hpp"
 #include "vulkan/VulkanCommands.hpp"

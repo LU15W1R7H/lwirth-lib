@@ -2,16 +2,12 @@ file(GLOB_RECURSE lwirth-lib_SRC
         "*.hpp"
         "*.cpp")
 
-find_package(vulkan REQUIRED)
-find_package(Eigen3 3.3 REQUIRED NO_MODULE)
 add_library(lwirth-lib STATIC ${lwirth-lib_SRC})
 
-
 target_include_directories(lwirth-lib PUBLIC ${GLFW_DIR}/include)
-target_include_directories(lwirth-lib PUBLIC ${EIGEN_DIR})
+target_include_directories(lwirth-lib PUBLIC ${Eigen_INCLUDE_DIR})
 target_include_directories(lwirth-lib PUBLIC ${STB_DIR}/include)
 
-target_link_libraries(lwirth-lib Eigen3::Eigen)
 target_link_libraries(lwirth-lib Vulkan::Vulkan)
 target_link_libraries(lwirth-lib glfw)
 

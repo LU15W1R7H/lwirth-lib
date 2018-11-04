@@ -224,7 +224,7 @@ namespace lw
 
 			StagingBuffer staging;
 
-			staging.allocate(m_pDevice, imageSize);
+			staging.allocate(m_pDevice, static_cast<u32>(imageSize));
 			void* ptr = staging.map();
 			memcpy(ptr, pixels, static_cast<size_t>(imageSize));
 			staging.unmap();

@@ -4,7 +4,7 @@
 
 #include "../memory/List.hpp"
 #include "../random/Random.hpp"
-#include <eigen/Dense>
+#include <Dense>
 
 namespace lw
 {
