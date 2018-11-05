@@ -3,7 +3,7 @@
 
 #include "lwirth.hpp"
 
-#include <Eigen/Dense>
+#include <Dense>
 
 void trianglesTest()
 {

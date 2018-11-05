@@ -1,11 +1,12 @@
 #include <lwirth.hpp>
 
-#include "tests/UtilsTests.hpp"
+#include "tests/VulkanTrianglesTest.hpp"
 
 
 
 int main()
 {
-    listFillTest();
+    trianglesTest();
+
     return 0;
 }

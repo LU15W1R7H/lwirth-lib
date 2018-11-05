@@ -241,9 +241,10 @@ namespace lw
         {
 		    if(m_status < created)throw NotCreatedException("List was not created");
 
+			size_t oldSize = m_size;
             provide(newSize);
 
-            for (size_t i = m_size; i < newSize; i++)
+            for (size_t i = oldSize; i < newSize; i++)
             {
                 new(std::addressof(m_pData[i])) T(); //only initializes (doesn't allocate)
             }
