@@ -1,7 +1,7 @@
-#ifndef LWIRTH_VULKANTRIANGLESTEST_HPP
-#define LWIRTH_VULKANTRIANGLESTEST_HPP
+#ifndef LWIRTH_TEST_TRIANGLES_HPP
+#define LWIRTH_TEST_TRIANGLES_HPP
 
-#include "lwirth.hpp"
+#include <lwirth.hpp>
 
 #include <Dense>
 
@@ -145,4 +145,4 @@ public:
     }
 };
 
-#endif //LWIRTH_VULKANTRIANGLESTEST_HPP
+#endif //LWIRTH_TEST_TRIANGLES_HPP

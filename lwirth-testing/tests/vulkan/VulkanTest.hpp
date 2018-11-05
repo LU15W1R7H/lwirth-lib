@@ -5,7 +5,7 @@
 #ifndef LWIRTH_VULKANTEST_HPP
 #define LWIRTH_VULKANTEST_HPP
 
-#include "lwirth.hpp"
+#include <lwirth.hpp>
 
 #include <Eigen/Dense>
 

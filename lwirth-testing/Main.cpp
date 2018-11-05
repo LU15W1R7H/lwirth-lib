@@ -1,8 +1,6 @@
 #include <lwirth.hpp>
 
-#include "tests/VulkanTrianglesTest.hpp"
-
-
+#include "tests/vulkan/Triangles.hpp"
 
 int main()
 {
