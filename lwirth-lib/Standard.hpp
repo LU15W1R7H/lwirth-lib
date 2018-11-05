@@ -19,7 +19,7 @@
 //platform macros
 #if defined(_WIN32)
     #define LW_PLATFORM_WINDOWS32
-#elif
+#elif defined(_WIN64)
     #define LW_PLATFORM_WINDOWS64
 #elif defined(__APPLE__)
     #define LW_PLATFORM_APPLE
