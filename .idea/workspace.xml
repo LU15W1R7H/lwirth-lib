@@ -16,7 +16,6 @@
   <component name="ChangeListManager">
     <list default="true" id="d0031f0b-439d-4e08-852a-3816f040df30" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/lwirth-testing/Main.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/lwirth-testing/Main.cpp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lwirth-testing/tests/VulkanTrianglesTest.hpp" beforeDir="false" afterPath="$PROJECT_DIR$/lwirth-testing/tests/VulkanTrianglesTest.hpp" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <ignored path="$PROJECT_DIR$/cmake-build-release/" />
@@ -52,12 +51,12 @@
     <session id="1163192444">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
-          <entry key="project.closed" value="46" />
+          <entry key="project.closed" value="47" />
           <entry key="project.open.time.0" value="1" />
           <entry key="project.open.time.3" value="1" />
-          <entry key="project.open.time.4" value="26" />
+          <entry key="project.open.time.4" value="27" />
           <entry key="project.open.time.5" value="17" />
-          <entry key="project.opened" value="47" />
+          <entry key="project.opened" value="48" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
@@ -70,7 +69,7 @@
           <entry key="frag" value="1" />
           <entry key="future" value="1" />
           <entry key="gitignore" value="1" />
-          <entry key="h" value="9" />
+          <entry key="h" value="13" />
           <entry key="hpp" value="72" />
           <entry key="jpg" value="1" />
           <entry key="lwirth-testing (disassembly)" value="4" />
@@ -85,7 +84,7 @@
           <entry key="Disassembly" value="4" />
           <entry key="Image" value="1" />
           <entry key="Markdown" value="1" />
-          <entry key="ObjectiveC" value="132" />
+          <entry key="ObjectiveC" value="136" />
           <entry key="PLAIN_TEXT" value="4" />
         </counts>
       </usages-collector>
@@ -93,6 +92,7 @@
         <counts>
           <entry key="cpp" value="5920" />
           <entry key="gitignore" value="11" />
+          <entry key="h" value="12" />
           <entry key="hpp" value="6430" />
           <entry key="md" value="109" />
           <entry key="mm" value="40" />
@@ -103,7 +103,7 @@
         <counts>
           <entry key="CMakeLists.txt" value="482" />
           <entry key="Markdown" value="109" />
-          <entry key="ObjectiveC" value="12390" />
+          <entry key="ObjectiveC" value="12402" />
           <entry key="PLAIN_TEXT" value="871" />
         </counts>
       </usages-collector>
@@ -116,15 +116,48 @@
     </session>
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="true">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lwirth-testing/Main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="288">
-              <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-              <folding>
-                <element signature="e#0#21#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="32">
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/CogiSim.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="240">
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Graphics/CogiRen.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Graphics/Camera.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="160">
+              <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Cogicorpus/CorpusManager.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="270">
+              <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
             </state>
           </provider>
         </entry>
@@ -157,7 +190,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/lwirth-lib/graphics/vulkan/VulkanSurface.cpp" />
         <option value="$PROJECT_DIR$/lwirth-lib/graphics/vulkan/VulkanShader.cpp" />
         <option value="$PROJECT_DIR$/lwirth-lib/general/FileManager.hpp" />
         <option value="$PROJECT_DIR$/lwirth-lib/general/FileManager.cpp" />
@@ -207,6 +239,8 @@
         <option value="$PROJECT_DIR$/libraries/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/lwirth-lib/general/Utils.hpp" />
         <option value="$PROJECT_DIR$/lwirth-testing/Main.cpp" />
+        <option value="$PROJECT_DIR$/lwirth-testing/tests/cogi/Graphics/Camera.h" />
+        <option value="$PROJECT_DIR$/lwirth-testing/tests/cogi/Cogicorpus/CorpusManager.h" />
       </list>
     </option>
   </component>
@@ -218,8 +252,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="true" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-11" />
-    <option name="y" value="-11" />
+    <option name="x" value="-12" />
+    <option name="y" value="-12" />
     <option name="width" value="3864" />
     <option name="height" value="2124" />
   </component>
@@ -389,6 +423,7 @@
       <workItem from="1541341471389" duration="506000" />
       <workItem from="1541342073236" duration="291000" />
       <workItem from="1541423578003" duration="361000" />
+      <workItem from="1541529866781" duration="543000" />
     </task>
     <task id="LOCAL-00001" summary="fixed many bugs to fix gcc errors">
       <created>1535380278385</created>
@@ -464,7 +499,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="66562000" />
+    <option name="totallyTimeSpent" value="67105000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -479,7 +514,7 @@
     <frame x="-7" y="-7" width="2575" height="1415" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24174951" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24373758" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -490,7 +525,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3299532" />
       <window_info anchor="bottom" id="Database Changes" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Messages" order="8" weight="0.3299532" />
+      <window_info active="true" anchor="bottom" id="Messages" order="8" visible="true" weight="0.3299532" />
       <window_info anchor="bottom" id="Terminal" order="9" weight="0.3299532" />
       <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3299532" />
       <window_info anchor="bottom" id="Version Control" order="11" weight="0.18564743" />
@@ -568,34 +603,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/lwirth-lib/graphics/Frame.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/NeuralNetworkTest.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="26" column="10" selection-start-line="26" selection-start-column="10" selection-end-line="26" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lwirth-lib/graphics/vulkan/VulkanDescriptors.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2192">
-          <caret line="137" column="9" selection-start-line="137" selection-start-column="9" selection-end-line="137" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/lwirth-lib/math/DifferentiableFunction.hpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="128">
-          <caret line="10" column="26" selection-start-line="10" selection-start-column="26" selection-end-line="10" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../../CMake/share/cmake-3.12/Modules/CMakeDetermineCompilerId.cmake">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="706">
@@ -895,13 +902,38 @@
     <entry file="file://$PROJECT_DIR$/libraries/eigen-git-mirror/Eigen/Dense">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Graphics/Camera.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Cogicorpus/CorpusManager.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="70" column="26" selection-start-line="70" selection-start-column="26" selection-end-line="70" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/lwirth-testing/Main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="288">
-          <caret line="18" column="1" selection-start-line="18" selection-start-column="1" selection-end-line="18" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="32">
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/Graphics/CogiRen.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lwirth-testing/tests/cogi/CogiSim.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="17" column="9" selection-start-line="17" selection-start-column="9" selection-end-line="17" selection-end-column="9" />
         </state>
       </provider>
     </entry>

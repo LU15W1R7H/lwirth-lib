@@ -1,10 +1,10 @@
 #include <lwirth.hpp>
 
-#include "tests/vulkan/Triangles.hpp"
+#include "tests/cogi/Cogi.hpp"
 
 int main()
 {
-    trianglesTest();
+    cogiTest();
 
     return 0;
 }
