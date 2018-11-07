@@ -87,7 +87,6 @@ namespace lw
         void set(Type newVal) noexcept {val = newVal;}
     };
 	
-
     template<typename ForwardIter, typename ElementCallable, typename ... Args>
     void fill(ForwardIter first, ForwardIter last, ElementCallable callable, Args &&... args)
     {
@@ -96,9 +95,7 @@ namespace lw
             *first = callable(LW_FORWARDS(args)...);
         }
     }
-
-
-    //add ArithmeticStrongType
+   
 
 
 }

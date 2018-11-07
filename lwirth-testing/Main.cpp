@@ -1,10 +1,10 @@
 #include <lwirth.hpp>
 
-#include "tests/cogi/Cogi.hpp"
+#include "tests/PermutationTest.hpp"
 
 int main()
 {
-    cogiTest();
+    permutationTest();
 
     return 0;
 }
