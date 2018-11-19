@@ -49,6 +49,9 @@ int main()
 ```
 
 ## Plans for the future
+* utilize clang-format
+* utilize clang-tidy
+* use best practices (e.g. Jason Turner)
 * MacOS support
 * Linux support
 * finish CMake setup
