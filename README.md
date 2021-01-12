@@ -1,3 +1,5 @@
+* ABANDONED/UNFINISHED
+
 # *lwirth-lib*
 
 The **_lwirth-lib_** is a general purpose library written in **C++17** by **Luis Wirth**. It includes a game-/simulation-engine and uses the **Vulkan-API**.
