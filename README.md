@@ -1,4 +1,4 @@
-* ABANDONED/UNFINISHED
+Notice: This repository is no longer maintained.
 
 # *lwirth-lib*
 
